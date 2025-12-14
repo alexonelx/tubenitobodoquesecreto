@@ -6,6 +6,48 @@
   <title>TuBenitoBodoqueSecreto</title>
 
   <meta name="description" content="Intercambio navideño moderno, simple y secreto. Registro por link privado y resultados por WhatsApp." />
+/* Modal ¿Cómo funciona? */
+.modalBack{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.55);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding: 18px;
+  z-index: 50;
+}
+.modalBack.show{display:flex;}
+
+.modal{
+  width: min(520px, 100%);
+  border: 1px solid var(--line);
+  background: var(--panel);
+  border-radius: calc(var(--radius) + 6px);
+  box-shadow: var(--shadow);
+  overflow:hidden;
+}
+.modalTop{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding: 14px 14px 10px;
+  border-bottom: 1px solid var(--line);
+}
+.modalBody{
+  padding: 14px;
+  display:grid;
+  gap: 12px;
+}
+.step{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.55;
+}
 
   <style>
     :root{
