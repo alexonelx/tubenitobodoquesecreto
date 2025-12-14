@@ -1,12 +1,382 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>TuBenitoBodoqueSecreto</title>
+
+  <meta name="description" content="Intercambio navideño moderno, simple y secreto. Registro por link privado y resultados por WhatsApp." />
+
+  <style>
+    :root{
+      --bg:#0b1020;
+      --panel:#0f1730;
+      --muted:#9aa7c7;
+      --text:#eef2ff;
+      --line:rgba(255,255,255,.08);
+
+      --blue:#4ea6ff;
+      --red:#ff4d5a;
+
+      --shadow: 0 18px 50px rgba(0,0,0,.45);
+      --radius: 18px;
+      --max: 1080px;
+    }
+
+    html[data-theme="light"]{
+      --bg:#f7f8ff;
+      --panel:#ffffff;
+      --muted:#4d5a7a;
+      --text:#0b1020;
+      --line:rgba(10,20,40,.10);
+
+      --shadow: 0 18px 50px rgba(10,20,40,.10);
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(900px 500px at 10% -10%, rgba(78,166,255,.18), transparent 60%),
+                  radial-gradient(900px 500px at 90% 0%, rgba(255,77,90,.14), transparent 55%),
+                  var(--bg);
+      color:var(--text);
+      min-height:100vh;
+    }
+
+    a{color:inherit; text-decoration:none}
+
+    .wrap{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 18px 18px 80px;
+    }
+
+    /* Top bar */
+    .top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding: 10px 0 18px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width: 0;
+    }
+
+    .logo{
+      width:42px; height:42px;
+      border-radius: 14px;
+      background:
+        linear-gradient(135deg, rgba(78,166,255,.30), rgba(255,77,90,.22)),
+        rgba(255,255,255,.04);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      display:grid;
+      place-items:center;
+      overflow:hidden;
+      flex:0 0 auto;
+    }
+
+    .logo svg{width:26px; height:26px; opacity:.95}
+
+    .title{
+      display:flex;
+      flex-direction:column;
+      line-height:1.1;
+      min-width: 0;
+    }
+
+    .title strong{
+      font-size: 14px;
+      letter-spacing:.2px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .title span{
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .actions{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .pill{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 999px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      cursor:pointer;
+      user-select:none;
+    }
+
+    html[data-theme="light"] .pill{
+      background: rgba(10,20,40,.03);
+    }
+
+    .pill:active{transform: translateY(1px)}
+    .pill small{color: var(--muted)}
+
+    /* Hero */
+    .hero{
+      margin-top: 6px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border-radius: calc(var(--radius) + 6px);
+      padding: 22px;
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+
+    html[data-theme="light"] .hero{
+      background: linear-gradient(180deg, rgba(10,20,40,.02), rgba(10,20,40,.01));
+    }
+
+    .heroGrid{
+      display:grid;
+      gap:18px;
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 900px){
+      .heroGrid{grid-template-columns: 1.25fr .75fr}
+    }
+
+    h1{
+      margin:0;
+      font-size: clamp(28px, 4.2vw, 46px);
+      letter-spacing: -0.6px;
+    }
+
+    .sub{
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.6;
+      max-width: 58ch;
+    }
+
+    .ctaRow{
+      margin-top: 16px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    .btn{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      color:var(--text);
+      padding: 12px 14px;
+      border-radius: 14px;
+      font-weight: 650;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      cursor:pointer;
+    }
+
+    html[data-theme="light"] .btn{
+      background: rgba(10,20,40,.03);
+    }
+
+    .btnPrimary{
+      background: linear-gradient(135deg, rgba(255,77,90,.90), rgba(78,166,255,.85));
+      border: 1px solid rgba(255,255,255,.14);
+    }
+
+    .btn:active{transform: translateY(1px)}
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 9px 12px;
+      border-radius: 999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* Side card */
+    .card{
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      border-radius: var(--radius);
+      padding: 16px;
+    }
+
+    html[data-theme="light"] .card{
+      background: rgba(10,20,40,.02);
+    }
+
+    .card h3{
+      margin:0 0 8px;
+      font-size: 14px;
+      letter-spacing:.2px;
+    }
+
+    .card p{
+      margin:0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height:1.55;
+    }
+
+    .list{
+      margin: 12px 0 0;
+      padding:0;
+      list-style:none;
+      display:grid;
+      gap:10px;
+    }
+
+    .li{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .dot{
+      width:10px;height:10px;border-radius:99px; margin-top:4px;
+      background: rgba(78,166,255,.45);
+      box-shadow: 0 0 0 3px rgba(78,166,255,.15);
+      flex:0 0 auto;
+    }
+
+    .dot.red{
+      background: rgba(255,77,90,.55);
+      box-shadow: 0 0 0 3px rgba(255,77,90,.15);
+    }
+
+    /* Footer */
+    .foot{
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 12px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      justify-content: space-between;
+      align-items:center;
+    }
+
+    .hint{
+      border:1px dashed var(--line);
+      padding: 10px 12px;
+      border-radius: 14px;
+    }
+  </style>
 </head>
-<body style="font-family: system-ui; text-align:center; padding:40px;">
-  <h1>🐶 TuBenitoBodoqueSecreto</h1>
-  <p>Intercambio navideño en construcción 🎄</p>
+
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">
+          <!-- logo temporal (beagle minimal) -->
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M7 10c-1.6-1.2-2.6-3-2.6-4.7 0-1.2.7-2 1.7-2.2 1-.2 2 .3 2.6 1.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M17 10c1.6-1.2 2.6-3 2.6-4.7 0-1.2-.7-2-1.7-2.2-1-.2-2 .3-2.6 1.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M7.5 11.2c1.2-1.4 2.8-2.2 4.5-2.2s3.3.8 4.5 2.2c.9 1.1 1.4 2.4 1.4 3.8 0 3.1-2.6 5.6-5.9 5.6S6.1 18.1 6.1 15c0-1.4.5-2.7 1.4-3.8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            <path d="M10.2 14.7c.5.7 1.1 1 1.8 1s1.3-.3 1.8-1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="title">
+          <strong>TuBenitoBodoqueSecreto</strong>
+          <span>Intercambio navideño • simple • secreto</span>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="pill" id="themeBtn" type="button" aria-label="Cambiar tema">
+          <span id="themeIcon">🌙</span>
+          <small id="themeText">Oscuro</small>
+        </button>
+      </div>
+    </div>
+
+    <section class="hero">
+      <div class="heroGrid">
+        <div>
+          <h1>Intercambio navideño moderno, sin spoilers 🎄</h1>
+          <p class="sub">
+            Regístrate con un link privado, sube de <b>3 a 5</b> opciones de regalo con link e instrucciones,
+            y el día del sorteo recibirás tu asignación por WhatsApp.
+          </p>
+
+          <div class="ctaRow">
+            <a class="btn btnPrimary" href="#registro">
+              🎁 Registrarme al intercambio
+            </a>
+            <span class="badge">🔒 Link privado • 👑 Admin controla bloqueos • 📱 Hecho para celular</span>
+          </div>
+
+          <div class="foot">
+            <div class="hint">Tip: hoy solo es la landing. Luego hacemos el formulario real 😉</div>
+            <div>© <span id="year"></span> TuBenitoBodoqueSecreto</div>
+          </div>
+        </div>
+
+        <aside class="card">
+          <h3>¿Cómo funciona?</h3>
+          <p>En 3 pasos, sin drama:</p>
+          <ul class="list">
+            <li class="li"><span class="dot"></span><span>Te registras con tu WhatsApp y tus 3–5 opciones de regalo.</span></li>
+            <li class="li"><span class="dot red"></span><span>El admin define fecha, presupuesto y bloqueos (quién no puede tocarle a quién).</span></li>
+            <li class="li"><span class="dot"></span><span>El día del sorteo recibes por WhatsApp a quién le regalas + la lista de regalos.</span></li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <div id="registro" style="height:24px"></div>
+  </div>
+
+  <script>
+    // Año
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Tema (dark/light) con guardado
+    const root = document.documentElement;
+    const btn = document.getElementById("themeBtn");
+    const icon = document.getElementById("themeIcon");
+    const text = document.getElementById("themeText");
+
+    function setTheme(mode){
+      root.setAttribute("data-theme", mode);
+      localStorage.setItem("tbb_theme", mode);
+      const isDark = mode === "dark";
+      icon.textContent = isDark ? "🌙" : "☀️";
+      text.textContent = isDark ? "Oscuro" : "Claro";
+    }
+
+    const saved = localStorage.getItem("tbb_theme");
+    setTheme(saved || "dark");
+
+    btn.addEventListener("click", () => {
+      const current = root.getAttribute("data-theme") || "dark";
+      setTheme(current === "dark" ? "light" : "dark");
+    });
+  </script>
 </body>
 </html>
