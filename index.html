@@ -4,114 +4,75 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>TuBenitoBodoqueSecreto</title>
-  <meta name="description" content="TuBenitoBodoqueSecreto — intercambio navideño con registro privado y resultados por WhatsApp." />
+  <meta name="description" content="Intercambio navideño familiar — registro, lista de regalos y sorteo." />
 
   <style>
     :root{
-      --bg:#0b1020;
-      --panel:#0f1730;
-      --muted:#9aa7c7;
-      --text:#eef2ff;
+      --bg:#0b1020; --panel:#0f1730; --muted:#9aa7c7; --text:#eef2ff;
       --line:rgba(255,255,255,.10);
-
-      --blue:#4ea6ff;
-      --red:#ff4d5a;
-
+      --blue:#4ea6ff; --red:#ff4d5a;
       --shadow: 0 18px 50px rgba(0,0,0,.45);
-      --radius: 18px;
-      --max: 1080px;
+      --radius: 18px; --max: 1120px;
     }
-
     html[data-theme="light"]{
-      --bg:#f7f8ff;
-      --panel:#ffffff;
-      --muted:#4d5a7a;
-      --text:#0b1020;
+      --bg:#f7f8ff; --panel:#ffffff; --muted:#4d5a7a; --text:#0b1020;
       --line:rgba(10,20,40,.12);
       --shadow: 0 18px 50px rgba(10,20,40,.10);
     }
-
     *{box-sizing:border-box}
+    html{scroll-behavior:smooth;}
     body{
-      margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       background:
         radial-gradient(900px 500px at 10% -10%, rgba(78,166,255,.16), transparent 60%),
         radial-gradient(900px 500px at 90% 0%, rgba(255,77,90,.12), transparent 55%),
         var(--bg);
-      color:var(--text);
-      min-height:100vh;
+      color:var(--text); min-height:100vh; overflow-x:hidden;
     }
+    a{color:inherit;text-decoration:none}
+    button,input{font:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding: 12px 18px 90px;}
 
-    a{color:inherit; text-decoration:none}
-
-    .wrap{
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 18px 18px 80px;
-    }
-
-    /* Top bar */
+    /* Top Nav */
     .top{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding: 8px 0 18px;
+      position:sticky; top:0; z-index:10;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(11,16,32,.78), rgba(11,16,32,.35));
+      border-bottom: 1px solid rgba(255,255,255,.06);
     }
-
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      min-width:0;
+    html[data-theme="light"] .top{
+      background: linear-gradient(180deg, rgba(247,248,255,.78), rgba(247,248,255,.35));
+      border-bottom: 1px solid rgba(10,20,40,.08);
     }
-
+    .topInner{
+      max-width:var(--max);
+      margin:0 auto;
+      padding: 12px 18px;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+    }
+    .brand{display:flex; align-items:center; gap:12px; min-width:0;}
     .logo{
-      width:42px; height:42px;
-      border-radius: 14px;
+      width:42px;height:42px;border-radius:14px;
       border:1px solid var(--line);
-      background:
-        linear-gradient(135deg, rgba(78,166,255,.22), rgba(255,77,90,.18)),
-        rgba(255,255,255,.03);
+      background: linear-gradient(135deg, rgba(78,166,255,.22), rgba(255,77,90,.18)), rgba(255,255,255,.03);
       box-shadow: var(--shadow);
-      display:grid;
-      place-items:center;
-      flex:0 0 auto;
-      position:relative;
-      overflow:hidden;
+      display:grid; place-items:center; overflow:hidden; flex:0 0 auto;
     }
+    .title{display:flex;flex-direction:column;line-height:1.1;min-width:0;}
+    .title strong{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .title span{font-size:12px;color:var(--muted);}
 
-    /* gorrito navideño sutil */
-    .hat{
-      position:absolute;
-      top:-2px;
-      right:-3px;
-      width:18px;
-      height:18px;
-      transform: rotate(18deg);
-      opacity:.9;
+    .nav{
+      display:flex; align-items:center; gap:10px; flex-wrap:wrap;
     }
-
-    .title{
-      display:flex;
-      flex-direction:column;
-      line-height:1.1;
-      min-width:0;
-    }
-
-    .title strong{
-      font-size: 14px;
-      letter-spacing:.2px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-
-    .title span{
-      font-size: 12px;
+    .nav a{
+      padding: 10px 10px;
+      border-radius: 999px;
       color: var(--muted);
+      border:1px solid transparent;
     }
+    .nav a:hover{color:var(--text); border-color: var(--line); background: rgba(255,255,255,.04);}
+    html[data-theme="light"] .nav a:hover{background: rgba(10,20,40,.03);}
 
     .pill{
       border:1px solid var(--line);
@@ -119,139 +80,134 @@
       color: var(--text);
       padding: 10px 12px;
       border-radius: 999px;
-      display:flex;
-      align-items:center;
-      gap:8px;
-      cursor:pointer;
-      user-select:none;
+      display:inline-flex; align-items:center; gap:8px;
+      cursor:pointer; user-select:none;
     }
-
-    html[data-theme="light"] .pill{
-      background: rgba(10,20,40,.03);
-    }
-
+    html[data-theme="light"] .pill{background: rgba(10,20,40,.03);}
     .pill:active{transform: translateY(1px)}
     .pill small{color: var(--muted)}
 
-    /* Hero */
-    .hero{
-      border: 1px solid var(--line);
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+    /* Sections */
+    section{scroll-margin-top: 92px;}
+    .sectionBox{
+      margin-top: 18px;
+      border:1px solid var(--line);
       border-radius: calc(var(--radius) + 6px);
-      padding: 22px;
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
       box-shadow: var(--shadow);
+      overflow:hidden;
     }
-
-    html[data-theme="light"] .hero{
+    html[data-theme="light"] .sectionBox{
       background: linear-gradient(180deg, rgba(10,20,40,.02), rgba(10,20,40,.01));
     }
 
-    .grid{
+    .block{
       display:grid;
-      gap:18px;
       grid-template-columns: 1fr;
-    }
-    @media (min-width: 900px){
-      .grid{grid-template-columns: 1.2fr .8fr}
-    }
-
-    h1{
-      margin:0;
-      font-size: clamp(28px, 4.2vw, 46px);
-      letter-spacing: -0.6px;
-    }
-
-    .sub{
-      margin: 10px 0 0;
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.6;
-      max-width: 60ch;
-    }
-
-    .ctaRow{
-      margin-top: 16px;
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
+      gap: 18px;
+      padding: 22px;
       align-items:center;
     }
+    @media(min-width: 920px){
+      .block{grid-template-columns: 1.1fr .9fr;}
+      .block.reverse{grid-template-columns: .9fr 1.1fr;}
+      .block.reverse .copy{order:2;}
+      .block.reverse .art{order:1;}
+    }
 
+    .copy h1,.copy h2{margin:0; letter-spacing:-.5px;}
+    .copy h1{font-size: clamp(30px, 4.3vw, 52px);}
+    .copy h2{font-size: clamp(22px, 3.2vw, 36px);}
+    .copy p{margin:10px 0 0; color:var(--muted); line-height:1.6; font-size:15px; max-width:60ch;}
+
+    .ctaRow{margin-top: 16px; display:flex; gap:10px; flex-wrap:wrap; align-items:center;}
     .btn{
       border:1px solid var(--line);
       background: rgba(255,255,255,.05);
       color:var(--text);
       padding: 12px 14px;
       border-radius: 14px;
-      font-weight: 700;
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
+      font-weight: 750;
+      display:inline-flex; align-items:center; gap:10px;
       cursor:pointer;
     }
-    html[data-theme="light"] .btn{
-      background: rgba(10,20,40,.03);
-    }
+    html[data-theme="light"] .btn{background: rgba(10,20,40,.03);}
     .btnPrimary{
       background: linear-gradient(135deg, rgba(255,77,90,.92), rgba(78,166,255,.86));
       border: 1px solid rgba(255,255,255,.14);
     }
     .btn:active{transform: translateY(1px)}
 
-    .smallNote{
-      margin-top: 12px;
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    /* Card */
-    .card{
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.03);
+    .art{
       border-radius: var(--radius);
-      padding: 16px;
-      height: fit-content;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      overflow:hidden;
+      position:relative;
+      min-height: 240px;
     }
-    html[data-theme="light"] .card{
-      background: rgba(10,20,40,.02);
+    html[data-theme="light"] .art{background: rgba(10,20,40,.02);}
+    .art img{
+      width:100%; height:100%;
+      display:block;
+      object-fit: cover;
+      transform: scale(1.02);
+      transition: transform .9s ease;
     }
-    .card h3{
-      margin:0 0 8px;
-      font-size: 14px;
-      letter-spacing:.2px;
+    .reveal.show img{transform: scale(1.06);}
+
+    /* Auth block */
+    .authGrid{
+      display:grid; gap:12px;
+      grid-template-columns: 1fr;
+      padding: 22px;
     }
-    .card p{
-      margin:0;
-      color: var(--muted);
-      font-size: 13px;
-      line-height:1.55;
+    @media(min-width: 920px){
+      .authGrid{grid-template-columns: 1fr 1fr;}
     }
+    .form{
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.03);
+      padding: 14px;
+      display:grid; gap:10px;
+    }
+    html[data-theme="light"] .form{background: rgba(10,20,40,.02);}
+    label{font-size:12px; color:var(--muted);}
+    input{
+      width:100%;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      outline:none;
+    }
+    html[data-theme="light"] input{background: rgba(10,20,40,.03);}
+    input:focus{border-color: rgba(78,166,255,.45); box-shadow: 0 0 0 3px rgba(78,166,255,.12);}
+    .msg{font-size:12px; color:var(--muted); min-height:18px;}
+    .ok{color: rgba(78,166,255,.95)}
+    .err{color: rgba(255,77,90,.95)}
 
     /* Footer */
     .foot{
-      margin-top: 16px;
+      padding: 14px 22px 18px;
       color: var(--muted);
       font-size: 12px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      justify-content: space-between;
-      align-items:center;
+      display:flex; flex-wrap:wrap;
+      justify-content:space-between; gap:10px;
+      border-top:1px solid rgba(255,255,255,.06);
     }
+    html[data-theme="light"] .foot{border-top:1px solid rgba(10,20,40,.08);}
 
     /* Modal */
     .modalBack{
-      position: fixed;
-      inset: 0;
+      position: fixed; inset: 0;
       background: rgba(0,0,0,.55);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding: 18px;
-      z-index: 50;
+      display:none; align-items:center; justify-content:center;
+      padding: 18px; z-index: 50;
     }
     .modalBack.show{display:flex;}
-
     .modal{
       width: min(520px, 100%);
       border: 1px solid var(--line);
@@ -261,116 +217,139 @@
       overflow:hidden;
     }
     .modalTop{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding: 14px;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px; padding: 14px;
       border-bottom: 1px solid var(--line);
     }
-    .modalTop strong{font-size:14px}
-    .modalBody{
-      padding: 14px;
-      display:grid;
-      gap: 12px;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.55;
-    }
+    .modalBody{padding: 14px; display:grid; gap: 12px; color: var(--muted); font-size: 13px; line-height: 1.55;}
+    .mini{display:flex; gap:10px; align-items:flex-start;}
+    .dot{width:10px;height:10px;border-radius:99px;margin-top:4px;background: rgba(78,166,255,.50);box-shadow: 0 0 0 3px rgba(78,166,255,.15);flex:0 0 auto;}
+    .dot.red{background: rgba(255,77,90,.55);box-shadow: 0 0 0 3px rgba(255,77,90,.15);}
 
-    .k{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-    }
-    .dot{
-      width:10px;height:10px;border-radius:99px;
-      background: rgba(78,166,255,.50);
-      box-shadow: 0 0 0 3px rgba(78,166,255,.15);
-      flex:0 0 auto;
-      margin-top:4px;
-    }
-    .dot.red{
-      background: rgba(255,77,90,.55);
-      box-shadow: 0 0 0 3px rgba(255,77,90,.15);
-    }
+    /* Reveal */
+    .reveal{opacity:0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease;}
+    .reveal.show{opacity:1; transform: translateY(0);}
   </style>
 </head>
 
 <body>
-  <div class="wrap">
-    <header class="top">
+  <header class="top">
+    <div class="topInner">
       <div class="brand">
-        <div class="logo" aria-hidden="true">
-          <!-- Beagle minimalista -->
-          <svg viewBox="0 0 24 24" fill="none" width="26" height="26">
-            <path d="M7 10c-1.6-1.2-2.6-3-2.6-4.7 0-1.2.7-2 1.7-2.2 1-.2 2 .3 2.6 1.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-            <path d="M17 10c1.6-1.2 2.6-3 2.6-4.7 0-1.2-.7-2-1.7-2.2-1-.2-2 .3-2.6 1.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-            <path d="M7.5 11.2c1.2-1.4 2.8-2.2 4.5-2.2s3.3.8 4.5 2.2c.9 1.1 1.4 2.4 1.4 3.8 0 3.1-2.6 5.6-5.9 5.6S6.1 18.1 6.1 15c0-1.4.5-2.7 1.4-3.8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-            <path d="M10.2 14.7c.5.7 1.1 1 1.8 1s1.3-.3 1.8-1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-          </svg>
-
-          <!-- gorrito -->
-          <svg class="hat" viewBox="0 0 24 24" fill="none">
-            <path d="M6 13c3.5-4.5 8-6.8 12-6 1.5.3 2.2 1.1 2 2.4-.4 2.2-4.3 2.7-8.1 4.3-2.1.9-4.1 1.7-6.1 1.7-.9 0-1.6-.3-1.9-.9-.3-.6-.1-1.3.1-1.5Z"
-                  stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
-            <path d="M5.5 13.5h13" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
-            <circle cx="20" cy="7" r="1.2" fill="currentColor"/>
-          </svg>
+        <div class="logo">
+          <!-- Tu logo -->
+          <img src="beni.png" alt="TuBenitoBodoqueSecreto" style="width:100%;height:100%;object-fit:contain;" />
         </div>
-
         <div class="title">
           <strong>TuBenitoBodoqueSecreto</strong>
-          <span>Registro privado • Resultados por WhatsApp</span>
+          <span>Intercambio navideño familiar</span>
         </div>
       </div>
 
-      <button class="pill" id="themeBtn" type="button" aria-label="Cambiar tema">
-        <span id="themeIcon">🌙</span>
-        <small id="themeText">Oscuro</small>
-      </button>
-    </header>
+      <nav class="nav" aria-label="Navegación">
+        <a href="#inicio">Inicio</a>
+        <a href="#como">Cómo funciona</a>
+        <a href="#empezar">Empezar</a>
+        <button class="pill" id="themeBtn" type="button" aria-label="Cambiar tema">
+          <span id="themeIcon">🌙</span>
+          <small id="themeText">Oscuro</small>
+        </button>
+      </nav>
+    </div>
+  </header>
 
-    <section class="hero">
-      <div class="grid">
-        <div>
-          <h1>Tu intercambio, sin spoilers.</h1>
-          <p class="sub">
-            Entra con tu link del intercambio, regístrate y sube tus opciones de regalo.
-          </p>
+  <main class="wrap">
 
+    <!-- INICIO -->
+    <section id="inicio" class="sectionBox">
+      <div class="block">
+        <div class="copy reveal">
+          <h1>Secret Santa, versión familiar.</h1>
+          <p>Una sola página. Cuenta, lista de regalos y sorteo.</p>
           <div class="ctaRow">
-            <a class="btn btnPrimary" href="#registro">✍️ Abrir registro</a>
-            <button class="btn" type="button" id="howBtn">❓ ¿Cómo funciona?</button>
-          </div>
-
-          <div class="foot">
-            <div>© <span id="year"></span> TuBenitoBodoqueSecreto</div>
+            <a class="btn btnPrimary" href="#empezar">Empezar</a>
+            <button class="btn" id="howBtn" type="button">Aprender más</button>
           </div>
         </div>
-
-        <aside class="card">
-          <h3>Listo para registrarte</h3>
-          <p>Te tomará menos de 1 minuto. Solo necesitas tu WhatsApp y 3–5 opciones de regalo.</p>
-          <div class="smallNote">Siguiente paso: aquí abajo vamos a poner el formulario real.</div>
-        </aside>
+        <div class="art reveal">
+          <img src="images/hero.webp" alt="Ilustración navideña" />
+        </div>
+      </div>
+      <div class="foot">
+        <div>© <span id="year"></span> TuBenitoBodoqueSecreto</div>
+        <div>Hecho para celular • limpio • rápido</div>
       </div>
     </section>
 
-    <div id="registro" style="height:28px"></div>
+    <!-- COMO FUNCIONA -->
+    <section id="como" class="sectionBox">
+      <div class="block reverse">
+        <div class="copy reveal">
+          <h2>Cómo funciona</h2>
+          <p>Te registras, subes tus 3–5 ideas de regalo y listo. El resto se maneja el día del sorteo.</p>
+          <div class="ctaRow">
+            <a class="btn btnPrimary" href="#empezar">Empezar</a>
+          </div>
+        </div>
+        <div class="art reveal">
+          <img src="images/community.webp" alt="Comunidad navideña" />
+        </div>
+      </div>
+    </section>
 
-    <!-- Modal -->
-    <div id="howModal" class="modalBack" aria-hidden="true">
-      <div class="modal" role="dialog" aria-modal="true" aria-label="Cómo funciona">
-        <div class="modalTop">
-          <strong>¿Cómo funciona?</strong>
-          <button class="pill" type="button" id="howClose">✕</button>
+    <!-- EMPEZAR (AUTH) -->
+    <section id="empezar" class="sectionBox">
+      <div class="block">
+        <div class="copy reveal">
+          <h2>Entrar / Registrarse</h2>
+          <p>Login por correo (magic link). Sin contraseñas.</p>
         </div>
-        <div class="modalBody">
-          <div class="k"><span class="dot"></span><span>Te registras con tu WhatsApp y tus <b>3–5</b> opciones de regalo.</span></div>
-          <div class="k"><span class="dot red"></span><span>El admin configura fecha, presupuesto y bloqueos.</span></div>
-          <div class="k"><span class="dot"></span><span>El día del sorteo recibes por WhatsApp a quién le regalas + la lista de regalos.</span></div>
+        <div class="art reveal">
+          <img src="images/match.webp" alt="Encuentra tu match" />
         </div>
+      </div>
+
+      <div class="authGrid">
+        <div class="form reveal">
+          <strong style="font-size:14px;">Crear cuenta</strong>
+          <div>
+            <label for="signupEmail">Correo</label>
+            <input id="signupEmail" type="email" placeholder="tucorreo@email.com" autocomplete="email" />
+          </div>
+          <button class="btn btnPrimary" type="button" id="signupBtn">Enviar link</button>
+          <div class="msg" id="signupMsg"></div>
+        </div>
+
+        <div class="form reveal">
+          <strong style="font-size:14px;">Iniciar sesión</strong>
+          <div>
+            <label for="loginEmail">Correo</label>
+            <input id="loginEmail" type="email" placeholder="tucorreo@email.com" autocomplete="email" />
+          </div>
+          <button class="btn" type="button" id="loginBtn">Enviar link</button>
+          <div class="msg" id="loginMsg"></div>
+        </div>
+      </div>
+
+      <div class="foot">
+        <div id="meState">Estado: <span style="color:var(--muted)">sin sesión</span></div>
+        <button class="pill" id="logoutBtn" type="button" style="display:none;">Cerrar sesión</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modal Aprender más -->
+  <div id="howModal" class="modalBack" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="Aprender más">
+      <div class="modalTop">
+        <strong>Aprender más</strong>
+        <button class="pill" type="button" id="howClose">✕</button>
+      </div>
+      <div class="modalBody">
+        <div class="mini"><span class="dot"></span><span>Cuenta + perfil</span></div>
+        <div class="mini"><span class="dot red"></span><span>Lista de 3–5 ideas con links</span></div>
+        <div class="mini"><span class="dot"></span><span>Asignación el día del sorteo</span></div>
       </div>
     </div>
   </div>
@@ -379,50 +358,105 @@
     // Año
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Tema (dark/light) con guardado
+    // Tema
     const root = document.documentElement;
-    const btn = document.getElementById("themeBtn");
-    const icon = document.getElementById("themeIcon");
-    const text = document.getElementById("themeText");
+    const themeBtn = document.getElementById("themeBtn");
+    const themeIcon = document.getElementById("themeIcon");
+    const themeText = document.getElementById("themeText");
 
     function setTheme(mode){
       root.setAttribute("data-theme", mode);
       localStorage.setItem("tbb_theme", mode);
       const isDark = mode === "dark";
-      icon.textContent = isDark ? "🌙" : "☀️";
-      text.textContent = isDark ? "Oscuro" : "Claro";
+      themeIcon.textContent = isDark ? "🌙" : "☀️";
+      themeText.textContent = isDark ? "Oscuro" : "Claro";
     }
-
     setTheme(localStorage.getItem("tbb_theme") || "dark");
-
-    btn.addEventListener("click", () => {
+    themeBtn.addEventListener("click", () => {
       const current = root.getAttribute("data-theme") || "dark";
       setTheme(current === "dark" ? "light" : "dark");
     });
 
-    // Modal "Cómo funciona"
+    // Modal
     const howBtn = document.getElementById("howBtn");
     const howModal = document.getElementById("howModal");
     const howClose = document.getElementById("howClose");
-
-    function openHow(){
-      howModal.classList.add("show");
-      howModal.setAttribute("aria-hidden","false");
-    }
-    function closeHow(){
-      howModal.classList.remove("show");
-      howModal.setAttribute("aria-hidden","true");
-    }
-
+    function openHow(){ howModal.classList.add("show"); howModal.setAttribute("aria-hidden","false"); }
+    function closeHow(){ howModal.classList.remove("show"); howModal.setAttribute("aria-hidden","true"); }
     howBtn.addEventListener("click", openHow);
     howClose.addEventListener("click", closeHow);
-    howModal.addEventListener("click", (e) => {
-      if (e.target === howModal) closeHow();
+    howModal.addEventListener("click", (e) => { if (e.target === howModal) closeHow(); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeHow(); });
+
+    // Reveal on scroll
+    const revealEls = document.querySelectorAll(".reveal");
+    const io = new IntersectionObserver((entries) => {
+      for (const ent of entries){
+        if (ent.isIntersecting) ent.target.classList.add("show");
+      }
+    }, { threshold: 0.14 });
+    revealEls.forEach(el => io.observe(el));
+
+    // Auth (front): por ahora solo UI, backend luego
+    const signupBtn = document.getElementById("signupBtn");
+    const loginBtn = document.getElementById("loginBtn");
+    const signupEmail = document.getElementById("signupEmail");
+    const loginEmail = document.getElementById("loginEmail");
+    const signupMsg = document.getElementById("signupMsg");
+    const loginMsg = document.getElementById("loginMsg");
+    const meState = document.getElementById("meState");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    function setMsg(el, text, kind){
+      el.className = "msg " + (kind || "");
+      el.textContent = text || "";
+    }
+
+    async function postJSON(url, body){
+      const res = await fetch(url, { method:"POST", headers:{ "Content-Type":"application/json" }, body: JSON.stringify(body) });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || "Error");
+      return data;
+    }
+
+    signupBtn.addEventListener("click", async () => {
+      const email = (signupEmail.value || "").trim();
+      setMsg(signupMsg, "");
+      if (!email) return setMsg(signupMsg, "Pon tu correo.", "err");
+      try{
+        await postJSON("/api/auth/magic-link", { email, mode:"signup" });
+        setMsg(signupMsg, "Listo. Revisa tu correo para el link.", "ok");
+      }catch(e){ setMsg(signupMsg, e.message, "err"); }
     });
 
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") closeHow();
+    loginBtn.addEventListener("click", async () => {
+      const email = (loginEmail.value || "").trim();
+      setMsg(loginMsg, "");
+      if (!email) return setMsg(loginMsg, "Pon tu correo.", "err");
+      try{
+        await postJSON("/api/auth/magic-link", { email, mode:"login" });
+        setMsg(loginMsg, "Listo. Revisa tu correo para el link.", "ok");
+      }catch(e){ setMsg(loginMsg, e.message, "err"); }
     });
+
+    async function refreshMe(){
+      try{
+        const res = await fetch("/api/me");
+        const data = await res.json();
+        if (data && data.ok){
+          meState.innerHTML = "Estado: <span class='ok'>sesión activa</span> (" + (data.email || "usuario") + ")";
+          logoutBtn.style.display = "inline-flex";
+        }else{
+          meState.innerHTML = "Estado: <span style='color:var(--muted)'>sin sesión</span>";
+          logoutBtn.style.display = "none";
+        }
+      }catch{
+        meState.innerHTML = "Estado: <span style='color:var(--muted)'>sin sesión</span>";
+        logoutBtn.style.display = "none";
+      }
+    }
+    logoutBtn.addEventListener("click", async () => { try{ await fetch("/api/auth/logout", { method:"POST" }); }catch{} await refreshMe(); });
+    refreshMe();
   </script>
 </body>
 </html>
