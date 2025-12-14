@@ -4,50 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>TuBenitoBodoqueSecreto</title>
-
-  <meta name="description" content="Intercambio navideño moderno, simple y secreto. Registro por link privado y resultados por WhatsApp." />
-/* Modal ¿Cómo funciona? */
-.modalBack{
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.55);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding: 18px;
-  z-index: 50;
-}
-.modalBack.show{display:flex;}
-
-.modal{
-  width: min(520px, 100%);
-  border: 1px solid var(--line);
-  background: var(--panel);
-  border-radius: calc(var(--radius) + 6px);
-  box-shadow: var(--shadow);
-  overflow:hidden;
-}
-.modalTop{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  padding: 14px 14px 10px;
-  border-bottom: 1px solid var(--line);
-}
-.modalBody{
-  padding: 14px;
-  display:grid;
-  gap: 12px;
-}
-.step{
-  display:flex;
-  gap:10px;
-  align-items:flex-start;
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.55;
-}
+  <meta name="description" content="TuBenitoBodoqueSecreto — intercambio navideño con registro privado y resultados por WhatsApp." />
 
   <style>
     :root{
@@ -55,7 +12,7 @@
       --panel:#0f1730;
       --muted:#9aa7c7;
       --text:#eef2ff;
-      --line:rgba(255,255,255,.08);
+      --line:rgba(255,255,255,.10);
 
       --blue:#4ea6ff;
       --red:#ff4d5a;
@@ -70,8 +27,7 @@
       --panel:#ffffff;
       --muted:#4d5a7a;
       --text:#0b1020;
-      --line:rgba(10,20,40,.10);
-
+      --line:rgba(10,20,40,.12);
       --shadow: 0 18px 50px rgba(10,20,40,.10);
     }
 
@@ -79,9 +35,10 @@
     body{
       margin:0;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: radial-gradient(900px 500px at 10% -10%, rgba(78,166,255,.18), transparent 60%),
-                  radial-gradient(900px 500px at 90% 0%, rgba(255,77,90,.14), transparent 55%),
-                  var(--bg);
+      background:
+        radial-gradient(900px 500px at 10% -10%, rgba(78,166,255,.16), transparent 60%),
+        radial-gradient(900px 500px at 90% 0%, rgba(255,77,90,.12), transparent 55%),
+        var(--bg);
       color:var(--text);
       min-height:100vh;
     }
@@ -100,37 +57,47 @@
       align-items:center;
       justify-content:space-between;
       gap:12px;
-      padding: 10px 0 18px;
+      padding: 8px 0 18px;
     }
 
     .brand{
       display:flex;
       align-items:center;
       gap:12px;
-      min-width: 0;
+      min-width:0;
     }
 
     .logo{
       width:42px; height:42px;
       border-radius: 14px;
+      border:1px solid var(--line);
       background:
-        linear-gradient(135deg, rgba(78,166,255,.30), rgba(255,77,90,.22)),
-        rgba(255,255,255,.04);
-      border: 1px solid var(--line);
+        linear-gradient(135deg, rgba(78,166,255,.22), rgba(255,77,90,.18)),
+        rgba(255,255,255,.03);
       box-shadow: var(--shadow);
       display:grid;
       place-items:center;
-      overflow:hidden;
       flex:0 0 auto;
+      position:relative;
+      overflow:hidden;
     }
 
-    .logo svg{width:26px; height:26px; opacity:.95}
+    /* gorrito navideño sutil */
+    .hat{
+      position:absolute;
+      top:-2px;
+      right:-3px;
+      width:18px;
+      height:18px;
+      transform: rotate(18deg);
+      opacity:.9;
+    }
 
     .title{
       display:flex;
       flex-direction:column;
       line-height:1.1;
-      min-width: 0;
+      min-width:0;
     }
 
     .title strong{
@@ -144,12 +111,6 @@
     .title span{
       font-size: 12px;
       color: var(--muted);
-    }
-
-    .actions{
-      display:flex;
-      align-items:center;
-      gap:10px;
     }
 
     .pill{
@@ -174,28 +135,24 @@
 
     /* Hero */
     .hero{
-      margin-top: 6px;
       border: 1px solid var(--line);
       background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
       border-radius: calc(var(--radius) + 6px);
       padding: 22px;
       box-shadow: var(--shadow);
-      overflow:hidden;
-      position:relative;
     }
 
     html[data-theme="light"] .hero{
       background: linear-gradient(180deg, rgba(10,20,40,.02), rgba(10,20,40,.01));
     }
 
-    .heroGrid{
+    .grid{
       display:grid;
       gap:18px;
       grid-template-columns: 1fr;
     }
-
     @media (min-width: 900px){
-      .heroGrid{grid-template-columns: 1.25fr .75fr}
+      .grid{grid-template-columns: 1.2fr .8fr}
     }
 
     h1{
@@ -209,7 +166,7 @@
       color: var(--muted);
       font-size: 15px;
       line-height: 1.6;
-      max-width: 58ch;
+      max-width: 60ch;
     }
 
     .ctaRow{
@@ -226,54 +183,43 @@
       color:var(--text);
       padding: 12px 14px;
       border-radius: 14px;
-      font-weight: 650;
+      font-weight: 700;
       display:inline-flex;
       align-items:center;
       gap:10px;
       cursor:pointer;
     }
-
     html[data-theme="light"] .btn{
       background: rgba(10,20,40,.03);
     }
-
     .btnPrimary{
-      background: linear-gradient(135deg, rgba(255,77,90,.90), rgba(78,166,255,.85));
+      background: linear-gradient(135deg, rgba(255,77,90,.92), rgba(78,166,255,.86));
       border: 1px solid rgba(255,255,255,.14);
     }
-
     .btn:active{transform: translateY(1px)}
 
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding: 9px 12px;
-      border-radius: 999px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
+    .smallNote{
+      margin-top: 12px;
       color: var(--muted);
       font-size: 12px;
     }
 
-    /* Side card */
+    /* Card */
     .card{
       border: 1px solid var(--line);
       background: rgba(255,255,255,.03);
       border-radius: var(--radius);
       padding: 16px;
+      height: fit-content;
     }
-
     html[data-theme="light"] .card{
       background: rgba(10,20,40,.02);
     }
-
     .card h3{
       margin:0 0 8px;
       font-size: 14px;
       letter-spacing:.2px;
     }
-
     .card p{
       margin:0;
       color: var(--muted);
@@ -281,38 +227,9 @@
       line-height:1.55;
     }
 
-    .list{
-      margin: 12px 0 0;
-      padding:0;
-      list-style:none;
-      display:grid;
-      gap:10px;
-    }
-
-    .li{
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.5;
-    }
-
-    .dot{
-      width:10px;height:10px;border-radius:99px; margin-top:4px;
-      background: rgba(78,166,255,.45);
-      box-shadow: 0 0 0 3px rgba(78,166,255,.15);
-      flex:0 0 auto;
-    }
-
-    .dot.red{
-      background: rgba(255,77,90,.55);
-      box-shadow: 0 0 0 3px rgba(255,77,90,.15);
-    }
-
     /* Footer */
     .foot{
-      margin-top: 18px;
+      margin-top: 16px;
       color: var(--muted);
       font-size: 12px;
       display:flex;
@@ -322,110 +239,141 @@
       align-items:center;
     }
 
-    .hint{
-      border:1px dashed var(--line);
-      padding: 10px 12px;
-      border-radius: 14px;
+    /* Modal */
+    .modalBack{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.55);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+      z-index: 50;
+    }
+    .modalBack.show{display:flex;}
+
+    .modal{
+      width: min(520px, 100%);
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: calc(var(--radius) + 6px);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .modalTop{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+    .modalTop strong{font-size:14px}
+    .modalBody{
+      padding: 14px;
+      display:grid;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .k{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+    }
+    .dot{
+      width:10px;height:10px;border-radius:99px;
+      background: rgba(78,166,255,.50);
+      box-shadow: 0 0 0 3px rgba(78,166,255,.15);
+      flex:0 0 auto;
+      margin-top:4px;
+    }
+    .dot.red{
+      background: rgba(255,77,90,.55);
+      box-shadow: 0 0 0 3px rgba(255,77,90,.15);
     }
   </style>
 </head>
 
 <body>
   <div class="wrap">
-    <div class="top">
+    <header class="top">
       <div class="brand">
         <div class="logo" aria-hidden="true">
-          <!-- logo temporal (beagle minimal) -->
-          <svg viewBox="0 0 24 24" fill="none">
+          <!-- Beagle minimalista -->
+          <svg viewBox="0 0 24 24" fill="none" width="26" height="26">
             <path d="M7 10c-1.6-1.2-2.6-3-2.6-4.7 0-1.2.7-2 1.7-2.2 1-.2 2 .3 2.6 1.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
             <path d="M17 10c1.6-1.2 2.6-3 2.6-4.7 0-1.2-.7-2-1.7-2.2-1-.2-2 .3-2.6 1.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
             <path d="M7.5 11.2c1.2-1.4 2.8-2.2 4.5-2.2s3.3.8 4.5 2.2c.9 1.1 1.4 2.4 1.4 3.8 0 3.1-2.6 5.6-5.9 5.6S6.1 18.1 6.1 15c0-1.4.5-2.7 1.4-3.8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
             <path d="M10.2 14.7c.5.7 1.1 1 1.8 1s1.3-.3 1.8-1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
           </svg>
+
+          <!-- gorrito -->
+          <svg class="hat" viewBox="0 0 24 24" fill="none">
+            <path d="M6 13c3.5-4.5 8-6.8 12-6 1.5.3 2.2 1.1 2 2.4-.4 2.2-4.3 2.7-8.1 4.3-2.1.9-4.1 1.7-6.1 1.7-.9 0-1.6-.3-1.9-.9-.3-.6-.1-1.3.1-1.5Z"
+                  stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
+            <path d="M5.5 13.5h13" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+            <circle cx="20" cy="7" r="1.2" fill="currentColor"/>
+          </svg>
         </div>
+
         <div class="title">
           <strong>TuBenitoBodoqueSecreto</strong>
-          <span>Intercambio navideño • simple • secreto</span>
+          <span>Registro privado • Resultados por WhatsApp</span>
         </div>
       </div>
 
-      <div class="actions">
-        <button class="pill" id="themeBtn" type="button" aria-label="Cambiar tema">
-          <span id="themeIcon">🌙</span>
-          <small id="themeText">Oscuro</small>
-        </button>
-      </div>
-    </div>
+      <button class="pill" id="themeBtn" type="button" aria-label="Cambiar tema">
+        <span id="themeIcon">🌙</span>
+        <small id="themeText">Oscuro</small>
+      </button>
+    </header>
 
     <section class="hero">
-      <div class="heroGrid">
+      <div class="grid">
         <div>
-          <h1>Intercambio navideño moderno, sin spoilers 🎄</h1>
+          <h1>Tu intercambio, sin spoilers.</h1>
           <p class="sub">
-            Regístrate con un link privado, sube de <b>3 a 5</b> opciones de regalo con link e instrucciones,
-            y el día del sorteo recibirás tu asignación por WhatsApp.
+            Entra con tu link del intercambio, regístrate y sube tus opciones de regalo.
           </p>
 
           <div class="ctaRow">
-            <a class="btn btnPrimary" href="#registro">
-              🎁 Registrarme al intercambio
-            </a>
-            <span class="badge">🔒 Link privado • 👑 Admin controla bloqueos • 📱 Hecho para celular</span>
+            <a class="btn btnPrimary" href="#registro">✍️ Abrir registro</a>
+            <button class="btn" type="button" id="howBtn">❓ ¿Cómo funciona?</button>
           </div>
 
           <div class="foot">
-            <div class="hint">Tip: hoy solo es la landing. Luego hacemos el formulario real 😉</div>
             <div>© <span id="year"></span> TuBenitoBodoqueSecreto</div>
           </div>
         </div>
 
         <aside class="card">
-  <h3>Listo para registrarte</h3>
-  <p>Te tomará menos de 1 minuto. Solo necesitas tu WhatsApp y 3–5 opciones de regalo.</p>
-
-  <div class="ctaRow" style="margin-top:12px;">
-    <a class="btn" href="#registro">✍️ Abrir registro</a>
-    <button class="btn" type="button" id="howBtn">❓ ¿Cómo funciona?</button>
-  </div>
-</aside>
-
-<div id="howModal" class="modalBack" aria-hidden="true">
-  <div class="modal">
-    <div class="modalTop">
-      <strong>¿Cómo funciona?</strong>
-      <button class="pill" type="button" id="howClose">✕</button>
-    </div>
-    <div class="modalBody">
-      <div class="step"><span class="dot"></span><span>Te registras con tu WhatsApp y tus <b>3–5</b> opciones de regalo.</span></div>
-      <div class="step"><span class="dot red"></span><span>El admin define fecha, presupuesto y bloqueos (quién no puede tocarle a quién).</span></div>
-      <div class="step"><span class="dot"></span><span>El día del sorteo recibes por WhatsApp a quién le regalas + la lista de regalos.</span></div>
-    </div>
-  </div>
-</div>
+          <h3>Listo para registrarte</h3>
+          <p>Te tomará menos de 1 minuto. Solo necesitas tu WhatsApp y 3–5 opciones de regalo.</p>
+          <div class="smallNote">Siguiente paso: aquí abajo vamos a poner el formulario real.</div>
+        </aside>
       </div>
     </section>
 
-    <div id="registro" style="height:24px"></div>
+    <div id="registro" style="height:28px"></div>
+
+    <!-- Modal -->
+    <div id="howModal" class="modalBack" aria-hidden="true">
+      <div class="modal" role="dialog" aria-modal="true" aria-label="Cómo funciona">
+        <div class="modalTop">
+          <strong>¿Cómo funciona?</strong>
+          <button class="pill" type="button" id="howClose">✕</button>
+        </div>
+        <div class="modalBody">
+          <div class="k"><span class="dot"></span><span>Te registras con tu WhatsApp y tus <b>3–5</b> opciones de regalo.</span></div>
+          <div class="k"><span class="dot red"></span><span>El admin configura fecha, presupuesto y bloqueos.</span></div>
+          <div class="k"><span class="dot"></span><span>El día del sorteo recibes por WhatsApp a quién le regalas + la lista de regalos.</span></div>
+        </div>
+      </div>
+    </div>
   </div>
-// Modal "Cómo funciona"
-const howBtn = document.getElementById("howBtn");
-const howModal = document.getElementById("howModal");
-const howClose = document.getElementById("howClose");
-
-function openHow(){
-  howModal.classList.add("show");
-  howModal.setAttribute("aria-hidden","false");
-}
-function closeHow(){
-  howModal.classList.remove("show");
-  howModal.setAttribute("aria-hidden","true");
-}
-
-if (howBtn) howBtn.addEventListener("click", openHow);
-if (howClose) howClose.addEventListener("click", closeHow);
-if (howModal) howModal.addEventListener("click", (e) => {
-  if (e.target === howModal) closeHow();
-});
 
   <script>
     // Año
@@ -445,12 +393,35 @@ if (howModal) howModal.addEventListener("click", (e) => {
       text.textContent = isDark ? "Oscuro" : "Claro";
     }
 
-    const saved = localStorage.getItem("tbb_theme");
-    setTheme(saved || "dark");
+    setTheme(localStorage.getItem("tbb_theme") || "dark");
 
     btn.addEventListener("click", () => {
       const current = root.getAttribute("data-theme") || "dark";
       setTheme(current === "dark" ? "light" : "dark");
+    });
+
+    // Modal "Cómo funciona"
+    const howBtn = document.getElementById("howBtn");
+    const howModal = document.getElementById("howModal");
+    const howClose = document.getElementById("howClose");
+
+    function openHow(){
+      howModal.classList.add("show");
+      howModal.setAttribute("aria-hidden","false");
+    }
+    function closeHow(){
+      howModal.classList.remove("show");
+      howModal.setAttribute("aria-hidden","true");
+    }
+
+    howBtn.addEventListener("click", openHow);
+    howClose.addEventListener("click", closeHow);
+    howModal.addEventListener("click", (e) => {
+      if (e.target === howModal) closeHow();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeHow();
     });
   </script>
 </body>
