@@ -407,6 +407,25 @@
 
     <div id="registro" style="height:24px"></div>
   </div>
+// Modal "Cómo funciona"
+const howBtn = document.getElementById("howBtn");
+const howModal = document.getElementById("howModal");
+const howClose = document.getElementById("howClose");
+
+function openHow(){
+  howModal.classList.add("show");
+  howModal.setAttribute("aria-hidden","false");
+}
+function closeHow(){
+  howModal.classList.remove("show");
+  howModal.setAttribute("aria-hidden","true");
+}
+
+if (howBtn) howBtn.addEventListener("click", openHow);
+if (howClose) howClose.addEventListener("click", closeHow);
+if (howModal) howModal.addEventListener("click", (e) => {
+  if (e.target === howModal) closeHow();
+});
 
   <script>
     // Año
