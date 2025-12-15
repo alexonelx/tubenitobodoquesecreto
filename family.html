@@ -1,0 +1,1027 @@
+<!doctype html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Familia • Tu Benito Bodoque Secreto</title>
+
+  <!-- Favicons -->
+  <link rel="icon" href="./favicon.ico">
+  <link rel="icon" href="./images/icons/favicon.ico?v=7">
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/icons/favicon-32x32.png?v=7">
+  <link rel="apple-touch-icon" sizes="180x180" href="./images/icons/apple-touch-icon.png?v=7">
+  <link rel="manifest" href="./images/icons/site.webmanifest">
+  <meta name="theme-color" content="#0b1020">
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      color-scheme: dark;
+      --bg:#0b1020;
+      --panel:#0f1730;
+      --text:#eef2ff;
+      --muted:#9aa7c7;
+      --line:rgba(255,255,255,.12);
+      --radius:18px;
+      --shadow:0 18px 50px rgba(0,0,0,.45);
+      --max: 1120px;
+      --headerA: rgba(11,16,32,.82);
+      --headerB: rgba(11,16,32,.30);
+      --t:.18s ease;
+    }
+    html[data-theme="light"]{
+      color-scheme: light;
+      --bg:#f6f8ff;
+      --panel:#ffffff;
+      --text:#0f172a;
+      --muted:#475569;
+      --line:rgba(15,23,42,.12);
+      --shadow:0 18px 50px rgba(15,23,42,.10);
+      --headerA: rgba(246,248,255,.90);
+      --headerB: rgba(246,248,255,.60);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(900px 500px at 10% -10%, rgba(78,166,255,.14), transparent 60%),
+        radial-gradient(900px 500px at 90% 0%, rgba(255,77,90,.10), transparent 55%),
+        var(--bg);
+      overflow-x:hidden;
+      transition: background var(--t), color var(--t);
+    }
+    a{color:inherit;text-decoration:none}
+    button,input,select,textarea{font:inherit}
+    :focus-visible{ outline: 3px solid rgba(78,166,255,.55); outline-offset: 3px; border-radius: 12px; }
+    .wrap{max-width:var(--max);margin:0 auto;padding:18px 18px 110px;}
+
+    header{
+      position: sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, var(--headerA), var(--headerB));
+      border-bottom: 1px solid var(--line);
+    }
+    .nav{max-width:var(--max);margin:0 auto;padding:12px 18px;display:flex;align-items:center;gap:12px;}
+    .brand{display:flex;align-items:center;gap:12px;min-width:0;flex:1 1 auto;}
+    .logoBox{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;overflow:hidden;flex:0 0 auto;}
+    .logoBox img{width:100%;height:100%;object-fit:contain;filter: drop-shadow(0 6px 14px rgba(0,0,0,.35));}
+    .brandName{font-weight:900;letter-spacing:-.6px;font-size:18px;line-height:1.05;max-width:30ch;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .menu{display:flex;align-items:center;gap:10px;flex:0 0 auto;}
+
+    .themeToggle{
+      width:42px;height:42px;border-radius:999px;border:1px solid var(--line);
+      background:rgba(255,255,255,.06);color:var(--text);
+      display:grid;place-items:center;cursor:pointer;
+      transition: transform var(--t), background var(--t), border-color var(--t);
+    }
+    .themeToggle:hover{transform:translateY(-1px);}
+
+    .btn{
+      padding:10px 12px;border-radius:14px;border:1px solid var(--line);
+      background:rgba(255,255,255,.06);color:var(--text);font-weight:900;cursor:pointer;
+      transition: transform var(--t), background var(--t), border-color var(--t);
+    }
+    .btn:hover{transform:translateY(-1px);}
+    .btnPrimary{border:none;background:linear-gradient(135deg, rgba(255,77,90,.92), rgba(78,166,255,.86));}
+    .btnGhost{background:rgba(255,255,255,.03);}
+
+    .panel{
+      margin-top:26px;border:1px solid var(--line);
+      border-radius: calc(var(--radius) + 8px);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .panel::before{
+      content:""; position:absolute; inset:0; pointer-events:none; border-radius:inherit;
+      background:
+        radial-gradient(600px 240px at 20% 0%, rgba(78,166,255,.10), transparent 60%),
+        radial-gradient(600px 240px at 80% 0%, rgba(255,77,90,.08), transparent 60%);
+      opacity:.9;
+    }
+    .panel > *{position:relative;}
+    .block{padding:28px;display:grid;gap:16px;}
+    h1{margin:0;letter-spacing:-1px;font-weight:900;font-size:clamp(26px,6vw,44px);line-height:1.06;}
+    .sub{margin:6px 0 0;color:var(--muted);font-size:15px;line-height:1.75;max-width:70ch;}
+    .muted{color:var(--muted);}
+
+    .grid2{display:grid;gap:12px;grid-template-columns:1fr;}
+    @media (min-width: 920px){
+      .grid2{grid-template-columns:1fr 1fr;}
+    }
+
+    .card{
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:rgba(255,255,255,.04);
+      padding:16px;
+      display:grid;
+      gap:10px;
+    }
+    .card h2{margin:0;font-size:18px;letter-spacing:-.4px;font-weight:900;}
+    .card p{margin:0;color:var(--muted);line-height:1.6;}
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+    .input, .select, .textarea{
+      width:100%;
+      padding:12px;border-radius:14px;border:1px solid var(--line);
+      background:rgba(255,255,255,.04);color:var(--text);outline:none;
+    }
+    .textarea{min-height:88px;resize:vertical;}
+    .label{font-size:13px;color:var(--muted);font-weight:800;margin-top:4px;}
+
+    .hint{margin:8px 0 0;color:var(--muted);font-size:13px;line-height:1.45;min-height:18px;}
+    .hint.ok{color:rgba(110,231,183,.95);}
+    .hint.bad{color:rgba(248,113,113,.95);}
+
+    .pill{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:7px 10px;border-radius:999px;border:1px solid var(--line);
+      background:rgba(255,255,255,.03);color:var(--muted);font-weight:900;font-size:12px;
+      white-space:nowrap;
+    }
+
+    .members{
+      display:grid; gap:10px;
+    }
+    .member{
+      display:flex; gap:12px; align-items:center; justify-content:space-between;
+      border:1px solid var(--line); border-radius:18px; background:rgba(255,255,255,.04);
+      padding:12px;
+    }
+    .memberLeft{display:flex;gap:12px;align-items:center;min-width:0;}
+    .avatar{
+      width:38px;height:38px;border-radius:999px;border:1px solid var(--line);
+      background:rgba(255,255,255,.06);display:grid;place-items:center;overflow:hidden;flex:0 0 auto;
+    }
+    .avatar img{width:100%;height:100%;object-fit:cover;display:block;}
+    .memberText{min-width:0;}
+    .memberName{font-weight:900;letter-spacing:-.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .memberUser{color:var(--muted);font-size:13px;font-weight:900;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .memberRight{display:flex;gap:10px;align-items:center;justify-content:flex-end;flex-wrap:wrap;}
+
+    .tabs{display:flex;gap:10px;flex-wrap:wrap;}
+    .tab{
+      padding:10px 12px;border-radius:999px;border:1px solid var(--line);
+      background:rgba(255,255,255,.03);color:var(--muted);font-weight:900;cursor:pointer;
+    }
+    .tab.active{background:rgba(255,255,255,.06);color:var(--text);}
+    .hidden{display:none !important;}
+
+    @media (max-width: 720px){
+      .brandName{font-size:16px;white-space:normal;overflow:visible;text-overflow:unset;}
+      #themeToggle{display:none;}
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="nav">
+      <div class="brand">
+        <div class="logoBox" aria-hidden="true">
+          <img src="images/LogoBenitopng.png" alt="">
+        </div>
+        <div class="brandName">Tu Benito Bodoque Secreto</div>
+      </div>
+
+      <div class="menu">
+        <button class="themeToggle" id="themeToggle" type="button" aria-label="Cambiar tema">☀️</button>
+        <a class="btn btnGhost" href="dashboard.html">← Volver</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="panel">
+      <div class="block">
+        <div class="row" style="justify-content:space-between;align-items:flex-start;">
+          <div style="min-width:0;">
+            <h1 id="famTitle">Familia</h1>
+            <p class="sub" id="famMeta">—</p>
+          </div>
+          <div class="row">
+            <span class="pill" id="rolePill">—</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Invitación</h2>
+          <p>Comparte el link o el código. (Si no tienen cuenta, primero se registran.)</p>
+          <div class="row">
+            <span class="pill">Código: <span id="famCode">—</span></span>
+            <button class="btn" type="button" id="copyInvite">Copiar link</button>
+          </div>
+          <p class="hint" id="inviteMsg"></p>
+        </div>
+
+        <div class="tabs">
+          <button class="tab active" id="tabMembers" type="button">Miembros</button>
+          <button class="tab" id="tabGifts" type="button">Mis regalos</button>
+          <button class="tab hidden" id="tabAdmin" type="button">Admin</button>
+        </div>
+
+        <!-- MIEMBROS -->
+        <div class="card" id="membersSection">
+          <h2>Quién está dentro</h2>
+          <p>Lista de participantes y estado de regalos.</p>
+          <div class="members" id="membersList"></div>
+          <p class="hint" id="membersMsg"></p>
+        </div>
+
+        <!-- MIS REGALOS -->
+        <div class="card hidden" id="giftsSection">
+          <h2>Mis regalos (wishlist)</h2>
+          <p>Agrega regalos con link y descripción.</p>
+
+          <form id="giftForm" style="display:grid;gap:10px;">
+            <label class="label">Nombre del regalo</label>
+            <input class="input" id="giftName" placeholder="Ej: Audífonos" required>
+
+            <label class="label">Link</label>
+            <input class="input" id="giftLink" placeholder="https://..." required>
+
+            <label class="label">Descripción</label>
+            <textarea class="textarea" id="giftDesc" placeholder="Talla, color, detalles..."></textarea>
+
+            <div class="row">
+              <button class="btn btnPrimary" type="button" id="addGiftBtn">Agregar</button>
+              <button class="btn" type="button" id="clearMine">Limpiar mis regalos</button>
+            </div>
+
+            <p class="hint" id="giftMsg"></p>
+          </form>
+
+          <div class="card" style="background:rgba(255,255,255,.02);">
+            <div class="row" style="justify-content:space-between;">
+              <h2 style="margin:0;">Mi lista</h2>
+              <span class="pill" id="myGiftCount">0</span>
+            </div>
+            <div id="myGiftList" style="display:grid;gap:10px;margin-top:10px;"></div>
+          </div>
+        </div>
+
+        <!-- ADMIN -->
+        <div class="card hidden" id="adminSection">
+          <h2>Admin</h2>
+          <p>Configura reglas, crea usuarios y ejecuta sorteo.</p>
+
+          <div class="card" style="background:rgba(255,255,255,.02);">
+            <div class="row" style="justify-content:space-between;align-items:center;">
+              <div>
+                <h2 style="margin:0;">Acciones de admin</h2>
+                <p class="muted" style="margin:6px 0 0;">Eliminar familia borra miembros, reglas, sorteo y listas (solo en demo/local).</p>
+              </div>
+              <button class="btn" type="button" id="deleteFamilyBtn">Eliminar familia</button>
+            </div>
+            <p class="hint" id="deleteFamMsg"></p>
+          </div>
+
+
+          <div class="grid2">
+            <div class="card" style="background:rgba(255,255,255,.02);">
+              <h2>Crear usuario (solo para esta familia)</h2>
+              <p>Para meter a alguien sin que se registre.</p>
+
+              <form id="adminUserForm" style="display:grid;gap:10px;">
+                <label class="label">Nombre</label>
+                <input class="input" id="aName" placeholder="Ej: Sofía" required>
+
+                <label class="label">Usuario</label>
+                <input class="input" id="aUser" placeholder="Ej: sofia14" minlength="2" maxlength="18" required>
+
+                <label class="label">Teléfono (WhatsApp)</label>
+                <input class="input" id="aPhone" placeholder="Ej: 9981234567" inputmode="numeric" required>
+
+                <label class="label">Contraseña (temporal)</label>
+                <input class="input" type="password" id="aPass" placeholder="Mínimo 6 caracteres" minlength="6" required>
+
+                <div class="row">
+                  <button class="btn btnPrimary" type="submit">Crear y añadir</button>
+                </div>
+                <p class="hint" id="aUserMsg"></p>
+              </form>
+            </div>
+
+            <div class="card" style="background:rgba(255,255,255,.02);">
+              <h2>Reglas del sorteo</h2>
+              <p>Restricciones “A no le puede tocar B”.</p>
+
+              <div style="display:grid;gap:10px;">
+                <label class="label">Persona A</label>
+                <select class="select" id="ruleA"></select>
+
+                <label class="label">No puede tocarle… (B)</label>
+                <select class="select" id="ruleB"></select>
+
+                <div class="row">
+                  <button class="btn btnPrimary" type="button" id="addRule">Agregar regla</button>
+                  <button class="btn" type="button" id="clearRules">Borrar reglas</button>
+                </div>
+                <p class="hint" id="ruleMsg"></p>
+
+                <div class="card" style="background:rgba(255,255,255,.01);">
+                  <div class="row" style="justify-content:space-between;">
+                    <h2 style="margin:0;">Reglas activas</h2>
+                    <span class="pill" id="ruleCount">0</span>
+                  </div>
+                  <div id="rulesList" style="display:grid;gap:10px;margin-top:10px;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="background:rgba(255,255,255,.02);">
+            <h2>Ejecutar sorteo (demo)</h2>
+            <p>Genera asignaciones y las guarda. Luego esto se conecta a WhatsApp/Twilio.</p>
+            <div class="row">
+              <button class="btn btnPrimary" type="button" id="runDraw">Hacer sorteo</button>
+              <button class="btn" type="button" id="clearDraw">Borrar sorteo</button>
+            </div>
+            <p class="hint" id="drawMsg"></p>
+
+            <div class="card" id="drawBox" style="display:none;background:rgba(255,255,255,.01);">
+              <div class="row" style="justify-content:space-between;">
+                <h2 style="margin:0;">Resultado</h2>
+                <span class="pill" id="drawCount">0</span>
+              </div>
+              <div id="drawList" style="display:grid;gap:10px;margin-top:10px;"></div>
+              <p class="hint">*En demo: solo se guarda aquí. Luego mandamos WhatsApp con Twilio.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // ===== THEME =====
+    const root = document.documentElement;
+    const themeToggle = document.getElementById("themeToggle");
+    function setTheme(theme){
+      root.setAttribute("data-theme", theme);
+      localStorage.setItem("theme", theme);
+      themeToggle.textContent = (theme === "dark") ? "☀️" : "🌙";
+      document.querySelector('meta[name="theme-color"]')?.setAttribute("content", theme === "dark" ? "#0b1020" : "#f6f8ff");
+    }
+    setTheme(localStorage.getItem("theme") || "dark");
+    themeToggle.addEventListener("click", ()=> setTheme((root.getAttribute("data-theme") || "dark") === "dark" ? "light" : "dark"));
+
+    // ===== HELPERS / STORAGE =====
+    function msg(el, text, ok){
+      if(!el) return;
+      el.textContent = text || "";
+      el.classList.remove("ok","bad");
+      if(text) el.classList.add(ok ? "ok" : "bad");
+    }
+    function escapeHTML(str){
+      return String(str).replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]));
+    }
+    function cleanPhone(raw){ return (raw || "").replace(/\D/g, ""); }
+    function validPhoneMX(p){ return /^\d{10}$/.test(p); }
+    function validUsername(u){ return /^[a-zA-Z0-9_.]{2,18}$/.test(u); }
+    function onlyDigits(raw){ return (raw || "").replace(/\D/g, ""); }
+    function normalizePhone(raw, countryHint){
+      const txt = (raw || "").trim();
+      const hint = (countryHint || "+52").trim();
+      if(!txt) return null;
+      if(txt.startsWith("+")){
+        const d = onlyDigits(txt);
+        if(d.length < 8 || d.length > 15) return null;
+        return "+" + d;
+      }
+      const d = onlyDigits(txt);
+      if(d.length === 10){
+        const cc = onlyDigits(hint) || "52";
+        return "+" + cc + d;
+      }
+      if(d.length >= 11 && d.length <= 15){
+        return "+" + d;
+      }
+      return null;
+    }
+
+    function uuid(){ return (crypto?.randomUUID?.() || ("id_" + Math.random().toString(16).slice(2) + Date.now().toString(16))); }
+
+    function getUsers(){ try{ return JSON.parse(localStorage.getItem("bb_users") || "[]"); }catch{ return []; } }
+    function setUsers(users){ localStorage.setItem("bb_users", JSON.stringify(users)); }
+    function getSession(){ try{ return JSON.parse(localStorage.getItem("bb_session") || "null"); }catch{ return null; } }
+
+    function getFamilies(){ try{ return JSON.parse(localStorage.getItem("bb_families") || "[]"); }catch{ return []; } }
+    function setFamilies(list){ localStorage.setItem("bb_families", JSON.stringify(list)); }
+
+    function getMemberships(){ try{ return JSON.parse(localStorage.getItem("bb_memberships") || "[]"); }catch{ return []; } }
+    function setMemberships(list){ localStorage.setItem("bb_memberships", JSON.stringify(list)); }
+
+    // Wishlists: [{id,familyId,userPhone,items:[{id,name,link,desc,createdAt}]}]
+    function getWishlists(){ try{ return JSON.parse(localStorage.getItem("bb_wishlists") || "[]"); }catch{ return []; } }
+    function setWishlists(list){ localStorage.setItem("bb_wishlists", JSON.stringify(list)); }
+
+    // Rules: per family: [{id,familyId,notAllowed:[{aPhone,bPhone}]}]
+    function getRules(){ try{ return JSON.parse(localStorage.getItem("bb_rules") || "[]"); }catch{ return []; } }
+    function setRules(list){ localStorage.setItem("bb_rules", JSON.stringify(list)); }
+
+    // Draws: per family: [{id,familyId,pairs:[{giverPhone,receiverPhone}]}]
+    function getDraws(){ try{ return JSON.parse(localStorage.getItem("bb_draws") || "[]"); }catch{ return []; } }
+    function setDraws(list){ localStorage.setItem("bb_draws", JSON.stringify(list)); }
+
+    // ===== AUTH GUARD =====
+    const session = getSession();
+    const sessionPhone = normalizePhone(session?.phone, "+52") || session?.phone;
+    if(!session){
+      window.location.href = "auth.html";
+    }
+
+    // ===== LOAD FAMILY =====
+const params = new URLSearchParams(location.search);
+
+// Primero cargamos familias para poder resolver por código
+const families = getFamilies();
+
+const familyIdParam =
+  params.get("id") ||
+  params.get("familyId") ||
+  params.get("grupo") ||
+  params.get("group");
+
+const codeParam =
+  params.get("code") ||
+  params.get("codigo") ||
+  params.get("inv") ||
+  params.get("invite") ||
+  params.get("c");
+
+let familyId = familyIdParam;
+
+// Si viene por código, resolver a id
+if(!familyId && codeParam){
+  const famByCode = families.find(f =>
+    String(f.code || "").toUpperCase() === String(codeParam).toUpperCase()
+  );
+  if(famByCode) familyId = famByCode.id;
+}
+
+if(!familyId){
+  window.location.href = "dashboard.html";
+}
+
+const family = families.find(f => f.id === familyId);
+
+if(!family){
+  alert("No encontré esta familia. Tal vez el link/código está mal o la familia fue eliminada.");
+  window.location.href = "dashboard.html";
+}
+
+// Verify membership
+    const memberships = getMemberships();
+    const myMembership = memberships.find(m => m.familyId === familyId && (normalizePhone(m.userPhone, "+52") || m.userPhone) === sessionPhone);
+    if(!myMembership){
+      window.location.href = "dashboard.html";
+    }
+    const isAdmin = (myMembership.role === "admin");
+
+    // ===== HEADER INFO =====
+    const famTitle = document.getElementById("famTitle");
+    const famMeta = document.getElementById("famMeta");
+    const famCode = document.getElementById("famCode");
+    const rolePill = document.getElementById("rolePill");
+
+    famTitle.textContent = family.name || "Familia";
+    famMeta.textContent = `📅 ${family.date || "—"} • 💸 $${family.budget ?? "—"}`;
+    famCode.textContent = (family.code || "—");
+    rolePill.textContent = isAdmin ? "Admin" : "Miembro";
+
+    // Invite link
+    const copyInvite = document.getElementById("copyInvite");
+    const inviteMsg = document.getElementById("inviteMsg");
+    const inviteLink = `${location.origin}${location.pathname.replace(/\/[^\/]*$/, "/")}auth.html?code=${family.code}`;
+    copyInvite.addEventListener("click", async ()=>{
+      try{
+        await navigator.clipboard.writeText(inviteLink);
+        msg(inviteMsg, "Link copiado.", true);
+      }catch{
+        msg(inviteMsg, "No pude copiar. Cópialo manual.", false);
+      }
+    });
+
+    // ===== TABS =====
+    const tabMembers = document.getElementById("tabMembers");
+    const tabGifts = document.getElementById("tabGifts");
+    const tabAdmin = document.getElementById("tabAdmin");
+    const membersSection = document.getElementById("membersSection");
+    const giftsSection = document.getElementById("giftsSection");
+    const adminSection = document.getElementById("adminSection");
+
+    if(isAdmin) tabAdmin.classList.remove("hidden");
+
+    function setTab(which){
+      tabMembers.classList.toggle("active", which === "members");
+      tabGifts.classList.toggle("active", which === "gifts");
+      tabAdmin.classList.toggle("active", which === "admin");
+
+      membersSection.classList.toggle("hidden", which !== "members");
+      giftsSection.classList.toggle("hidden", which !== "gifts");
+      adminSection.classList.toggle("hidden", which !== "admin");
+    }
+    tabMembers.addEventListener("click", ()=> setTab("members"));
+    tabGifts.addEventListener("click", ()=> setTab("gifts"));
+    tabAdmin.addEventListener("click", ()=> setTab("admin"));
+    setTab("members");
+
+    // ===== MEMBERS LIST =====
+    const membersList = document.getElementById("membersList");
+    const membersMsg = document.getElementById("membersMsg");
+
+    function getUserByPhone(phone){
+      const users = getUsers();
+      const target = normalizePhone(phone, "+52") || phone;
+      return users.find(u => (normalizePhone(u.phone, "+52") || u.phone) === target) || null;
+    }
+
+    function getWishlistFor(phone){
+      const lists = getWishlists();
+      return lists.find(w => w.familyId === familyId && (normalizePhone(w.userPhone, "+52") || w.userPhone) === (normalizePhone(phone, "+52") || phone)) || null;
+    }
+
+    function renderMembers(){
+      membersList.innerHTML = "";
+      const famMembers = memberships.filter(m => m.familyId === familyId);
+
+      if(famMembers.length === 0){
+        msg(membersMsg, "No hay miembros todavía.", false);
+        return;
+      }
+      msg(membersMsg, "", true);
+
+      famMembers.forEach(m=>{
+        const u = getUserByPhone(m.userPhone);
+        const wl = getWishlistFor(m.userPhone);
+        const giftCount = wl?.items?.length || 0;
+
+        const avatarHTML = u?.photo ? `<img alt="Foto" src="${u.photo}">` : "🙂";
+        const name = u?.name || "Sin nombre";
+        const username = u?.username || "—";
+
+        const el = document.createElement("div");
+        el.className = "member";
+        el.innerHTML = `
+          <div class="memberLeft">
+            <div class="avatar">${avatarHTML}</div>
+            <div class="memberText">
+              <div class="memberName">${escapeHTML(name)}</div>
+              <div class="memberUser">@${escapeHTML(username)} • ${escapeHTML(u?.phone || m.userPhone)}</div>
+            </div>
+          </div>
+          <div class="memberRight">
+            <span class="pill">${m.role === "admin" ? "Admin" : "Miembro"}</span>
+            <span class="pill">${giftCount > 0 ? "✅ Regalos: " + giftCount : "⏳ Sin regalos"}</span>
+          </div>
+        `;
+        membersList.appendChild(el);
+      });
+
+      // admin selects should refresh too
+      if(isAdmin){
+        refreshRuleSelects();
+        renderRules();
+        renderDraw();
+      }
+      renderMyGifts();
+    }
+    renderMembers();
+
+    // ===== MY GIFTS =====
+    const giftForm = document.getElementById("giftForm");
+    const giftMsg = document.getElementById("giftMsg");
+    const myGiftList = document.getElementById("myGiftList");
+    const myGiftCount = document.getElementById("myGiftCount");
+    const clearMine = document.getElementById("clearMine");
+
+    function ensureWishlist(){
+      const lists = getWishlists();
+      let wl = lists.find(w => w.familyId === familyId && (normalizePhone(w.userPhone, "+52") || w.userPhone) === sessionPhone);
+      if(!wl){
+        wl = { id: uuid(), familyId, userPhone: sessionPhone, items: [] };
+        lists.push(wl);
+        setWishlists(lists);
+      }
+      return wl;
+    }
+
+    function renderMyGifts(){
+      const wl = ensureWishlist();
+      const items = wl.items || [];
+      myGiftCount.textContent = String(items.length);
+      myGiftList.innerHTML = "";
+
+      if(items.length === 0){
+        myGiftList.innerHTML = `<div class="muted">Aún no agregas regalos.</div>`;
+        return;
+      }
+
+      items.slice().reverse().forEach(item=>{
+        const box = document.createElement("div");
+        box.className = "card";
+        box.style.background = "rgba(255,255,255,.02)";
+        box.innerHTML = `
+          <div class="row" style="justify-content:space-between;align-items:flex-start;">
+            <div style="min-width:0;">
+              <div style="font-weight:900;letter-spacing:-.3px;">${escapeHTML(item.name)}</div>
+              <div class="muted" style="margin-top:6px;word-break:break-all;">
+                <a href="${escapeHTML(item.link)}" target="_blank" rel="noopener">Abrir link</a>
+              </div>
+              <div class="muted" style="margin-top:6px;">${escapeHTML(item.desc || "")}</div>
+            </div>
+            <button class="btn" type="button" data-del="${item.id}">Eliminar</button>
+          </div>
+        `;
+        box.querySelector("[data-del]")?.addEventListener("click", ()=>{
+          deleteGift(item.id);
+        });
+        myGiftList.appendChild(box);
+      });
+    }
+
+    function saveWishlist(wl){
+      const lists = getWishlists();
+      const idx = lists.findIndex(w => w.id === wl.id);
+      if(idx >= 0) lists[idx] = wl;
+      else lists.push(wl);
+      setWishlists(lists);
+    }
+
+    function deleteGift(itemId){
+      const wl = ensureWishlist();
+      wl.items = (wl.items || []).filter(i => i.id !== itemId);
+      saveWishlist(wl);
+      msg(giftMsg, "Regalo eliminado.", true);
+      renderMembers();
+    }
+
+    
+    function addGift(){
+      const name = (document.getElementById("giftName").value || "").trim();
+      let link = (document.getElementById("giftLink").value || "").trim();
+      const desc = (document.getElementById("giftDesc").value || "").trim();
+
+      if(name.length < 2) return msg(giftMsg, "Nombre inválido.", false);
+
+      // si no puso http, se lo ponemos
+      if(link && !/^https?:\/\//i.test(link)){
+        link = "https://" + link.replace(/^\/+/, "");
+        document.getElementById("giftLink").value = link;
+      }
+      if(!/^https?:\/\//i.test(link)) return msg(giftMsg, "Pon un link válido (http/https).", false);
+
+      const wl = ensureWishlist();
+      wl.items = wl.items || [];
+      wl.items.push({ id: uuid(), name, link, desc, createdAt: Date.now() });
+      saveWishlist(wl);
+
+      // limpia inputs
+      document.getElementById("giftName").value = "";
+      document.getElementById("giftLink").value = "";
+      document.getElementById("giftDesc").value = "";
+
+      msg(giftMsg, "Regalo agregado.", true);
+      renderMembers();
+    }
+
+    // Evita que el form navegue/recargue
+    giftForm?.addEventListener("submit", (e)=>{ e.preventDefault(); addGift(); });
+
+    // Botón explícito (más confiable en móvil)
+    document.getElementById("addGiftBtn")?.addEventListener("click", (e)=>{ e.preventDefault(); addGift(); });
+clearMine.addEventListener("click", ()=>{
+      const wl = ensureWishlist();
+      wl.items = [];
+      saveWishlist(wl);
+      msg(giftMsg, "Tu lista quedó vacía.", true);
+      renderMembers();
+    });
+
+    // ===== ADMIN: CREATE USER =====
+    const adminUserForm = document.getElementById("adminUserForm");
+    const aUserMsg = document.getElementById("aUserMsg");
+
+    if(isAdmin){
+      adminUserForm.addEventListener("submit", (e)=>{
+        e.preventDefault();
+        const name = (document.getElementById("aName").value || "").trim();
+        const username = (document.getElementById("aUser").value || "").trim();
+        const phone = normalizePhone(document.getElementById("aPhone").value, "+52");
+        const pass = document.getElementById("aPass").value;
+
+        if(name.length < 2) return msg(aUserMsg, "Nombre inválido.", false);
+        if(!validUsername(username)) return msg(aUserMsg, "Usuario inválido (2–18, letras/números/_/.)", false);
+        if(!phone) return msg(aUserMsg, "Teléfono inválido. MX: 10 dígitos. Otro: +código.", false);
+        if(pass.length < 6) return msg(aUserMsg, "Contraseña muy corta (mínimo 6).", false);
+
+        const users = getUsers();
+        if(users.some(u => (u.username || "").toLowerCase() === username.toLowerCase()))
+          return msg(aUserMsg, "Ese usuario ya existe.", false);
+        if(users.some(u => (normalizePhone(u.phone, "+52") || u.phone) === phone))
+          return msg(aUserMsg, "Ese teléfono ya está registrado.", false);
+
+        // Create user
+        users.push({ username, phone, pass, name, photo: null, createdAt: Date.now(), createdByAdmin: true });
+        setUsers(users);
+
+        // Add membership to family
+        const mems = getMemberships();
+        mems.push({ id: uuid(), familyId, userPhone: normalizePhone(phone, "+52") || phone, role: "member", joinedAt: Date.now(), addedBy: sessionPhone });
+        setMemberships(mems);
+
+        adminUserForm.reset();
+        msg(aUserMsg, "Usuario creado y agregado a la familia.", true);
+        renderMembers();
+      });
+    }
+
+    // ===== ADMIN: RULES =====
+    const ruleA = document.getElementById("ruleA");
+    const ruleB = document.getElementById("ruleB");
+    const addRule = document.getElementById("addRule");
+    const clearRules = document.getElementById("clearRules");
+    const ruleMsg = document.getElementById("ruleMsg");
+    const rulesList = document.getElementById("rulesList");
+    const ruleCount = document.getElementById("ruleCount");
+
+    function getFamilyRules(){
+      const all = getRules();
+      let r = all.find(x => x.familyId === familyId);
+      if(!r){
+        r = { id: uuid(), familyId, notAllowed: [] };
+        all.push(r);
+        setRules(all);
+      }
+      return r;
+    }
+
+    function saveFamilyRules(r){
+      const all = getRules();
+      const idx = all.findIndex(x => x.id === r.id);
+      if(idx >= 0) all[idx] = r;
+      else all.push(r);
+      setRules(all);
+    }
+
+    function refreshRuleSelects(){
+      const famMembers = memberships.filter(m => m.familyId === familyId);
+      const opts = famMembers.map(m => {
+        const u = getUserByPhone(m.userPhone);
+        const label = `${u?.name || "Sin nombre"} (@${u?.username || "—"})`;
+        return { phone: m.userPhone, label };
+      });
+
+      function fill(select){
+        select.innerHTML = "";
+        opts.forEach(o=>{
+          const opt = document.createElement("option");
+          opt.value = o.phone;
+          opt.textContent = o.label;
+          select.appendChild(opt);
+        });
+      }
+      fill(ruleA);
+      fill(ruleB);
+    }
+
+    function renderRules(){
+      if(!isAdmin) return;
+      const r = getFamilyRules();
+      const list = r.notAllowed || [];
+      ruleCount.textContent = String(list.length);
+      rulesList.innerHTML = "";
+
+      if(list.length === 0){
+        rulesList.innerHTML = `<div class="muted">Sin reglas aún.</div>`;
+        return;
+      }
+
+      list.slice().reverse().forEach(pair=>{
+        const aU = getUserByPhone(pair.aPhone);
+        const bU = getUserByPhone(pair.bPhone);
+        const text = `${aU?.name || pair.aPhone} no puede tocarle a ${bU?.name || pair.bPhone}`;
+
+        const box = document.createElement("div");
+        box.className = "member";
+        box.innerHTML = `
+          <div class="memberLeft">
+            <div class="memberText">
+              <div class="memberName">${escapeHTML(text)}</div>
+              <div class="memberUser">@${escapeHTML(aU?.username || "—")} → @${escapeHTML(bU?.username || "—")}</div>
+            </div>
+          </div>
+          <div class="memberRight">
+            <button class="btn" type="button" data-del="${pair.id}">Eliminar</button>
+          </div>
+        `;
+        box.querySelector("[data-del]")?.addEventListener("click", ()=>{
+          const rr = getFamilyRules();
+          rr.notAllowed = (rr.notAllowed || []).filter(x => x.id !== pair.id);
+          saveFamilyRules(rr);
+          msg(ruleMsg, "Regla eliminada.", true);
+          renderRules();
+        });
+        rulesList.appendChild(box);
+      });
+    }
+
+    if(isAdmin){
+      refreshRuleSelects();
+      renderRules();
+
+      addRule.addEventListener("click", ()=>{
+        const a = ruleA.value;
+        const b = ruleB.value;
+        if(!a || !b) return msg(ruleMsg, "Selecciona A y B.", false);
+        if(a === b) return msg(ruleMsg, "No puede ser la misma persona.", false);
+
+        const rr = getFamilyRules();
+        rr.notAllowed = rr.notAllowed || [];
+
+        const exists = rr.notAllowed.some(x => x.aPhone === a && x.bPhone === b);
+        if(exists) return msg(ruleMsg, "Esa regla ya existe.", false);
+
+        rr.notAllowed.push({ id: uuid(), aPhone: a, bPhone: b, createdAt: Date.now() });
+        saveFamilyRules(rr);
+        msg(ruleMsg, "Regla agregada.", true);
+        renderRules();
+      });
+
+      clearRules.addEventListener("click", ()=>{
+        const rr = getFamilyRules();
+        rr.notAllowed = [];
+        saveFamilyRules(rr);
+        msg(ruleMsg, "Reglas borradas.", true);
+        renderRules();
+      });
+    }
+
+    // ===== ADMIN: DRAW (simple backtracking) =====
+    const runDraw = document.getElementById("runDraw");
+    const clearDraw = document.getElementById("clearDraw");
+    const drawMsg = document.getElementById("drawMsg");
+    const drawBox = document.getElementById("drawBox");
+    const drawList = document.getElementById("drawList");
+    const drawCount = document.getElementById("drawCount");
+
+    function getFamilyDraw(){
+      const all = getDraws();
+      return all.find(d => d.familyId === familyId) || null;
+    }
+    function saveFamilyDraw(pairs){
+      const all = getDraws();
+      const idx = all.findIndex(d => d.familyId === familyId);
+      const obj = { id: uuid(), familyId, pairs, createdAt: Date.now() };
+      if(idx >= 0) all[idx] = obj; else all.push(obj);
+      setDraws(all);
+      return obj;
+    }
+    function clearFamilyDraw(){
+      const all = getDraws().filter(d => d.familyId !== familyId);
+      setDraws(all);
+    }
+
+    function canGiveTo(giver, receiver, rules){
+      if(giver === receiver) return false;
+      const blocked = (rules?.notAllowed || []).some(x => x.aPhone === giver && x.bPhone === receiver);
+      return !blocked;
+    }
+
+    function shuffle(arr){
+      const a = arr.slice();
+      for(let i=a.length-1;i>0;i--){
+        const j = Math.floor(Math.random()*(i+1));
+        [a[i],a[j]]=[a[j],a[i]];
+      }
+      return a;
+    }
+
+    // Backtracking assignment
+    function makeDraw(people, rules){
+      const givers = shuffle(people);
+      const receivers = people.slice();
+      const used = new Set();
+      const pairs = [];
+
+      function backtrack(i){
+        if(i === givers.length) return true;
+        const giver = givers[i];
+
+        // try receivers in random order
+        const order = shuffle(receivers);
+        for(const r of order){
+          if(used.has(r)) continue;
+          if(!canGiveTo(giver, r, rules)) continue;
+
+          used.add(r);
+          pairs.push({ giverPhone: giver, receiverPhone: r });
+
+          if(backtrack(i+1)) return true;
+
+          pairs.pop();
+          used.delete(r);
+        }
+        return false;
+      }
+
+      const ok = backtrack(0);
+      return ok ? pairs : null;
+    }
+
+    function renderDraw(){
+      if(!isAdmin) return;
+      const d = getFamilyDraw();
+      if(!d || !d.pairs || d.pairs.length === 0){
+        drawBox.style.display = "none";
+        return;
+      }
+      drawBox.style.display = "block";
+      drawCount.textContent = String(d.pairs.length);
+      drawList.innerHTML = "";
+
+      d.pairs.forEach(p=>{
+        const gU = getUserByPhone(p.giverPhone);
+        const rU = getUserByPhone(p.receiverPhone);
+        const line = document.createElement("div");
+        line.className = "member";
+        line.innerHTML = `
+          <div class="memberLeft">
+            <div class="memberText">
+              <div class="memberName">${escapeHTML(gU?.name || p.giverPhone)} → ${escapeHTML(rU?.name || p.receiverPhone)}</div>
+              <div class="memberUser">@${escapeHTML(gU?.username || "—")} le toca @${escapeHTML(rU?.username || "—")}</div>
+            </div>
+          </div>
+          <div class="memberRight">
+            <span class="pill">OK</span>
+          </div>
+        `;
+        drawList.appendChild(line);
+      });
+    }
+
+    if(isAdmin){
+      renderDraw();
+
+      runDraw.addEventListener("click", ()=>{
+        const famMembers = memberships.filter(m => m.familyId === familyId).map(m => m.userPhone);
+        if(famMembers.length < 3) return msg(drawMsg, "Necesitas mínimo 3 personas para sortear.", false);
+
+        const rules = getFamilyRules();
+        const pairs = makeDraw(famMembers, rules);
+
+        if(!pairs){
+          msg(drawMsg, "No pude crear un sorteo con esas reglas. Quita restricciones.", false);
+          return;
+        }
+
+        saveFamilyDraw(pairs);
+        msg(drawMsg, "Sorteo creado (demo).", true);
+        renderDraw();
+      });
+
+      clearDraw.addEventListener("click", ()=>{
+        clearFamilyDraw();
+        msg(drawMsg, "Sorteo borrado.", true);
+        renderDraw();
+      });
+
+
+    // ===== ADMIN: DELETE FAMILY =====
+    const deleteFamilyBtn = document.getElementById("deleteFamilyBtn");
+    const deleteFamMsg = document.getElementById("deleteFamMsg");
+
+    function hardDeleteFamily(){
+      // families
+      setFamilies(getFamilies().filter(f => f.id !== familyId));
+      // memberships
+      setMemberships(getMemberships().filter(m => m.familyId !== familyId));
+      // wishlists
+      setWishlists(getWishlists().filter(w => w.familyId !== familyId));
+      // rules
+      setRules(getRules().filter(r => r.familyId !== familyId));
+      // draws
+      setDraws(getDraws().filter(d => d.familyId !== familyId));
+    }
+
+    deleteFamilyBtn?.addEventListener("click", ()=>{
+      const ok = confirm("¿Eliminar esta familia? Se borrará todo (miembros, regalos, reglas y sorteo).");
+      if(!ok) return;
+      hardDeleteFamily();
+      msg(deleteFamMsg, "Familia eliminada.", true);
+      window.location.href = "dashboard.html";
+    });
+
+    }
+  </script>
+</body>
+</html>
