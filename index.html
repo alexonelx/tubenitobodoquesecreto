@@ -507,6 +507,22 @@
     display: none !important;
   }
 }
+/* ===== SCROLL REVEAL (fade + slide) ===== */
+.reveal{
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity .45s ease, transform .45s ease;
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce){
+  .reveal{ opacity: 1 !important; transform: none !important; transition: none !important; }
+}
 
   </style>
 </head>
@@ -552,7 +568,7 @@
   </div>
 
   <main class="wrap">
-    <section id="inicio" class="panel">
+    <section id="inicio" class="panel reveal">
       <div class="block">
         <div class="copy">
           <h1>Intercambio navideño.</h1>
@@ -577,7 +593,7 @@
       </div>
     </section>
 
-    <section id="como" class="panel">
+    <section id="como" class="panel reveal">
       <div class="block">
         <div class="copy">
           <h1 style="font-size:clamp(26px,5vw,40px); letter-spacing:-.7px;">Cómo funciona</h1>
@@ -673,6 +689,19 @@
     };
     window.addEventListener("scroll", setActive, { passive:true });
     setActive();
+    // ===== SCROLL REVEAL =====
+const revealEls = document.querySelectorAll(".reveal");
+const io = new IntersectionObserver((entries) => {
+  entries.forEach((e) => {
+    if (e.isIntersecting) {
+      e.target.classList.add("is-visible");
+      io.unobserve(e.target); // una sola vez
+    }
+  });
+}, { threshold: 0.15 });
+
+revealEls.forEach(el => io.observe(el));
+
   </script>
 </body>
 </html>
