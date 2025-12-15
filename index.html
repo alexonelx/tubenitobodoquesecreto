@@ -389,6 +389,25 @@
     height: 46px;
   }
 }
+/* ===== BRAND NAME FINAL FIX (SIN …) ===== */
+@media (max-width: 720px){
+
+  .brandName{
+    font-size: 16px;
+    line-height: 1.15;
+    font-weight: 900;
+
+    /* QUITAR cualquier truncado */
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+
+    /* QUITAR clamps */
+    display: block !important;
+    -webkit-line-clamp: unset !important;
+    -webkit-box-orient: unset !important;
+  }
+}
 
   </style>
 </head>
