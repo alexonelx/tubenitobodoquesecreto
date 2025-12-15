@@ -501,6 +501,12 @@
   letter-spacing: -0.9px;
   font-size: clamp(28px, 6vw, 46px);
 }
+/* En móvil: oculta el toggle del header, deja solo el del menú */
+@media (max-width: 720px){
+  #themeToggle{
+    display: none !important;
+  }
+}
 
   </style>
 </head>
