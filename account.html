@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mi cuenta • Tu Benito Bodoque Secreto</title>
+
+  <!-- Favicons -->
+  <link rel="icon" href="./favicon.ico">
+  <link rel="icon" href="./images/icons/favicon.ico?v=7">
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/icons/favicon-32x32.png?v=7">
+  <link rel="apple-touch-icon" sizes="180x180" href="./images/icons/apple-touch-icon.png?v=7">
+  <link rel="manifest" href="./images/icons/site.webmanifest">
+  <meta name="theme-color" content="#0b1020">
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      color-scheme: dark;
+      --bg:#0b1020;
+      --panel:#0f1730;
+      --text:#eef2ff;
+      --muted:#9aa7c7;
+      --line:rgba(255,255,255,.12);
+      --radius:18px;
+      --shadow:0 18px 50px rgba(0,0,0,.45);
+      --max: 1120px;
+      --headerA: rgba(11,16,32,.82);
+      --headerB: rgba(11,16,32,.30);
+      --t:.18s ease;
+    }
+    html[data-theme="light"]{
+      color-scheme: light;
+      --bg:#f6f8ff;
+      --panel:#ffffff;
+      --text:#0f172a;
+      --muted:#475569;
+      --line:rgba(15,23,42,.12);
+      --shadow:0 18px 50px rgba(15,23,42,.10);
+      --headerA: rgba(246,248,255,.90);
+      --headerB: rgba(246,248,255,.60);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(900px 500px at 10% -10%, rgba(78,166,255,.14), transparent 60%),
+        radial-gradient(900px 500px at 90% 0%, rgba(255,77,90,.10), transparent 55%),
+        var(--bg);
+      overflow-x:hidden;
+      transition: background var(--t), color var(--t);
+    }
+    a{color:inherit;text-decoration:none}
+    button,input{font:inherit}
+    :focus-visible{ outline: 3px solid rgba(78,166,255,.55); outline-offset: 3px; border-radius: 12px; }
+    .wrap{max-width:var(--max);margin:0 auto;padding:18px 18px 110px;}
+
+    header{
+      position: sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, var(--headerA), var(--headerB));
+      border-bottom: 1px solid var(--line);
+    }
+    .nav{max-width:var(--max);margin:0 auto;padding:12px 18px;display:flex;align-items:center;gap:12px;}
+    .brand{display:flex;align-items:center;gap:12px;min-width:0;flex:1 1 auto;}
+    .logoBox{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;overflow:hidden;flex:0 0 auto;}
+    .logoBox img{width:100%;height:100%;object-fit:contain;filter: drop-shadow(0 6px 14px rgba(0,0,0,.35));}
+    .brandName{font-weight:900;letter-spacing:-.6px;font-size:18px;line-height:1.05;max-width:30ch;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .menu{display:flex;align-items:center;gap:10px;flex:0 0 auto;}
+
+    .themeToggle{
+      width:42px;height:42px;border-radius:999px;border:1px solid var(--line);
+      background:rgba(255,255,255,.06);color:var(--text);
+      display:grid;place-items:center;cursor:pointer;
+      transition: transform var(--t), background var(--t), border-color var(--t);
+    }
+    .themeToggle:hover{transform:translateY(-1px);}
+
+    .btn{
+      padding:10px 12px;border-radius:14px;border:1px solid var(--line);
+      background:rgba(255,255,255,.06);color:var(--text);font-weight:900;cursor:pointer;
+      transition: transform var(--t), background var(--t), border-color var(--t);
+    }
+    .btn:hover{transform:translateY(-1px);}
+    .btnPrimary{border:none;background:linear-gradient(135deg, rgba(255,77,90,.92), rgba(78,166,255,.86));}
+    .btnGhost{background:rgba(255,255,255,.03);}
+
+    .panel{
+      margin-top:26px;border:1px solid var(--line);
+      border-radius: calc(var(--radius) + 8px);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .panel::before{
+      content:""; position:absolute; inset:0; pointer-events:none; border-radius:inherit;
+      background:
+        radial-gradient(600px 240px at 20% 0%, rgba(78,166,255,.10), transparent 60%),
+        radial-gradient(600px 240px at 80% 0%, rgba(255,77,90,.08), transparent 60%);
+      opacity:.9;
+    }
+    .panel > *{position:relative;}
+    .block{padding:28px;display:grid;gap:16px;}
+    h1{margin:0;letter-spacing:-1px;font-weight:900;font-size:clamp(26px,6vw,44px);line-height:1.06;}
+    .sub{margin:6px 0 0;color:var(--muted);font-size:15px;line-height:1.75;max-width:70ch;}
+    .muted{color:var(--muted);}
+
+    .grid2{display:grid;gap:12px;grid-template-columns:1fr;}
+    @media (min-width: 920px){
+      .grid2{grid-template-columns:1fr 1fr;}
+    }
+
+    .card{
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:rgba(255,255,255,.04);
+      padding:16px;
+      display:grid;
+      gap:10px;
+    }
+    .card h2{margin:0;font-size:18px;letter-spacing:-.4px;font-weight:900;}
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+    .input{
+      width:100%;
+      padding:12px;border-radius:14px;border:1px solid var(--line);
+      background:rgba(255,255,255,.04);color:var(--text);outline:none;
+    }
+    .label{font-size:13px;color:var(--muted);font-weight:800;margin-top:4px;}
+    .hint{margin:8px 0 0;color:var(--muted);font-size:13px;line-height:1.45;min-height:18px;}
+    .hint.ok{color:rgba(110,231,183,.95);}
+    .hint.bad{color:rgba(248,113,113,.95);}
+
+    .avatarBig{
+      width:96px;height:96px;border-radius:999px;border:1px solid var(--line);
+      background:rgba(255,255,255,.06);display:grid;place-items:center;overflow:hidden;
+      font-size:34px;font-weight:900;
+    }
+    .avatarBig img{width:100%;height:100%;object-fit:cover;display:block;}
+    .file{
+      display:inline-flex;align-items:center;gap:10px;
+      padding:10px 12px;border-radius:14px;border:1px solid var(--line);
+      background:rgba(255,255,255,.04);cursor:pointer;font-weight:900;
+    }
+    .file input{display:none;}
+
+    @media (max-width: 720px){
+      .brandName{font-size:16px;white-space:normal;overflow:visible;text-overflow:unset;}
+      #themeToggle{display:none;}
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="nav">
+      <div class="brand">
+        <div class="logoBox" aria-hidden="true">
+          <img src="images/LogoBenitopng.png" alt="">
+        </div>
+        <div class="brandName">Tu Benito Bodoque Secreto</div>
+      </div>
+
+      <div class="menu">
+        <button class="themeToggle" id="themeToggle" type="button" aria-label="Cambiar tema">☀️</button>
+        <a class="btn btnGhost" href="dashboard.html">← Volver</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="panel">
+      <div class="block">
+        <div>
+          <h1>Mi cuenta</h1>
+          <p class="sub">Edita tu nombre, tu usuario y sube una foto. (Todo se guarda local en tu navegador por ahora.)</p>
+        </div>
+
+        <div class="grid2">
+          <div class="card">
+            <h2>Foto de perfil</h2>
+            <div class="row">
+              <div class="avatarBig" id="avatarBig">🙂</div>
+              <div style="display:grid;gap:10px;min-width:220px;">
+                <label class="file">
+                  Subir foto
+                  <input type="file" id="photoInput" accept="image/*" />
+                </label>
+                <button class="btn" type="button" id="removePhoto">Quitar foto</button>
+                <p class="hint" id="photoMsg"></p>
+              </div>
+            </div>
+            <p class="muted" style="margin:0;">Tip: usa una imagen cuadrada para que se vea mejor.</p>
+          </div>
+
+          <div class="card">
+            <h2>Datos</h2>
+
+            <form id="accountForm" style="display:grid;gap:10px;">
+              <label class="label">Nombre</label>
+              <input class="input" id="accName" placeholder="Ej: Alexis" required>
+
+              <label class="label">Usuario</label>
+              <input class="input" id="accUser" placeholder="Ej: alex_99" minlength="2" maxlength="18" required>
+
+              <label class="label">Teléfono</label>
+              <input class="input" id="accPhone" disabled>
+
+              <div class="row">
+                <button class="btn btnPrimary" type="submit">Guardar cambios</button>
+              </div>
+              <p class="hint" id="accMsg"></p>
+            </form>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Cambiar contraseña</h2>
+          <form id="passForm" style="display:grid;gap:10px;">
+            <label class="label">Contraseña actual</label>
+            <input class="input" type="password" id="curPass" minlength="6" required>
+
+            <label class="label">Nueva contraseña</label>
+            <input class="input" type="password" id="newPass" minlength="6" required>
+
+            <label class="label">Confirmar nueva contraseña</label>
+            <input class="input" type="password" id="newPass2" minlength="6" required>
+
+            <div class="row">
+              <button class="btn btnPrimary" type="submit">Cambiar</button>
+            </div>
+            <p class="hint" id="passMsg"></p>
+          </form>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // ===== THEME =====
+    const root = document.documentElement;
+    const themeToggle = document.getElementById("themeToggle");
+    function setTheme(theme){
+      root.setAttribute("data-theme", theme);
+      localStorage.setItem("theme", theme);
+      themeToggle.textContent = (theme === "dark") ? "☀️" : "🌙";
+      document.querySelector('meta[name="theme-color"]')?.setAttribute("content", theme === "dark" ? "#0b1020" : "#f6f8ff");
+    }
+    setTheme(localStorage.getItem("theme") || "dark");
+    themeToggle.addEventListener("click", ()=> setTheme((root.getAttribute("data-theme") || "dark") === "dark" ? "light" : "dark"));
+
+    // ===== HELPERS / STORAGE =====
+    function msg(el, text, ok){
+      if(!el) return;
+      el.textContent = text || "";
+      el.classList.remove("ok","bad");
+      if(text) el.classList.add(ok ? "ok" : "bad");
+    }
+    function cleanPhone(raw){ return (raw || "").replace(/\D/g, ""); }
+    function validPhoneMX(p){ return /^\d{10}$/.test(p); }
+    function validUsername(u){ return /^[a-zA-Z0-9_.]{2,18}$/.test(u); }
+
+    function getUsers(){ try{ return JSON.parse(localStorage.getItem("bb_users") || "[]"); }catch{ return []; } }
+    function setUsers(users){ localStorage.setItem("bb_users", JSON.stringify(users)); }
+    function getSession(){ try{ return JSON.parse(localStorage.getItem("bb_session") || "null"); }catch{ return null; } }
+    function setSession(s){ localStorage.setItem("bb_session", JSON.stringify(s)); }
+
+    // ===== AUTH GUARD =====
+    const session = getSession();
+    if(!session){
+      window.location.href = "auth.html";
+    }
+
+    function findUser(){
+      const users = getUsers();
+      return users.find(u => u.phone === session.phone) || users.find(u => (u.username || "").toLowerCase() === (session.username || "").toLowerCase()) || null;
+    }
+
+    function saveUser(updated){
+      const users = getUsers();
+      const idx = users.findIndex(u => u.phone === updated.phone);
+      if(idx >= 0) users[idx] = updated; else users.push(updated);
+      setUsers(users);
+    }
+
+    const avatarBig = document.getElementById("avatarBig");
+    const photoInput = document.getElementById("photoInput");
+    const removePhoto = document.getElementById("removePhoto");
+    const photoMsg = document.getElementById("photoMsg");
+
+    const accountForm = document.getElementById("accountForm");
+    const accName = document.getElementById("accName");
+    const accUser = document.getElementById("accUser");
+    const accPhone = document.getElementById("accPhone");
+    const accMsg = document.getElementById("accMsg");
+
+    const passForm = document.getElementById("passForm");
+    const curPass = document.getElementById("curPass");
+    const newPass = document.getElementById("newPass");
+    const newPass2 = document.getElementById("newPass2");
+    const passMsg = document.getElementById("passMsg");
+
+    function render(){
+      const u = findUser();
+      if(!u){
+        window.location.href = "auth.html";
+        return;
+      }
+      accName.value = u.name || "";
+      accUser.value = u.username || "";
+      accPhone.value = u.phone || session.phone || "";
+      if(u.photo){
+        avatarBig.innerHTML = '<img alt="Foto" src="'+u.photo+'">';
+      }else{
+        avatarBig.textContent = "🙂";
+      }
+    }
+    render();
+
+    // ===== PHOTO UPLOAD (store as dataURL) =====
+    photoInput.addEventListener("change", async ()=>{
+      const file = photoInput.files?.[0];
+      if(!file) return;
+
+      if(file.size > 2.5 * 1024 * 1024){
+        msg(photoMsg, "La imagen pesa mucho (máx ~2.5MB).", false);
+        photoInput.value = "";
+        return;
+      }
+
+      const u = findUser();
+      const reader = new FileReader();
+      reader.onload = ()=>{
+        u.photo = String(reader.result || "");
+        saveUser(u);
+
+        // update session name/user too
+        setSession({ ...session, username: u.username, name: u.name, phone: u.phone, at: Date.now() });
+
+        msg(photoMsg, "Foto guardada.", true);
+        render();
+      };
+      reader.onerror = ()=> msg(photoMsg, "No pude leer la imagen.", false);
+      reader.readAsDataURL(file);
+    });
+
+    removePhoto.addEventListener("click", ()=>{
+      const u = findUser();
+      u.photo = null;
+      saveUser(u);
+      setSession({ ...session, username: u.username, name: u.name, phone: u.phone, at: Date.now() });
+      msg(photoMsg, "Foto quitada.", true);
+      render();
+    });
+
+    // ===== UPDATE NAME/USERNAME =====
+    accountForm.addEventListener("submit", (e)=>{
+      e.preventDefault();
+      const name = (accName.value || "").trim();
+      const username = (accUser.value || "").trim();
+
+      if(name.length < 2) return msg(accMsg, "Nombre inválido.", false);
+      if(!validUsername(username)) return msg(accMsg, "Usuario inválido (2–18, letras/números/_/.)", false);
+
+      const u = findUser();
+      const users = getUsers();
+
+      // check username uniqueness excluding self
+      const taken = users.some(x => x.phone !== u.phone && (x.username || "").toLowerCase() === username.toLowerCase());
+      if(taken) return msg(accMsg, "Ese usuario ya existe.", false);
+
+      u.name = name;
+      u.username = username;
+      saveUser(u);
+
+      // refresh session
+      setSession({ ...session, username: u.username, name: u.name, phone: u.phone, at: Date.now() });
+
+      msg(accMsg, "Cambios guardados.", true);
+    });
+
+    // ===== CHANGE PASSWORD =====
+    passForm.addEventListener("submit", (e)=>{
+      e.preventDefault();
+      const cur = curPass.value;
+      const np = newPass.value;
+      const np2 = newPass2.value;
+
+      if(np.length < 6) return msg(passMsg, "Nueva contraseña muy corta (mínimo 6).", false);
+      if(np !== np2) return msg(passMsg, "Las contraseñas no coinciden.", false);
+
+      const u = findUser();
+      if(u.pass !== cur) return msg(passMsg, "La contraseña actual no es correcta.", false);
+
+      u.pass = np;
+      saveUser(u);
+      passForm.reset();
+      msg(passMsg, "Contraseña actualizada.", true);
+    });
+  </script>
+</body>
+</html>
