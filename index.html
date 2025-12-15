@@ -347,6 +347,49 @@
       .block{padding: 26px 20px; gap: 18px;}
       .art{min-height: 360px;}
     }
+    /* ===== FIX: nombre completo en móvil ===== */
+@media (max-width: 720px){
+
+  .nav{
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* marca: que pueda crecer y no se corte */
+  .brand{
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .brandName{
+    font-size: 16px;
+    line-height: 1.05;
+    font-weight: 900;
+
+    /* QUITA el "..." */
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+
+    /* permite 2 líneas sin que se salga */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  /* el menú no se debe estirar */
+  .menu{
+    flex: 0 0 auto;
+    gap: 8px;
+  }
+
+  /* opcional: un poco más chico el logo para dar espacio */
+  .logoBox{
+    width: 46px;
+    height: 46px;
+  }
+}
+
   </style>
 </head>
 
