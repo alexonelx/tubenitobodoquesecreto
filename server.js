@@ -3,13 +3,20 @@ const path = require("path");
 
 const app = express();
 
-// Sirve archivos estáticos (index.html) desde la raíz del proyecto
-app.use(express.static(path.join(__dirname)));
+// Static files
+app.use(express.static(path.join(__dirname), {
+  extensions: ["html"],
+}));
 
-// Health check (útil para debug)
-app.get("/health", (req, res) => res.status(200).send("ok"));
+// Health check
+app.get("/health", (_, res) => res.send("ok"));
+
+// Fallback para SPA / recargas
+app.get("*", (_, res) => {
+  res.sendFile(path.join(__dirname, "index.html"));
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, "0.0.0.0", () => {
-  console.log(`✅ TuBenitoBodoqueSecreto listening on port ${PORT}`);
+  console.log(`✅ TuBenitoBodoqueSecreto running on port ${PORT}`);
 });
