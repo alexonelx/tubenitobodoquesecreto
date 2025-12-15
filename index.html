@@ -437,8 +437,9 @@
   transform: none !important;
 }
 
+/* Hover suave también en artContain (sin recorte) */
 .panel:hover .artContain img{
-  transform: none !important;
+  transform: scale(1.02) !important;
 }
 /* (5) ESPACIADO + LECTURA */
 .panel{
@@ -723,7 +724,7 @@ button, a{
     document.querySelectorAll(".mLink, #openLoginMobile, #openSignupMobile").forEach(el=>{
       el.addEventListener("click", closeMobileMenu);
     });
-// ===== LOADING FAKE PARA LOGIN / REGISTRO =====
+// ===== LOADING FAKE PARA LOGIN / REGISTRO (HEADER + MÓVIL) =====
 function attachLoadingLink(id, loadingText){
   const el = document.getElementById(id);
   if (!el) return;
@@ -732,7 +733,6 @@ function attachLoadingLink(id, loadingText){
     e.preventDefault();
 
     const original = el.textContent;
-
     el.classList.add("is-loading");
     el.textContent = loadingText;
 
@@ -740,21 +740,20 @@ function attachLoadingLink(id, loadingText){
       el.classList.remove("is-loading");
       el.textContent = original;
 
-      // Por ahora solo scroll (hasta que exista login real)
-      document.getElementById("inicio")?.scrollIntoView({
-        behavior: "smooth"
-      });
+      // si está abierto el menú móvil, lo cerramos
+      if (typeof closeMobileMenu === "function") closeMobileMenu();
+
+      // por ahora: solo scroll a inicio
+      document.getElementById("inicio")?.scrollIntoView({ behavior: "smooth" });
     }, 650);
   });
 }
 
-// Header
 attachLoadingLink("openLoginTop", "Cargando...");
 attachLoadingLink("openSignupTop", "Cargando...");
-
-// Menú móvil
 attachLoadingLink("openLoginMobile", "Cargando...");
 attachLoadingLink("openSignupMobile", "Cargando...");
+
 
   // ===== "EMPEZAR" LOADING FAKE =====
 const btnStart = document.getElementById("btnStart");
