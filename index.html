@@ -484,6 +484,23 @@
 .panel > *{
   position: relative;
 }
+/* (1) Más aire al texto de "Cómo funciona" */
+.comofunciona{
+  margin-top: 16px;
+  margin-bottom: 16px;
+  line-height: 1.85;
+}
+/* (3) Separación extra en la sección "Cómo funciona" */
+#como{
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+/* (4) Título "Cómo funciona" con más jerarquía */
+#como h1{
+  margin-bottom: 12px;
+  letter-spacing: -0.9px;
+  font-size: clamp(28px, 6vw, 46px);
+}
 
   </style>
 </head>
@@ -558,7 +575,7 @@
       <div class="block">
         <div class="copy">
           <h1 style="font-size:clamp(26px,5vw,40px); letter-spacing:-.7px;">Cómo funciona</h1>
-          <p class="sub">
+          <p class="sub comofunciona">
             1) Alguien crea el intercambio y te comparte el link.<br>
             2) Entras, creas tu cuenta y te unes al grupo.<br>
             3) Agregas regalos con links y detalles.<br>
