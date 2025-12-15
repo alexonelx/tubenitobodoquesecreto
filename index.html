@@ -294,6 +294,103 @@
       font-size: 12px;
       line-height: 1.55;
     }
+    /* =======================
+   LIGHT/DARK THEME (toggle)
+   ======================= */
+
+/* Default: DARK (tu diseño actual) */
+:root{
+  color-scheme: dark;
+
+  --bg:#0b1020;
+  --panel:#0f1730;
+  --text:#eef2ff;
+  --muted:#9aa7c7;
+  --line:rgba(255,255,255,.10);
+
+  --blue:#4ea6ff;
+  --red:#ff4d5a;
+
+  --radius: 18px;
+  --shadow: 0 18px 50px rgba(0,0,0,.45);
+  --max: 1120px;
+
+  /* para header en dark */
+  --headerA: rgba(11,16,32,.78);
+  --headerB: rgba(11,16,32,.35);
+}
+
+/* Light theme */
+html[data-theme="light"]{
+  color-scheme: light;
+
+  --bg:#f6f8ff;
+  --panel:#ffffff;
+  --text:#0f172a;
+  --muted:#475569;
+  --line:rgba(15,23,42,.12);
+
+  /* mantén tu identidad */
+  --blue:#2a84ff;
+  --red:#ff3b4a;
+
+  --shadow: 0 18px 50px rgba(15,23,42,.10);
+
+  /* header en light */
+  --headerA: rgba(246,248,255,.85);
+  --headerB: rgba(246,248,255,.55);
+}
+
+/* Ajuste de tu header para que cambie con el tema */
+header{
+  background: linear-gradient(180deg, var(--headerA), var(--headerB));
+  border-bottom: 1px solid rgba(255,255,255,.06); /* lo afinamos abajo */
+}
+html[data-theme="light"] header{
+  border-bottom: 1px solid rgba(15,23,42,.08);
+}
+
+/* Fondo del body usando variables (así responde al tema) */
+body{
+  background:
+    radial-gradient(900px 500px at 10% -10%, rgba(78,166,255,.16), transparent 60%),
+    radial-gradient(900px 500px at 90% 0%, rgba(255,77,90,.12), transparent 55%),
+    var(--bg);
+}
+
+/* Logo más grande */
+.logoBox{
+  width: 62px;
+  height: 62px;
+  border-radius: 18px;
+}
+.logoBox img{
+  width: 90%;
+  height: 90%;
+  filter: drop-shadow(0 10px 18px rgba(0,0,0,.22));
+}
+
+/* Botón toggle */
+.themeToggle{
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,.04);
+  color: var(--text);
+  padding: 10px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 900;
+  display:inline-flex;
+  align-items:center;
+  gap: 8px;
+  transition: .2s ease;
+}
+.themeToggle:hover{
+  transform: translateY(-1px);
+}
+.themeToggle:active{
+  transform: translateY(1px);
+}
+
   </style>
 </head>
 
