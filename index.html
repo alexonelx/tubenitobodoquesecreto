@@ -408,6 +408,27 @@
     -webkit-box-orient: unset !important;
   }
 }
+/* ===== LOGO PRO (TRANSPARENTE + PROFUNDIDAD) ===== */
+.logoBox{
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.logoBox img{
+  display: block;
+  width: 100%;
+  height: auto;
+
+  /* sombra PRO: profundidad sin fondo */
+  filter: drop-shadow(0 6px 14px rgba(0,0,0,.35));
+}
+
+/* Ajuste fino para modo claro */
+html[data-theme="light"] .logoBox img{
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,.25));
+}
 
   </style>
 </head>
