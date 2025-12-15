@@ -523,6 +523,45 @@
 @media (prefers-reduced-motion: reduce){
   .reveal{ opacity: 1 !important; transform: none !important; transition: none !important; }
 }
+/* ===== STATES PRO ===== */
+
+/* Se ve pro al navegar con teclado */
+:focus-visible{
+  outline: 3px solid rgba(78,166,255,.55);
+  outline-offset: 3px;
+  border-radius: 12px;
+}
+
+/* Quita el highlight feo en móvil al tocar */
+button, a{
+  -webkit-tap-highlight-color: transparent;
+}
+/* ===== LOADING BUTTON (SKELETON / SHIMMER) ===== */
+.btnPrimary.is-loading{
+  opacity: .9;
+  cursor: wait;
+  pointer-events: none;
+  position: relative;
+}
+
+.btnPrimary.is-loading::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg,
+    rgba(255,255,255,.06),
+    rgba(255,255,255,.14),
+    rgba(255,255,255,.06)
+  );
+  transform: translateX(-40%);
+  animation: shimmer 1.1s ease infinite;
+}
+
+@keyframes shimmer{
+  0%{ transform: translateX(-45%); }
+  100%{ transform: translateX(45%); }
+}
 
   </style>
 </head>
@@ -670,10 +709,29 @@
     document.getElementById("openLoginMobile").addEventListener("click", (e)=> e.preventDefault());
     document.getElementById("openSignupMobile").addEventListener("click", (e)=> e.preventDefault());
 
-    // "Empezar" -> scroll to how it works (until real flow exists)
-    document.getElementById("btnStart").addEventListener("click", ()=>{
-      document.getElementById("como")?.scrollIntoView({behavior:"smooth"});
-    });
+  // ===== "EMPEZAR" LOADING FAKE =====
+const btnStart = document.getElementById("btnStart");
+
+if (btnStart){
+  btnStart.addEventListener("click", () => {
+    const originalText = btnStart.textContent;
+
+    // estado loading
+    btnStart.classList.add("is-loading");
+    btnStart.textContent = "Cargando...";
+
+    setTimeout(() => {
+      btnStart.classList.remove("is-loading");
+      btnStart.textContent = originalText;
+
+      // scroll suave a "Cómo funciona"
+      document.getElementById("como")?.scrollIntoView({
+        behavior: "smooth"
+      });
+    }, 650);
+  });
+}
+
 
     // ===== ACTIVE NAV LINK =====
     const sections = ["inicio","como"].map(id => document.getElementById(id));
