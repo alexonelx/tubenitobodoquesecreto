@@ -562,6 +562,27 @@ button, a{
   0%{ transform: translateX(-45%); }
   100%{ transform: translateX(45%); }
 }
+/* Loading también para .cta (login/registro) */
+.cta.is-loading{
+  opacity: .9;
+  cursor: wait;
+  pointer-events: none;
+  position: relative;
+}
+
+.cta.is-loading::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg,
+    rgba(255,255,255,.06),
+    rgba(255,255,255,.14),
+    rgba(255,255,255,.06)
+  );
+  transform: translateX(-40%);
+  animation: shimmer 1.1s ease infinite;
+}
 
   </style>
 </head>
@@ -702,12 +723,38 @@ button, a{
     document.querySelectorAll(".mLink, #openLoginMobile, #openSignupMobile").forEach(el=>{
       el.addEventListener("click", closeMobileMenu);
     });
+// ===== LOADING FAKE PARA LOGIN / REGISTRO =====
+function attachLoadingLink(id, loadingText){
+  const el = document.getElementById(id);
+  if (!el) return;
 
-    // Prevent jump while auth is not implemented
-    document.getElementById("openLoginTop").addEventListener("click", (e)=> e.preventDefault());
-    document.getElementById("openSignupTop").addEventListener("click", (e)=> e.preventDefault());
-    document.getElementById("openLoginMobile").addEventListener("click", (e)=> e.preventDefault());
-    document.getElementById("openSignupMobile").addEventListener("click", (e)=> e.preventDefault());
+  el.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    const original = el.textContent;
+
+    el.classList.add("is-loading");
+    el.textContent = loadingText;
+
+    setTimeout(() => {
+      el.classList.remove("is-loading");
+      el.textContent = original;
+
+      // Por ahora solo scroll (hasta que exista login real)
+      document.getElementById("inicio")?.scrollIntoView({
+        behavior: "smooth"
+      });
+    }, 650);
+  });
+}
+
+// Header
+attachLoadingLink("openLoginTop", "Cargando...");
+attachLoadingLink("openSignupTop", "Cargando...");
+
+// Menú móvil
+attachLoadingLink("openLoginMobile", "Cargando...");
+attachLoadingLink("openSignupMobile", "Cargando...");
 
   // ===== "EMPEZAR" LOADING FAKE =====
 const btnStart = document.getElementById("btnStart");
