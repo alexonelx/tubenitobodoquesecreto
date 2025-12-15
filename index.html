@@ -1,179 +1,281 @@
 <!doctype html>
-<html lang="es" data-theme="dark">
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>TuBenitoBodoqueSecreto</title>
-  <meta name="description" content="Intercambio navideño familiar — registro, lista de regalos y sorteo." />
 
   <style>
     :root{
-      --bg:#0b1020; --panel:#0f1730; --muted:#9aa7c7; --text:#eef2ff;
+      --bg:#0b1020;
+      --panel:#0f1730;
+      --text:#eef2ff;
+      --muted:#9aa7c7;
       --line:rgba(255,255,255,.10);
-      --blue:#4ea6ff; --red:#ff4d5a;
+
+      --blue:#4ea6ff;
+      --red:#ff4d5a;
+
+      --radius: 18px;
       --shadow: 0 18px 50px rgba(0,0,0,.45);
-      --radius: 18px; --max: 1120px;
+      --max: 1120px;
     }
-    html[data-theme="light"]{
-      --bg:#f7f8ff; --panel:#ffffff; --muted:#4d5a7a; --text:#0b1020;
-      --line:rgba(10,20,40,.12);
-      --shadow: 0 18px 50px rgba(10,20,40,.10);
-    }
+
     *{box-sizing:border-box}
     html{scroll-behavior:smooth;}
     body{
-      margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
       background:
         radial-gradient(900px 500px at 10% -10%, rgba(78,166,255,.16), transparent 60%),
         radial-gradient(900px 500px at 90% 0%, rgba(255,77,90,.12), transparent 55%),
         var(--bg);
-      color:var(--text); min-height:100vh; overflow-x:hidden;
+      overflow-x:hidden;
     }
-    a{color:inherit;text-decoration:none}
-    button,input{font:inherit}
-    .wrap{max-width:var(--max); margin:0 auto; padding: 12px 18px 90px;}
 
-    /* Top Nav */
-    .top{
-      position:sticky; top:0; z-index:10;
+    a{color:inherit; text-decoration:none}
+    button,input{font:inherit}
+
+    .wrap{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 14px 18px 80px;
+    }
+
+    /* NAV */
+    header{
+      position: sticky;
+      top: 0;
+      z-index: 10;
       backdrop-filter: blur(10px);
       background: linear-gradient(180deg, rgba(11,16,32,.78), rgba(11,16,32,.35));
       border-bottom: 1px solid rgba(255,255,255,.06);
     }
-    html[data-theme="light"] .top{
-      background: linear-gradient(180deg, rgba(247,248,255,.78), rgba(247,248,255,.35));
-      border-bottom: 1px solid rgba(10,20,40,.08);
-    }
-    .topInner{
-      max-width:var(--max);
-      margin:0 auto;
-      padding: 12px 18px;
-      display:flex; align-items:center; justify-content:space-between; gap:12px;
-    }
-    .brand{display:flex; align-items:center; gap:12px; min-width:0;}
-    .logo{
-      width:42px;height:42px;border-radius:14px;
-      border:1px solid var(--line);
-      background: linear-gradient(135deg, rgba(78,166,255,.22), rgba(255,77,90,.18)), rgba(255,255,255,.03);
-      box-shadow: var(--shadow);
-      display:grid; place-items:center; overflow:hidden; flex:0 0 auto;
-    }
-    .title{display:flex;flex-direction:column;line-height:1.1;min-width:0;}
-    .title strong{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-    .title span{font-size:12px;color:var(--muted);}
 
     .nav{
-      display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 12px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
     }
-    .nav a{
-      padding: 10px 10px;
-      border-radius: 999px;
-      color: var(--muted);
-      border:1px solid transparent;
-    }
-    .nav a:hover{color:var(--text); border-color: var(--line); background: rgba(255,255,255,.04);}
-    html[data-theme="light"] .nav a:hover{background: rgba(10,20,40,.03);}
 
-    .pill{
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.04);
-      color: var(--text);
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .logoBox{
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: linear-gradient(135deg, rgba(78,166,255,.18), rgba(255,77,90,.16));
+      box-shadow: var(--shadow);
+      display:grid;
+      place-items:center;
+      overflow:hidden;
+      flex:0 0 auto;
+    }
+
+    .logoBox img{
+      width: 82%;
+      height: 82%;
+      object-fit: contain;
+      display:block;
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,.28));
+    }
+
+    .brandName{
+      font-weight: 900;
+      letter-spacing: -0.6px;
+      font-size: 18px;
+      line-height: 1.1;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .menu{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content:flex-end;
+    }
+
+    .menu a{
       padding: 10px 12px;
       border-radius: 999px;
-      display:inline-flex; align-items:center; gap:8px;
-      cursor:pointer; user-select:none;
+      color: var(--muted);
+      border: 1px solid transparent;
+      transition: .2s ease;
     }
-    html[data-theme="light"] .pill{background: rgba(10,20,40,.03);}
-    .pill:active{transform: translateY(1px)}
-    .pill small{color: var(--muted)}
 
-    /* Sections */
-    section{scroll-margin-top: 92px;}
-    .sectionBox{
+    .menu a:hover{
+      color: var(--text);
+      border-color: var(--line);
+      background: rgba(255,255,255,.04);
+    }
+
+    .menu .cta{
+      color: var(--text);
+      border-color: rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      font-weight: 800;
+    }
+
+    .menu .ctaPrimary{
+      background: linear-gradient(135deg, rgba(255,77,90,.92), rgba(78,166,255,.86));
+      border-color: rgba(255,255,255,.16);
+    }
+
+    /* SECTIONS */
+    section{scroll-margin-top: 90px;}
+
+    .panel{
       margin-top: 18px;
-      border:1px solid var(--line);
-      border-radius: calc(var(--radius) + 6px);
+      border: 1px solid var(--line);
+      border-radius: calc(var(--radius) + 8px);
       background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
       box-shadow: var(--shadow);
       overflow:hidden;
     }
-    html[data-theme="light"] .sectionBox{
-      background: linear-gradient(180deg, rgba(10,20,40,.02), rgba(10,20,40,.01));
-    }
 
     .block{
+      padding: 28px;
       display:grid;
       grid-template-columns: 1fr;
-      gap: 18px;
-      padding: 22px;
+      gap: 22px;
       align-items:center;
     }
-    @media(min-width: 920px){
+
+    @media (min-width: 920px){
       .block{grid-template-columns: 1.1fr .9fr;}
       .block.reverse{grid-template-columns: .9fr 1.1fr;}
       .block.reverse .copy{order:2;}
       .block.reverse .art{order:1;}
     }
 
-    .copy h1,.copy h2{margin:0; letter-spacing:-.5px;}
-    .copy h1{font-size: clamp(30px, 4.3vw, 52px);}
-    .copy h2{font-size: clamp(22px, 3.2vw, 36px);}
-    .copy p{margin:10px 0 0; color:var(--muted); line-height:1.6; font-size:15px; max-width:60ch;}
+    h1,h2{margin:0; letter-spacing:-0.7px;}
+    h1{font-size: clamp(34px, 4.7vw, 56px);}
+    h2{font-size: clamp(26px, 3.2vw, 40px);}
 
-    .ctaRow{margin-top: 16px; display:flex; gap:10px; flex-wrap:wrap; align-items:center;}
-    .btn{
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.05);
-      color:var(--text);
-      padding: 12px 14px;
-      border-radius: 14px;
-      font-weight: 750;
-      display:inline-flex; align-items:center; gap:10px;
-      cursor:pointer;
+    .copy p{
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.65;
+      max-width: 62ch;
     }
-    html[data-theme="light"] .btn{background: rgba(10,20,40,.03);}
+
+    .ctaRow{
+      margin-top: 18px;
+      display:flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items:center;
+    }
+
+    .btn{
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      padding: 13px 16px;
+      border-radius: 16px;
+      font-weight: 900;
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
+      cursor:pointer;
+      transition: .2s ease;
+    }
+    .btn:hover{transform: translateY(-1px);}
+    .btn:active{transform: translateY(1px);}
+
     .btnPrimary{
       background: linear-gradient(135deg, rgba(255,77,90,.92), rgba(78,166,255,.86));
-      border: 1px solid rgba(255,255,255,.14);
+      border-color: rgba(255,255,255,.16);
     }
-    .btn:active{transform: translateY(1px)}
 
     .art{
+      border: 1px solid var(--line);
       border-radius: var(--radius);
-      border:1px solid var(--line);
       background: rgba(255,255,255,.03);
       overflow:hidden;
+      min-height: 300px;
       position:relative;
-      min-height: 240px;
     }
-    html[data-theme="light"] .art{background: rgba(10,20,40,.02);}
+
     .art img{
-      width:100%; height:100%;
-      display:block;
+      width:100%;
+      height:100%;
       object-fit: cover;
+      display:block;
       transform: scale(1.02);
       transition: transform .9s ease;
     }
+
+    .reveal{
+      opacity:0;
+      transform: translateY(16px);
+      transition: opacity .65s ease, transform .65s ease;
+    }
+    .reveal.show{
+      opacity:1;
+      transform: translateY(0);
+    }
     .reveal.show img{transform: scale(1.06);}
 
-    /* Auth block */
-    .authGrid{
-      display:grid; gap:12px;
-      grid-template-columns: 1fr;
-      padding: 22px;
+    /* AUTH MODALS */
+    .modalBack{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.55);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+      z-index: 50;
     }
-    @media(min-width: 920px){
-      .authGrid{grid-template-columns: 1fr 1fr;}
+    .modalBack.show{display:flex;}
+    .modal{
+      width: min(520px, 100%);
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: calc(var(--radius) + 8px);
+      box-shadow: var(--shadow);
+      overflow:hidden;
     }
-    .form{
+    .modalTop{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding: 14px 14px;
+      border-bottom: 1px solid var(--line);
+    }
+    .modalTop strong{font-size:14px; letter-spacing:.2px;}
+    .closeBtn{
       border:1px solid var(--line);
-      border-radius: var(--radius);
-      background: rgba(255,255,255,.03);
-      padding: 14px;
-      display:grid; gap:10px;
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 8px 10px;
+      cursor:pointer;
+      font-weight: 900;
     }
-    html[data-theme="light"] .form{background: rgba(10,20,40,.02);}
-    label{font-size:12px; color:var(--muted);}
+    .modalBody{
+      padding: 14px;
+      display:grid;
+      gap: 10px;
+    }
+    label{font-size:12px; color: var(--muted);}
     input{
       width:100%;
       padding: 12px 12px;
@@ -183,211 +285,141 @@
       color: var(--text);
       outline:none;
     }
-    html[data-theme="light"] input{background: rgba(10,20,40,.03);}
-    input:focus{border-color: rgba(78,166,255,.45); box-shadow: 0 0 0 3px rgba(78,166,255,.12);}
-    .msg{font-size:12px; color:var(--muted); min-height:18px;}
-    .ok{color: rgba(78,166,255,.95)}
-    .err{color: rgba(255,77,90,.95)}
-
-    /* Footer */
-    .foot{
-      padding: 14px 22px 18px;
+    input:focus{
+      border-color: rgba(78,166,255,.45);
+      box-shadow: 0 0 0 3px rgba(78,166,255,.12);
+    }
+    .hint{
       color: var(--muted);
       font-size: 12px;
-      display:flex; flex-wrap:wrap;
-      justify-content:space-between; gap:10px;
-      border-top:1px solid rgba(255,255,255,.06);
+      line-height: 1.55;
     }
-    html[data-theme="light"] .foot{border-top:1px solid rgba(10,20,40,.08);}
-
-    /* Modal */
-    .modalBack{
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,.55);
-      display:none; align-items:center; justify-content:center;
-      padding: 18px; z-index: 50;
-    }
-    .modalBack.show{display:flex;}
-    .modal{
-      width: min(520px, 100%);
-      border: 1px solid var(--line);
-      background: var(--panel);
-      border-radius: calc(var(--radius) + 6px);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-    }
-    .modalTop{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:12px; padding: 14px;
-      border-bottom: 1px solid var(--line);
-    }
-    .modalBody{padding: 14px; display:grid; gap: 12px; color: var(--muted); font-size: 13px; line-height: 1.55;}
-    .mini{display:flex; gap:10px; align-items:flex-start;}
-    .dot{width:10px;height:10px;border-radius:99px;margin-top:4px;background: rgba(78,166,255,.50);box-shadow: 0 0 0 3px rgba(78,166,255,.15);flex:0 0 auto;}
-    .dot.red{background: rgba(255,77,90,.55);box-shadow: 0 0 0 3px rgba(255,77,90,.15);}
-
-    /* Reveal */
-    .reveal{opacity:0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease;}
-    .reveal.show{opacity:1; transform: translateY(0);}
   </style>
 </head>
 
 <body>
-  <header class="top">
-    <div class="topInner">
+  <header>
+    <div class="nav">
       <div class="brand">
-        <div class="logo">
-          <!-- Tu logo -->
-          <img src="beni.png" alt="TuBenitoBodoqueSecreto" style="width:100%;height:100%;object-fit:contain;" />
+        <div class="logoBox">
+          <img src="LogoBenitosvg.svg" alt="Logo" />
         </div>
-        <div class="title">
-          <strong>TuBenitoBodoqueSecreto</strong>
-          <span>Intercambio navideño familiar</span>
-        </div>
+        <div class="brandName">TuBenitoBodoqueSecreto</div>
       </div>
 
-      <nav class="nav" aria-label="Navegación">
+      <div class="menu" aria-label="Navegación">
         <a href="#inicio">Inicio</a>
         <a href="#como">Cómo funciona</a>
-        <a href="#empezar">Empezar</a>
-        <button class="pill" id="themeBtn" type="button" aria-label="Cambiar tema">
-          <span id="themeIcon">🌙</span>
-          <small id="themeText">Oscuro</small>
-        </button>
-      </nav>
+        <a class="cta" href="#inicio" id="openLoginTop">Iniciar sesión</a>
+        <a class="cta ctaPrimary" href="#inicio" id="openSignupTop">Registrarse</a>
+      </div>
     </div>
   </header>
 
   <main class="wrap">
 
     <!-- INICIO -->
-    <section id="inicio" class="sectionBox">
+    <section id="inicio" class="panel">
       <div class="block">
         <div class="copy reveal">
-          <h1>Intercambio Secreto de Navidad.</h1>
-          <p>Una sola página. Cuenta, lista de regalos y sorteo.</p>
+          <h1>Intercambio navideño, sin complicaciones.</h1>
+          <p>
+            Entras con un link de tu familia, creas tu usuario, subes tus regalos con links e instrucciones,
+            y el día del sorteo recibes por WhatsApp a quién le toca regalar.
+          </p>
+
           <div class="ctaRow">
-            <a class="btn btnPrimary" href="#empezar">Empezar</a>
-            <button class="btn" id="howBtn" type="button">Aprender más</button>
+            <button class="btn btnPrimary" id="openSignup">Empezar</button>
           </div>
         </div>
+
         <div class="art reveal">
-          <img src="images/hero.webp" alt="Ilustración navideña" />
+          <!-- Cambia esta imagen cuando quieras (o déjala en blanco y yo la preparo después) -->
+          <img src="images/hero.webp" alt="Imagen navideña" />
         </div>
-      </div>
-      <div class="foot">
-        <div>© <span id="year"></span> TuBenitoBodoqueSecreto</div>
-        <div>Hecho para celular • limpio • rápido</div>
       </div>
     </section>
 
-    <!-- COMO FUNCIONA -->
-    <section id="como" class="sectionBox">
+    <!-- CÓMO FUNCIONA -->
+    <section id="como" class="panel">
       <div class="block reverse">
         <div class="copy reveal">
-          <h2>Cómo funciona</h2>
-          <p>Te registras, subes tus 3–5 ideas de regalo y listo. El resto se maneja el día del sorteo.</p>
+          <h2>Cómo funciona (de verdad)</h2>
+          <p>
+            1) Te llega un <strong>link de tu familia</strong> (o grupo).<br/>
+            2) Entras, creas tu <strong>usuario</strong> y te unes al intercambio.<br/>
+            3) Agregas de <strong>3 a 5 regalos</strong> con <strong>link</strong> + instrucciones (talla, color, etc.).<br/>
+            4) Cuando el admin inicia el sorteo, a cada persona le llega un <strong>mensaje por WhatsApp</strong> con
+            <strong>a quién le toca regalar</strong> y la lista de regalos de esa persona.
+          </p>
+
           <div class="ctaRow">
-            <a class="btn btnPrimary" href="#empezar">Empezar</a>
+            <button class="btn btnPrimary" id="openSignup2">Registrarme</button>
+            <button class="btn" id="openLogin">Ya tengo cuenta</button>
           </div>
         </div>
+
         <div class="art reveal">
-          <img src="images/community.webp" alt="Comunidad navideña" />
+          <img src="images/how.webp" alt="Cómo funciona" />
         </div>
-      </div>
-    </section>
-
-    <!-- EMPEZAR (AUTH) -->
-    <section id="empezar" class="sectionBox">
-      <div class="block">
-        <div class="copy reveal">
-          <h2>Entrar / Registrarse</h2>
-          <p>Login por correo (magic link). Sin contraseñas.</p>
-        </div>
-        <div class="art reveal">
-          <img src="images/match.webp" alt="Encuentra tu match" />
-        </div>
-      </div>
-
-      <div class="authGrid">
-        <div class="form reveal">
-          <strong style="font-size:14px;">Crear cuenta</strong>
-          <div>
-            <label for="signupEmail">Correo</label>
-            <input id="signupEmail" type="email" placeholder="tucorreo@email.com" autocomplete="email" />
-          </div>
-          <button class="btn btnPrimary" type="button" id="signupBtn">Enviar link</button>
-          <div class="msg" id="signupMsg"></div>
-        </div>
-
-        <div class="form reveal">
-          <strong style="font-size:14px;">Iniciar sesión</strong>
-          <div>
-            <label for="loginEmail">Correo</label>
-            <input id="loginEmail" type="email" placeholder="tucorreo@email.com" autocomplete="email" />
-          </div>
-          <button class="btn" type="button" id="loginBtn">Enviar link</button>
-          <div class="msg" id="loginMsg"></div>
-        </div>
-      </div>
-
-      <div class="foot">
-        <div id="meState">Estado: <span style="color:var(--muted)">sin sesión</span></div>
-        <button class="pill" id="logoutBtn" type="button" style="display:none;">Cerrar sesión</button>
       </div>
     </section>
 
   </main>
 
-  <!-- Modal Aprender más -->
-  <div id="howModal" class="modalBack" aria-hidden="true">
-    <div class="modal" role="dialog" aria-modal="true" aria-label="Aprender más">
+  <!-- MODAL: REGISTRO -->
+  <div id="signupModal" class="modalBack" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="Registro">
       <div class="modalTop">
-        <strong>Aprender más</strong>
-        <button class="pill" type="button" id="howClose">✕</button>
+        <strong>Crear cuenta</strong>
+        <button class="closeBtn" type="button" data-close="signupModal">✕</button>
       </div>
       <div class="modalBody">
-        <div class="mini"><span class="dot"></span><span>Cuenta + perfil</span></div>
-        <div class="mini"><span class="dot red"></span><span>Lista de 3–5 ideas con links</span></div>
-        <div class="mini"><span class="dot"></span><span>Asignación el día del sorteo</span></div>
+        <div>
+          <label for="suUser">Usuario</label>
+          <input id="suUser" placeholder="ej: alex" autocomplete="username" />
+        </div>
+        <div>
+          <label for="suPass">Contraseña</label>
+          <input id="suPass" type="password" placeholder="••••••••" autocomplete="new-password" />
+        </div>
+        <div>
+          <label for="suFamily">Código / Link de familia</label>
+          <input id="suFamily" placeholder="ej: FAM-2025" />
+        </div>
+        <button class="btn btnPrimary" type="button" id="signupBtn">Crear cuenta</button>
+        <div class="hint">
+          * Esto es UI. En el siguiente paso lo conectamos al backend (DB + sesión + WhatsApp).
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: LOGIN -->
+  <div id="loginModal" class="modalBack" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="Login">
+      <div class="modalTop">
+        <strong>Iniciar sesión</strong>
+        <button class="closeBtn" type="button" data-close="loginModal">✕</button>
+      </div>
+      <div class="modalBody">
+        <div>
+          <label for="liUser">Usuario</label>
+          <input id="liUser" placeholder="ej: alex" autocomplete="username" />
+        </div>
+        <div>
+          <label for="liPass">Contraseña</label>
+          <input id="liPass" type="password" placeholder="••••••••" autocomplete="current-password" />
+        </div>
+        <button class="btn btnPrimary" type="button" id="loginBtn">Entrar</button>
+        <div class="hint">
+          * Esto es UI. En el siguiente paso lo conectamos al backend (DB + sesión + WhatsApp).
+        </div>
       </div>
     </div>
   </div>
 
   <script>
-    // Año
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    // Tema
-    const root = document.documentElement;
-    const themeBtn = document.getElementById("themeBtn");
-    const themeIcon = document.getElementById("themeIcon");
-    const themeText = document.getElementById("themeText");
-
-    function setTheme(mode){
-      root.setAttribute("data-theme", mode);
-      localStorage.setItem("tbb_theme", mode);
-      const isDark = mode === "dark";
-      themeIcon.textContent = isDark ? "🌙" : "☀️";
-      themeText.textContent = isDark ? "Oscuro" : "Claro";
-    }
-    setTheme(localStorage.getItem("tbb_theme") || "dark");
-    themeBtn.addEventListener("click", () => {
-      const current = root.getAttribute("data-theme") || "dark";
-      setTheme(current === "dark" ? "light" : "dark");
-    });
-
-    // Modal
-    const howBtn = document.getElementById("howBtn");
-    const howModal = document.getElementById("howModal");
-    const howClose = document.getElementById("howClose");
-    function openHow(){ howModal.classList.add("show"); howModal.setAttribute("aria-hidden","false"); }
-    function closeHow(){ howModal.classList.remove("show"); howModal.setAttribute("aria-hidden","true"); }
-    howBtn.addEventListener("click", openHow);
-    howClose.addEventListener("click", closeHow);
-    howModal.addEventListener("click", (e) => { if (e.target === howModal) closeHow(); });
-    document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeHow(); });
-
     // Reveal on scroll
     const revealEls = document.querySelectorAll(".reveal");
     const io = new IntersectionObserver((entries) => {
@@ -397,66 +429,48 @@
     }, { threshold: 0.14 });
     revealEls.forEach(el => io.observe(el));
 
-    // Auth (front): por ahora solo UI, backend luego
-    const signupBtn = document.getElementById("signupBtn");
-    const loginBtn = document.getElementById("loginBtn");
-    const signupEmail = document.getElementById("signupEmail");
-    const loginEmail = document.getElementById("loginEmail");
-    const signupMsg = document.getElementById("signupMsg");
-    const loginMsg = document.getElementById("loginMsg");
-    const meState = document.getElementById("meState");
-    const logoutBtn = document.getElementById("logoutBtn");
+    // Modals
+    const signupModal = document.getElementById("signupModal");
+    const loginModal  = document.getElementById("loginModal");
 
-    function setMsg(el, text, kind){
-      el.className = "msg " + (kind || "");
-      el.textContent = text || "";
-    }
+    function openModal(m){ m.classList.add("show"); m.setAttribute("aria-hidden","false"); }
+    function closeModal(m){ m.classList.remove("show"); m.setAttribute("aria-hidden","true"); }
 
-    async function postJSON(url, body){
-      const res = await fetch(url, { method:"POST", headers:{ "Content-Type":"application/json" }, body: JSON.stringify(body) });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok) throw new Error(data.error || "Error");
-      return data;
-    }
+    // Open buttons
+    const openSignup = () => openModal(signupModal);
+    const openLogin  = () => openModal(loginModal);
 
-    signupBtn.addEventListener("click", async () => {
-      const email = (signupEmail.value || "").trim();
-      setMsg(signupMsg, "");
-      if (!email) return setMsg(signupMsg, "Pon tu correo.", "err");
-      try{
-        await postJSON("/api/auth/magic-link", { email, mode:"signup" });
-        setMsg(signupMsg, "Listo. Revisa tu correo para el link.", "ok");
-      }catch(e){ setMsg(signupMsg, e.message, "err"); }
+    document.getElementById("openSignup").addEventListener("click", openSignup);
+    document.getElementById("openSignup2").addEventListener("click", openSignup);
+    document.getElementById("openLogin").addEventListener("click", openLogin);
+
+    document.getElementById("openLoginTop").addEventListener("click", (e)=>{ e.preventDefault(); openLogin(); });
+    document.getElementById("openSignupTop").addEventListener("click", (e)=>{ e.preventDefault(); openSignup(); });
+
+    // Close buttons
+    document.querySelectorAll("[data-close]").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        const id = btn.getAttribute("data-close");
+        closeModal(document.getElementById(id));
+      });
     });
 
-    loginBtn.addEventListener("click", async () => {
-      const email = (loginEmail.value || "").trim();
-      setMsg(loginMsg, "");
-      if (!email) return setMsg(loginMsg, "Pon tu correo.", "err");
-      try{
-        await postJSON("/api/auth/magic-link", { email, mode:"login" });
-        setMsg(loginMsg, "Listo. Revisa tu correo para el link.", "ok");
-      }catch(e){ setMsg(loginMsg, e.message, "err"); }
+    // Close on backdrop click
+    [signupModal, loginModal].forEach(m=>{
+      m.addEventListener("click", (e)=>{ if(e.target === m) closeModal(m); });
     });
 
-    async function refreshMe(){
-      try{
-        const res = await fetch("/api/me");
-        const data = await res.json();
-        if (data && data.ok){
-          meState.innerHTML = "Estado: <span class='ok'>sesión activa</span> (" + (data.email || "usuario") + ")";
-          logoutBtn.style.display = "inline-flex";
-        }else{
-          meState.innerHTML = "Estado: <span style='color:var(--muted)'>sin sesión</span>";
-          logoutBtn.style.display = "none";
-        }
-      }catch{
-        meState.innerHTML = "Estado: <span style='color:var(--muted)'>sin sesión</span>";
-        logoutBtn.style.display = "none";
+    // Escape
+    document.addEventListener("keydown", (e)=>{
+      if(e.key === "Escape"){
+        closeModal(signupModal);
+        closeModal(loginModal);
       }
-    }
-    logoutBtn.addEventListener("click", async () => { try{ await fetch("/api/auth/logout", { method:"POST" }); }catch{} await refreshMe(); });
-    refreshMe();
+    });
+
+    // Placeholder actions (UI only)
+    document.getElementById("signupBtn").addEventListener("click", ()=> alert("Listo. Luego conectamos el backend."));
+    document.getElementById("loginBtn").addEventListener("click", ()=> alert("Listo. Luego conectamos el backend."));
   </script>
 </body>
 </html>
