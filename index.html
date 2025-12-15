@@ -134,6 +134,7 @@
       background: linear-gradient(135deg, rgba(255,77,90,.92), rgba(78,166,255,.86));
       border-color: rgba(255,255,255,.16);
     }
+    
 
     /* SECTIONS */
     section{scroll-margin-top: 90px;}
@@ -458,6 +459,71 @@ html[data-theme="dark"] .logoBox{
   }
 
   /* Menu en segunda*
+/* ===== NAV 1-LINE MOBILE (limpio) ===== */
+@media (max-width: 720px){
+
+  /* todo en una sola fila */
+  .nav{
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* marca compacta */
+  .brand{
+    flex: 1 1 auto;
+    min-width: 0;
+    gap: 10px;
+  }
+
+  .logoBox{
+    width: 48px;
+    height: 48px;
+    border-radius: 16px;
+  }
+
+  /* nombre corto y con ellipsis */
+  .brandName{
+    font-size: 16px;
+    line-height: 1.1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 15ch;
+  }
+
+  /* menú en una línea, sin brincar */
+  .menu{
+    flex: 0 0 auto;
+    flex-wrap: nowrap;
+    gap: 8px;
+  }
+
+  /* ocultamos Inicio y Cómo funciona en móvil (son los que estorban) */
+  .menu .navLink{
+    display: none;
+  }
+
+  /* botones más compactos */
+  .menu a.cta{
+    padding: 9px 10px;
+    border-radius: 999px;
+  }
+
+  .menu .ctaPrimary{
+    padding: 9px 12px;
+  }
+
+  /* toggle compacto */
+  .themeToggle{
+    padding: 9px 10px;
+  }
+
+  /* opcional: quita texto del toggle y deja solo icono */
+  .themeToggle #themeText{
+    display: none;
+  }
+}
 
   </style>
 </head>
@@ -473,8 +539,9 @@ html[data-theme="dark"] .logoBox{
       </div>
 
       <div class="menu" aria-label="Navegación">
-      <a href="#inicio">Inicio</a>
-  <a href="#como">Cómo funciona</a>
+    <a class="navLink" href="#inicio">Inicio</a>
+<a class="navLink" href="#como">Cómo funciona</a>
+
 
   <!-- TOGGLE TEMA -->
   <button class="themeToggle" id="themeToggle" type="button" aria-label="Cambiar tema">
