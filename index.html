@@ -1,17 +1,27 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Tu Benito Bodoque Secreto</title>
 
+  <!-- Tipografía moderna -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
   <style>
+    /* =======================
+      THEME TOKENS
+    ======================= */
     :root{
+      color-scheme: dark;
+
       --bg:#0b1020;
       --panel:#0f1730;
       --text:#eef2ff;
       --muted:#9aa7c7;
-      --line:rgba(255,255,255,.10);
+      --line:rgba(255,255,255,.12);
 
       --blue:#4ea6ff;
       --red:#ff4d5a;
@@ -19,17 +29,41 @@
       --radius: 18px;
       --shadow: 0 18px 50px rgba(0,0,0,.45);
       --max: 1120px;
+
+      --headerA: rgba(11,16,32,.82);
+      --headerB: rgba(11,16,32,.30);
     }
 
+    html[data-theme="light"]{
+      color-scheme: light;
+
+      --bg:#f6f8ff;
+      --panel:#ffffff;
+      --text:#0f172a;
+      --muted:#475569;
+      --line:rgba(15,23,42,.12);
+
+      --blue:#2a84ff;
+      --red:#ff3b4a;
+
+      --shadow: 0 18px 50px rgba(15,23,42,.10);
+
+      --headerA: rgba(246,248,255,.90);
+      --headerB: rgba(246,248,255,.60);
+    }
+
+    /* =======================
+      BASE
+    ======================= */
     *{box-sizing:border-box}
     html{scroll-behavior:smooth;}
     body{
       margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color: var(--text);
       background:
-        radial-gradient(900px 500px at 10% -10%, rgba(78,166,255,.16), transparent 60%),
-        radial-gradient(900px 500px at 90% 0%, rgba(255,77,90,.12), transparent 55%),
+        radial-gradient(900px 500px at 10% -10%, rgba(78,166,255,.14), transparent 60%),
+        radial-gradient(900px 500px at 90% 0%, rgba(255,77,90,.10), transparent 55%),
         var(--bg);
       overflow-x:hidden;
     }
@@ -40,17 +74,19 @@
     .wrap{
       max-width: var(--max);
       margin: 0 auto;
-      padding: 14px 18px 80px;
+      padding: 18px 18px 90px;
     }
 
-    /* NAV */
+    /* =======================
+      NAV
+    ======================= */
     header{
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 20;
       backdrop-filter: blur(10px);
-      background: linear-gradient(180deg, rgba(11,16,32,.78), rgba(11,16,32,.35));
-      border-bottom: 1px solid rgba(255,255,255,.06);
+      background: linear-gradient(180deg, var(--headerA), var(--headerB));
+      border-bottom: 1px solid var(--line);
     }
 
     .nav{
@@ -59,7 +95,6 @@
       padding: 12px 18px;
       display:flex;
       align-items:center;
-      justify-content:space-between;
       gap: 12px;
     }
 
@@ -68,76 +103,160 @@
       align-items:center;
       gap: 12px;
       min-width: 0;
+      flex: 1 1 auto;
     }
 
     .logoBox{
-      width: 44px;
-      height: 44px;
-      border-radius: 14px;
-      border: 1px solid var(--line);
-      background: linear-gradient(135deg, rgba(78,166,255,.18), rgba(255,77,90,.16));
-      box-shadow: var(--shadow);
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      background: #fff;
+      border: 1px solid rgba(0,0,0,.10);
       display:grid;
       place-items:center;
       overflow:hidden;
-      flex:0 0 auto;
+      flex: 0 0 auto;
+    }
+    html[data-theme="dark"] .logoBox{
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: 0 14px 28px rgba(0,0,0,.45);
     }
 
     .logoBox img{
-      width: 82%;
-      height: 82%;
+      width: 86%;
+      height: 86%;
       object-fit: contain;
       display:block;
-      filter: drop-shadow(0 10px 18px rgba(0,0,0,.28));
     }
 
     .brandName{
       font-weight: 900;
       letter-spacing: -0.6px;
-      font-size: 18px;
-      line-height: 1.1;
-      white-space:normal;
+      font-size: 16px;
+      line-height: 1.05;
+      white-space: nowrap;
       overflow:hidden;
-      text-overflow:ellipsis;
+      text-overflow: ellipsis;
+      max-width: 16ch;
     }
 
     .menu{
       display:flex;
       align-items:center;
       gap: 10px;
-      flex-wrap: wrap;
-      justify-content:flex-end;
-    <button class="menuBtn" id="openMobileMenu" type="button" aria-label="Abrir menú">☰</button>
-
+      flex: 0 0 auto;
     }
 
-    .menu a{
+    .link{
       padding: 10px 12px;
       border-radius: 999px;
       color: var(--muted);
       border: 1px solid transparent;
       transition: .2s ease;
+      font-weight: 600;
     }
-
-    .menu a:hover{
+    .link:hover{
       color: var(--text);
       border-color: var(--line);
       background: rgba(255,255,255,.04);
     }
 
-    .menu .cta{
-      color: var(--text);
-      border-color: rgba(255,255,255,.12);
+    .cta{
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
       background: rgba(255,255,255,.06);
       font-weight: 800;
+      transition: .2s ease;
+      white-space: nowrap;
     }
+    .cta:hover{transform: translateY(-1px);}
 
-    .menu .ctaPrimary{
+    .ctaPrimary{
+      border: none;
       background: linear-gradient(135deg, rgba(255,77,90,.92), rgba(78,166,255,.86));
-      border-color: rgba(255,255,255,.16);
     }
 
-    /* SECTIONS */
+    /* Toggle solo emoji */
+    .themeToggle{
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      display:grid;
+      place-items:center;
+      cursor:pointer;
+      transition: .2s ease;
+      flex: 0 0 auto;
+    }
+    .themeToggle:hover{transform: translateY(-1px);}
+
+    /* Burger */
+    .menuBtn{
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      display:none;
+      place-items:center;
+      cursor:pointer;
+      font-size: 20px;
+      font-weight: 900;
+    }
+
+    /* =======================
+      MOBILE MENU (overlay)
+    ======================= */
+    .mobileMenu{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.55);
+      display:none;
+      justify-content:flex-end;
+      z-index: 80;
+    }
+    .mobileMenu.show{display:flex;}
+
+    .mobilePanel{
+      width: min(320px, 86%);
+      height: 100%;
+      background: var(--panel);
+      border-left: 1px solid var(--line);
+      padding: 18px;
+      display:flex;
+      flex-direction:column;
+      gap: 12px;
+      box-shadow: -20px 0 40px rgba(0,0,0,.45);
+    }
+
+    .mobilePanel a{
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      font-weight: 900;
+    }
+
+    .mobilePanel .themeRow{
+      margin-top: auto;
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      justify-content:space-between;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 12px;
+      background: rgba(255,255,255,.03);
+    }
+    .mobilePanel .themeRow strong{font-size: 14px; color: var(--muted);}
+
+    /* =======================
+      HERO
+    ======================= */
     section{scroll-margin-top: 90px;}
 
     .panel{
@@ -152,434 +271,82 @@
     .block{
       padding: 28px;
       display:grid;
-      grid-template-columns: 1fr;
       gap: 22px;
       align-items:center;
+      grid-template-columns: 1fr;
     }
 
-    @media (min-width: 920px){
-      .block{grid-template-columns: 1.1fr .9fr;}
-      .block.reverse{grid-template-columns: .9fr 1.1fr;}
-      .block.reverse .copy{order:2;}
-      .block.reverse .art{order:1;}
+    h1{
+      margin:0;
+      letter-spacing:-1px;
+      font-weight: 900;
+      font-size: clamp(34px, 7vw, 56px);
+      line-height: 1.05;
     }
-
-    h1,h2{margin:0; letter-spacing:-0.7px;}
-    h1{font-size: clamp(34px, 4.7vw, 56px);}
-    h2{font-size: clamp(26px, 3.2vw, 40px);}
 
     .copy p{
       margin: 12px 0 0;
       color: var(--muted);
       font-size: 16px;
-      line-height: 1.65;
+      line-height: 1.7;
       max-width: 62ch;
     }
 
-    .ctaRow{
-      margin-top: 18px;
-      display:flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      align-items:center;
-    }
+    .ctaRow{margin-top: 18px;}
 
-    .btn{
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.06);
+    .btnPrimary{
+      border: none;
+      background: linear-gradient(135deg, rgba(255,77,90,.92), rgba(78,166,255,.86));
       color: var(--text);
-      padding: 13px 16px;
+      padding: 14px 18px;
       border-radius: 16px;
       font-weight: 900;
-      display:inline-flex;
-      align-items:center;
-      gap: 10px;
       cursor:pointer;
       transition: .2s ease;
     }
-    .btn:hover{transform: translateY(-1px);}
-    .btn:active{transform: translateY(1px);}
-
-    .btnPrimary{
-      background: linear-gradient(135deg, rgba(255,77,90,.92), rgba(78,166,255,.86));
-      border-color: rgba(255,255,255,.16);
-    }
+    .btnPrimary:hover{transform: translateY(-1px);}
 
     .art{
       border: 1px solid var(--line);
       border-radius: var(--radius);
       background: rgba(255,255,255,.03);
       overflow:hidden;
-      min-height: 300px;
-      position:relative;
+      min-height: 340px;
+      display:grid;
+      place-items:center;
     }
-
     .art img{
-      width:100%;
-      height:100%;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
       display:block;
-      transform: scale(1.02);
-      transition: transform .9s ease;
     }
 
-    .reveal{
-      opacity:0;
-      transform: translateY(16px);
-      transition: opacity .65s ease, transform .65s ease;
-    }
-    .reveal.show{
-      opacity:1;
-      transform: translateY(0);
-    }
-    .reveal.show img{transform: scale(1.06);}
-
-    /* AUTH MODALS */
-    .modalBack{
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.55);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding: 18px;
-      z-index: 50;
-    }
-    .modalBack.show{display:flex;}
-    .modal{
-      width: min(520px, 100%);
-      border: 1px solid var(--line);
-      background: var(--panel);
-      border-radius: calc(var(--radius) + 8px);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-    }
-    .modalTop{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding: 14px 14px;
-      border-bottom: 1px solid var(--line);
-    }
-    .modalTop strong{font-size:14px; letter-spacing:.2px;}
-    .closeBtn{
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.04);
-      color: var(--text);
-      border-radius: 999px;
-      padding: 8px 10px;
-      cursor:pointer;
-      font-weight: 900;
-    }
-    .modalBody{
-      padding: 14px;
-      display:grid;
-      gap: 10px;
-    }
-    label{font-size:12px; color: var(--muted);}
-    input{
-      width:100%;
-      padding: 12px 12px;
-      border-radius: 14px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.04);
-      color: var(--text);
-      outline:none;
-    }
-    input:focus{
-      border-color: rgba(78,166,255,.45);
-      box-shadow: 0 0 0 3px rgba(78,166,255,.12);
-    }
-    .hint{
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.55;
-    }
     /* =======================
-   LIGHT/DARK THEME (toggle)
-   ======================= */
+      DESKTOP LAYOUT
+    ======================= */
+    @media (min-width: 920px){
+      .block{
+        grid-template-columns: 1.1fr .9fr;
+      }
+      .brandName{max-width: 28ch; font-size: 18px;}
+      .menuBtn{display:none;}
+    }
 
-/* Default: DARK (tu diseño actual) */
-:root{
-  color-scheme: dark;
+    /* =======================
+      MOBILE: 1 LINE HEADER + HAMBURGER
+    ======================= */
+    @media (max-width: 720px){
+      .wrap{padding-top: 14px;}
 
-  --bg:#0b1020;
-  --panel:#0f1730;
-  --text:#eef2ff;
-  --muted:#9aa7c7;
-  --line:rgba(255,255,255,.10);
-
-  --blue:#4ea6ff;
-  --red:#ff4d5a;
-
-  --radius: 18px;
-  --shadow: 0 18px 50px rgba(0,0,0,.45);
-  --max: 1120px;
-
-  /* para header en dark */
-  --headerA: rgba(11,16,32,.78);
-  --headerB: rgba(11,16,32,.35);
-}
-
-/* Light theme */
-html[data-theme="light"]{
-  color-scheme: light;
-
-  --bg:#f6f8ff;
-  --panel:#ffffff;
-  --text:#0f172a;
-  --muted:#475569;
-  --line:rgba(15,23,42,.12);
-
-  /* mantén tu identidad */
-  --blue:#2a84ff;
-  --red:#ff3b4a;
-
-  --shadow: 0 18px 50px rgba(15,23,42,.10);
-
-  /* header en light */
-  --headerA: rgba(246,248,255,.85);
-  --headerB: rgba(246,248,255,.55);
-}
-
-/* Ajuste de tu header para que cambie con el tema */
-header{
-  background: linear-gradient(180deg, var(--headerA), var(--headerB));
-  border-bottom: 1px solid rgba(255,255,255,.06); /* lo afinamos abajo */
-}
-html[data-theme="light"] header{
-  border-bottom: 1px solid rgba(15,23,42,.08);
-}
-
-/* Fondo del body usando variables (así responde al tema) */
-body{
-  background:
-    radial-gradient(900px 500px at 10% -10%, rgba(78,166,255,.16), transparent 60%),
-    radial-gradient(900px 500px at 90% 0%, rgba(255,77,90,.12), transparent 55%),
-    var(--bg);
-}
-
-/* Logo más grande */
-.logoBox{
-  width: 62px;
-  height: 62px;
-  border-radius: 18px;
-}
-.logoBox img{
-  width: 90%;
-  height: 90%;
-  filter: drop-shadow(0 10px 18px rgba(0,0,0,.22));
-}
-
-/* Botón toggle */
-.themeToggle{
-  border: 1px solid var(--line);
-  background: rgba(255,255,255,.04);
-  color: var(--text);
-  padding: 10px 12px;
-  border-radius: 999px;
-  cursor: pointer;
-  font-weight: 900;
-  display:inline-flex;
-  align-items:center;
-  gap: 8px;
-  transition: .2s ease;
-}
-.themeToggle:hover{
-  transform: translateY(-1px);
-}
-.themeToggle:active{
-  transform: translateY(1px);
-}
-/* Logo limpio en modo oscuro */
-html[data-theme="dark"] .logoBox{
-  background: transparent;
-  border: none;
-  box-shadow: none;
-}
-/* ====== NAV RESPONSIVE (MÓVIL) ====== */
-@media (max-width: 720px){
-  .nav{
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  .brand{
-    flex: 1 1 100%;
-    justify-content: flex-start;
-  }
-
-  .menu{
-    flex: 1 1 100%;
-    justify-content: flex-end;
-    gap: 8px;
-  }
-
-  /* para que el nombre no choque */
-  .brandName{
-    max-width: 13ch;
-    white-space: normal;
-    line-height: 1.05;
-  }
-
-  /* un poquito más compacto el logo */
-  .logoBox{
-    width: 52px;
-    height: 52px;
-  }
-
-  /* botones más compactos */
-  .menu a,
-  .themeToggle{
-    padding: 9px 10px;
-  }
-}
-/* =========================
-   MOBILE SPACING FIX
-   ========================= */
-@media (max-width: 720px){
-
-  /* Header: más aire */
-  header{
-    padding-bottom: 6px;
-  }
-
-  .nav{
-    gap: 14px;
-  }
-
-  /* Brand */
-  .brand{
-    gap: 14px;
-  }
-
-  .brandName{
-    font-size: 18px;
-    line-height: 1.15;
-  }
-
-  /* Menu en segunda*
-/* ===== NAV 1-LINE MOBILE (limpio) ===== */
-@media (max-width: 720px){
-
-  /* todo en una sola fila */
-  .nav{
-    flex-wrap: nowrap;
-    align-items: center;
-    gap: 10px;
-  }
-
-  /* marca compacta */
-  .brand{
-    flex: 1 1 auto;
-    min-width: 0;
-    gap: 10px;
-  }
-
-  .logoBox{
-    width: 48px;
-    height: 48px;
-    border-radius: 16px;
-  }
-
-  /* nombre corto y con ellipsis */
-  .brandName{
-    font-size: 16px;
-    line-height: 1.1;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 15ch;
-  }
-
-  /* menú en una línea, sin brincar */
-  .menu{
-    flex: 0 0 auto;
-    flex-wrap: nowrap;
-    gap: 8px;
-  }
-
-  /* ocultamos Inicio y Cómo funciona en móvil (son los que estorban) */
-  .menu .navLink{
-    display: none;
-  }
-
-  /* botones más compactos */
-  .menu a.cta{
-    padding: 9px 10px;
-    border-radius: 999px;
-  }
-
-  .menu .ctaPrimary{
-    padding: 9px 12px;
-  }
-
-  /* toggle compacto */
-  .themeToggle{
-    padding: 9px 10px;
-  }
-
-  /* opcional: quita texto del toggle y deja solo icono */
-  .themeToggle #themeText{
-    display: none;
-  }
-}
-/* ===== MENÚ HAMBURGUESA MÓVIL ===== */
-.menuBtn{
-  display:none;
-  border:1px solid var(--line);
-  background: rgba(255,255,255,.04);
-  color: var(--text);
-  padding: 9px 12px;
-  border-radius: 12px;
-  font-size: 18px;
-  cursor:pointer;
-}
-
-.mobileMenu{
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.55);
-  display: none;
-  align-items: flex-start;
-  justify-content: flex-end;
-  z-index: 60;
-}
-
-.mobileMenu.show{
-  display: flex;
-}
-
-.mobileMenuPanel{
-  width: min(280px, 90%);
-  height: 100%;
-  background: var(--panel);
-  padding: 24px 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  box-shadow: -20px 0 40px rgba(0,0,0,.45);
-}
-
-.mobileLink{
-  font-size: 18px;
-  font-weight: 800;
-  color: var(--text);
-}
-
-.mobileTheme{
-  margin-top: auto;
-  justify-content: center;
-}
-
-/* SOLO EN MÓVIL */
-@media (max-width: 720px){
-  .menuBtn{ display:inline-flex; }
-  .menu .navLink{ display:none; }      /* Inicio / Cómo funciona */
-  .menu .themeToggle{ display:none; }  /* Toggle fuera */
-}
-
+      .brandName{max-width: 8ch;}
+      .menu .link{display:none;}            /* Inicio / Cómo funciona fuera */
+      .menu .cta{display:none;}             /* Oculta botones en header móvil */
+      .menuBtn{display:grid;}               /* Muestra ☰ */
+      .panel{margin-top: 20px;}
+      .block{padding: 26px 20px; gap: 18px;}
+      .art{min-height: 360px;}
+    }
   </style>
 </head>
 
@@ -593,275 +360,127 @@ html[data-theme="dark"] .logoBox{
         <div class="brandName">Tu Benito Bodoque Secreto</div>
       </div>
 
-      <div class="menu" aria-label="Navegación">
-    <a class="navLink" href="#inicio">Inicio</a>
-<a class="navLink" href="#como">Cómo funciona</a>
+      <div class="menu">
+        <a class="link" href="#inicio">Inicio</a>
+        <a class="link" href="#como">Cómo funciona</a>
 
+        <button class="themeToggle" id="themeToggle" type="button" aria-label="Cambiar tema">☀️</button>
 
-  <!-- TOGGLE TEMA -->
-  <button class="themeToggle" id="themeToggle" type="button" aria-label="Cambiar tema">
-    <span id="themeIcon">☀️</span>
-    <span id="themeText">Claro</span>
-  </button>
+        <a class="cta" href="#inicio" id="openLoginTop">Iniciar sesión</a>
+        <a class="cta ctaPrimary" href="#inicio" id="openSignupTop">Registrarse</a>
 
-  <a class="cta" href="#inicio" id="openLoginTop">Iniciar sesión</a>
-  <a class="cta ctaPrimary" href="#inicio" id="openSignupTop">Registrarse</a>
-</div>
+        <button class="menuBtn" id="openMenu" type="button" aria-label="Abrir menú">☰</button>
+      </div>
     </div>
   </header>
 
-  <main class="wrap">
+  <!-- MENÚ MÓVIL -->
+  <div class="mobileMenu" id="mobileMenu" aria-hidden="true">
+    <div class="mobilePanel">
+      <a href="#inicio" class="mLink">Inicio</a>
+      <a href="#como" class="mLink">Cómo funciona</a>
 
-    <!-- INICIO -->
+      <a class="cta" href="#inicio" id="openLoginMobile">Iniciar sesión</a>
+      <a class="cta ctaPrimary" href="#inicio" id="openSignupMobile">Registrarse</a>
+
+      <div class="themeRow">
+        <strong>Modo</strong>
+        <button class="themeToggle" id="mobileThemeToggle" type="button" aria-label="Cambiar tema móvil">🌙</button>
+      </div>
+    </div>
+  </div>
+
+  <main class="wrap">
     <section id="inicio" class="panel">
       <div class="block">
-        <div class="copy reveal">
+        <div class="copy">
           <h1>Intercambio navideño.</h1>
           <p>
-            Este proyecto nace para ordenar los intercambios navideños
-            y hacer que la experiencia sea más clara para todos, desde el inicio hasta el final.
+            Este proyecto nace para ordenar los intercambios navideños y hacer que la experiencia sea más clara para todos,
+            desde el inicio hasta el final.
           </p>
 
           <div class="ctaRow">
-            <button class="btn btnPrimary" id="openSignup">Empezar</button>
+            <button class="btnPrimary" type="button">Empezar</button>
           </div>
         </div>
 
-        <div class="art reveal">
-          <!-- Cambia esta imagen cuando quieras (o déjala en blanco y yo la preparo después) -->
+        <div class="art">
           <img src="images/Image2.webp" alt="Imagen navideña" />
         </div>
       </div>
     </section>
 
-    <!-- CÓMO FUNCIONA -->
     <section id="como" class="panel">
-      <div class="block reverse">
-        <div class="copy reveal">
-          <h2>Cómo funciona</h2>
+      <div class="block">
+        <div class="copy">
+          <h1 style="font-size:clamp(26px,5vw,40px); letter-spacing:-.7px;">Cómo funciona</h1>
           <p>
-           <div class="copy reveal">
-  <ol>
-    <li>
-      Alguien de tu familia crea el intercambio y te comparte el <strong>link</strong>.
-    </li>
-    <li>
-      Entras al link, creas tu <strong>cuenta</strong> y te unes al grupo.
-    </li>
-    <li>
-      Agregas los <strong>regalos que te gustaría recibir</strong>, con links y detalles si quieres.
-    </li>
-    <li>
-      El día del sorteo, te llega un <strong>mensaje por WhatsApp</strong> con la persona a la que debes regalar y su lista.
-    </li>
-  </ol>
-</div>
+            1) Alguien crea el intercambio y te comparte el link.<br>
+            2) Entras, creas tu cuenta y te unes al grupo.<br>
+            3) Agregas regalos con links y detalles.<br>
+            4) El día del sorteo recibes a quién le toca regalar y su lista.
           </p>
-
-          <div class="ctaRow">
-            <button class="btn btnPrimary" id="openSignup2">Registrarme</button>
-            <button class="btn" id="openLogin">Ya tengo cuenta</button>
-          </div>
         </div>
 
-        <div class="art reveal">
+        <div class="art">
           <img src="images/Image5.webp" alt="Cómo funciona" />
         </div>
       </div>
     </section>
-
   </main>
 
-  <!-- MODAL: REGISTRO -->
-  <div id="signupModal" class="modalBack" aria-hidden="true">
-    <div class="modal" role="dialog" aria-modal="true" aria-label="Registro">
-      <div class="modalTop">
-        <strong>Crear cuenta</strong>
-        <button class="closeBtn" type="button" data-close="signupModal">✕</button>
-      </div>
-      <div class="modalBody">
-        <div>
-          <label for="suUser">Usuario</label>
-          <input id="suUser" placeholder="ej: alex" autocomplete="username" />
-        </div>
-        <div>
-          <label for="suPass">Contraseña</label>
-          <input id="suPass" type="password" placeholder="••••••••" autocomplete="new-password" />
-        </div>
-        <div>
-          <label for="suFamily">Código / Link de familia</label>
-          <input id="suFamily" placeholder="ej: FAM-2025" />
-        </div>
-        <button class="btn btnPrimary" type="button" id="signupBtn">Crear cuenta</button>
-        <div class="hint">
-          * Esto es UI. En el siguiente paso lo conectamos al backend (DB + sesión + WhatsApp).
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL: LOGIN -->
-  <div id="loginModal" class="modalBack" aria-hidden="true">
-    <div class="modal" role="dialog" aria-modal="true" aria-label="Login">
-      <div class="modalTop">
-        <strong>Iniciar sesión</strong>
-        <button class="closeBtn" type="button" data-close="loginModal">✕</button>
-      </div>
-      <div class="modalBody">
-        <div>
-          <label for="liUser">Usuario</label>
-          <input id="liUser" placeholder="ej: alex" autocomplete="username" />
-        </div>
-        <div>
-          <label for="liPass">Contraseña</label>
-          <input id="liPass" type="password" placeholder="••••••••" autocomplete="current-password" />
-        </div>
-        <button class="btn btnPrimary" type="button" id="loginBtn">Entrar</button>
-        <div class="hint">
-          * Esto es UI. En el siguiente paso lo conectamos al backend (DB + sesión + WhatsApp).
-        </div>
-      </div>
-    </div>
-  </div>
-<!-- MENÚ MÓVIL -->
-<div id="mobileMenu" class="mobileMenu" aria-hidden="true">
-  <div class="mobileMenuPanel">
-    <a href="#inicio" class="mobileLink">Inicio</a>
-    <a href="#como" class="mobileLink">Cómo funciona</a>
-
-    <button class="themeToggle mobileTheme" id="mobileThemeToggle" type="button">
-      <span id="mobileThemeIcon">🌙</span>
-      <span id="mobileThemeText">Oscuro</span>
-    </button>
-  </div>
-</div>
-
   <script>
-    // Theme toggle (dark/light) + persistencia
-(function () {
-  const root = document.documentElement;
-  const btn = document.getElementById("themeToggle");
-  const icon = document.getElementById("themeIcon");
-  const text = document.getElementById("themeText");
+    // ===== THEME (dark/light) =====
+    const root = document.documentElement;
+    const themeToggle = document.getElementById("themeToggle");
+    const mobileThemeToggle = document.getElementById("mobileThemeToggle");
 
-  // default: dark (tu diseño)
-  const saved = localStorage.getItem("theme");
-  const initial = saved || "dark";
-  root.setAttribute("data-theme", initial);
-  updateUI(initial);
+    function setTheme(theme){
+      root.setAttribute("data-theme", theme);
+      localStorage.setItem("theme", theme);
 
-  btn.addEventListener("click", () => {
-    const current = root.getAttribute("data-theme") || "dark";
-    const next = current === "dark" ? "light" : "dark";
-    root.setAttribute("data-theme", next);
-    localStorage.setItem("theme", next);
-    updateUI(next);
-  });
+      // Emoji: si está en dark -> mostrar ☀️ (para ir a claro)
+      const nextEmoji = (theme === "dark") ? "☀️" : "🌙";
+      themeToggle.textContent = nextEmoji;
+      mobileThemeToggle.textContent = nextEmoji;
+    }
 
-  function updateUI(theme){
-    const isLight = theme === "light";
-    icon.textContent = isLight ? "🌙" : "☀️";
-    text.textContent = isLight ? "Oscuro" : "Claro";
-  }
-})();
+    const saved = localStorage.getItem("theme") || "dark";
+    setTheme(saved);
 
-    // Reveal on scroll
-    const revealEls = document.querySelectorAll(".reveal");
-    const io = new IntersectionObserver((entries) => {
-      for (const ent of entries){
-        if (ent.isIntersecting) ent.target.classList.add("show");
-      }
-    }, { threshold: 0.14 });
-    revealEls.forEach(el => io.observe(el));
+    function toggleTheme(){
+      const current = root.getAttribute("data-theme") || "dark";
+      setTheme(current === "dark" ? "light" : "dark");
+    }
 
-    // Modals
-    const signupModal = document.getElementById("signupModal");
-    const loginModal  = document.getElementById("loginModal");
+    themeToggle.addEventListener("click", toggleTheme);
+    mobileThemeToggle.addEventListener("click", toggleTheme);
 
-    function openModal(m){ m.classList.add("show"); m.setAttribute("aria-hidden","false"); }
-    function closeModal(m){ m.classList.remove("show"); m.setAttribute("aria-hidden","true"); }
+    // ===== MOBILE MENU =====
+    const mobileMenu = document.getElementById("mobileMenu");
+    const openMenu = document.getElementById("openMenu");
 
-    // Open buttons
-    const openSignup = () => openModal(signupModal);
-    const openLogin  = () => openModal(loginModal);
+    function openMobileMenu(){
+      mobileMenu.classList.add("show");
+      mobileMenu.setAttribute("aria-hidden","false");
+    }
+    function closeMobileMenu(){
+      mobileMenu.classList.remove("show");
+      mobileMenu.setAttribute("aria-hidden","true");
+    }
 
-    document.getElementById("openSignup").addEventListener("click", openSignup);
-    document.getElementById("openSignup2").addEventListener("click", openSignup);
-    document.getElementById("openLogin").addEventListener("click", openLogin);
+    openMenu.addEventListener("click", openMobileMenu);
+    mobileMenu.addEventListener("click", (e)=>{ if(e.target === mobileMenu) closeMobileMenu(); });
 
-    document.getElementById("openLoginTop").addEventListener("click", (e)=>{ e.preventDefault(); openLogin(); });
-    document.getElementById("openSignupTop").addEventListener("click", (e)=>{ e.preventDefault(); openSignup(); });
-
-    // Close buttons
-    document.querySelectorAll("[data-close]").forEach(btn=>{
-      btn.addEventListener("click", ()=>{
-        const id = btn.getAttribute("data-close");
-        closeModal(document.getElementById(id));
-      });
+    // Cierra menú al tocar links
+    document.querySelectorAll(".mLink, #openLoginMobile, #openSignupMobile").forEach(el=>{
+      el.addEventListener("click", closeMobileMenu);
     });
 
-    // Close on backdrop click
-    [signupModal, loginModal].forEach(m=>{
-      m.addEventListener("click", (e)=>{ if(e.target === m) closeModal(m); });
-    });
-
-    // Escape
-    document.addEventListener("keydown", (e)=>{
-      if(e.key === "Escape"){
-        closeModal(signupModal);
-        closeModal(loginModal);
-      }
-    });
-
-    // Placeholder actions (UI only)
-    document.getElementById("signupBtn").addEventListener("click", ()=> alert("Listo. Luego conectamos el backend."));
-    document.getElementById("loginBtn").addEventListener("click", ()=> alert("Listo. Luego conectamos el backend."));
-  // Menú móvil
-const mobileMenu = document.getElementById("mobileMenu");
-const openMobileMenu = document.getElementById("openMobileMenu");
-
-openMobileMenu.addEventListener("click", () => {
-  mobileMenu.classList.add("show");
-  mobileMenu.setAttribute("aria-hidden", "false");
-});
-
-mobileMenu.addEventListener("click", (e) => {
-  if (e.target === mobileMenu){
-    mobileMenu.classList.remove("show");
-    mobileMenu.setAttribute("aria-hidden", "true");
-  }
-});
-
-// Sincronizar toggle de tema dentro del menú
-const mobileThemeBtn = document.getElementById("mobileThemeToggle");
-
-mobileThemeBtn.addEventListener("click", () => {
-  document.getElementById("themeToggle").click();
-  syncMobileTheme();
-});
-
-function syncMobileTheme(){
-  const theme = document.documentElement.getAttribute("data-theme");
-  document.getElementById("mobileThemeIcon").textContent = theme === "dark" ? "☀️" : "🌙";
-  document.getElementById("mobileThemeText").textContent = theme === "dark" ? "Claro" : "Oscuro";
-}
-
-syncMobileTheme();
-
+    // Conecta botones mobile a los mismos handlers (por ahora solo evita salto raro)
+    document.getElementById("openLoginMobile").addEventListener("click", (e)=> e.preventDefault());
+    document.getElementById("openSignupMobile").addEventListener("click", (e)=> e.preventDefault());
   </script>
-<!-- MENÚ MÓVIL -->
-<div id="mobileMenu" class="mobileMenu" aria-hidden="true">
-  <div class="mobileMenuPanel">
-    <a href="#inicio" class="mobileLink">Inicio</a>
-    <a href="#como" class="mobileLink">Cómo funciona</a>
-
-    <!-- Toggle tema dentro del menú -->
-    <button class="themeToggle mobileTheme" id="mobileThemeToggle">
-      <span id="mobileThemeIcon">🌙</span>
-      <span id="mobileThemeText">Oscuro</span>
-    </button>
-  </div>
-</div>
-
 </body>
 </html>
