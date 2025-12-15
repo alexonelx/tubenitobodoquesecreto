@@ -1,0 +1,652 @@
+<!doctype html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Familias • Tu Benito Bodoque Secreto</title>
+
+  <!-- Favicons -->
+  <link rel="icon" href="./favicon.ico">
+  <link rel="icon" href="./images/icons/favicon.ico?v=7">
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/icons/favicon-32x32.png?v=7">
+  <link rel="apple-touch-icon" sizes="180x180" href="./images/icons/apple-touch-icon.png?v=7">
+  <link rel="manifest" href="./images/icons/site.webmanifest">
+  <meta name="theme-color" content="#0b1020">
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      color-scheme: dark;
+      --bg:#0b1020;
+      --panel:#0f1730;
+      --text:#eef2ff;
+      --muted:#9aa7c7;
+      --line:rgba(255,255,255,.12);
+      --radius:18px;
+      --shadow:0 18px 50px rgba(0,0,0,.45);
+      --max: 1120px;
+      --headerA: rgba(11,16,32,.82);
+      --headerB: rgba(11,16,32,.30);
+      --t:.18s ease;
+    }
+    html[data-theme="light"]{
+      color-scheme: light;
+      --bg:#f6f8ff;
+      --panel:#ffffff;
+      --text:#0f172a;
+      --muted:#475569;
+      --line:rgba(15,23,42,.12);
+      --shadow:0 18px 50px rgba(15,23,42,.10);
+      --headerA: rgba(246,248,255,.90);
+      --headerB: rgba(246,248,255,.60);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(900px 500px at 10% -10%, rgba(78,166,255,.14), transparent 60%),
+        radial-gradient(900px 500px at 90% 0%, rgba(255,77,90,.10), transparent 55%),
+        var(--bg);
+      overflow-x:hidden;
+      transition: background var(--t), color var(--t);
+    }
+    a{color:inherit;text-decoration:none}
+    button,input,select,textarea{font:inherit}
+    :focus-visible{ outline: 3px solid rgba(78,166,255,.55); outline-offset: 3px; border-radius: 12px; }
+    .wrap{max-width:var(--max);margin:0 auto;padding:18px 18px 110px;}
+
+    header{
+      position: sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, var(--headerA), var(--headerB));
+      border-bottom: 1px solid var(--line);
+    }
+    .nav{max-width:var(--max);margin:0 auto;padding:12px 18px;display:flex;align-items:center;gap:12px;}
+    .brand{display:flex;align-items:center;gap:12px;min-width:0;flex:1 1 auto;}
+    .logoBox{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;overflow:hidden;flex:0 0 auto;}
+    .logoBox img{width:100%;height:100%;object-fit:contain;filter: drop-shadow(0 6px 14px rgba(0,0,0,.35));}
+    .brandName{font-weight:900;letter-spacing:-.6px;font-size:18px;line-height:1.05;max-width:30ch;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .menu{display:flex;align-items:center;gap:10px;flex:0 0 auto;}
+
+    .themeToggle{
+      width:42px;height:42px;border-radius:999px;border:1px solid var(--line);
+      background:rgba(255,255,255,.06);color:var(--text);
+      display:grid;place-items:center;cursor:pointer;
+      transition: transform var(--t), background var(--t), border-color var(--t);
+    }
+    .themeToggle:hover{transform:translateY(-1px);}
+
+    .chip{
+      display:flex;align-items:center;gap:10px;
+      padding:8px 10px;border-radius:999px;border:1px solid var(--line);
+      background:rgba(255,255,255,.06);
+      cursor:pointer;
+      font-weight:900;
+    }
+    .avatar{
+      width:34px;height:34px;border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.06);
+      display:grid;place-items:center;
+      overflow:hidden;
+      flex:0 0 auto;
+    }
+    .avatar img{width:100%;height:100%;object-fit:cover;display:block;}
+    .chipText{display:flex;flex-direction:column;line-height:1.05;min-width:0;}
+    .chipUser{font-size:13px;color:var(--muted);font-weight:900;max-width:18ch;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .chipName{font-size:14px;font-weight:900;max-width:18ch;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+
+    .dropdown{
+      position:relative;
+    }
+    .menuBox{
+      position:absolute; right:0; top: calc(100% + 10px);
+      width: 240px;
+      border:1px solid var(--line);
+      border-radius: 18px;
+      background: var(--panel);
+      box-shadow: 0 22px 60px rgba(0,0,0,.45);
+      padding: 8px;
+      display:none;
+    }
+    .menuBox.show{display:block;}
+    .menuItem{
+      display:flex;align-items:center;gap:10px;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border:1px solid transparent;
+      color: var(--text);
+      font-weight: 900;
+      background: transparent;
+      width:100%;
+      cursor:pointer;
+      text-align:left;
+    }
+    .menuItem:hover{border-color: var(--line); background: rgba(255,255,255,.05);}
+    .menuItem span{color:var(--muted);font-weight:900;font-size:13px;}
+
+    .panel{
+      margin-top:26px;border:1px solid var(--line);
+      border-radius: calc(var(--radius) + 8px);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .panel::before{
+      content:""; position:absolute; inset:0; pointer-events:none; border-radius:inherit;
+      background:
+        radial-gradient(600px 240px at 20% 0%, rgba(78,166,255,.10), transparent 60%),
+        radial-gradient(600px 240px at 80% 0%, rgba(255,77,90,.08), transparent 60%);
+      opacity:.9;
+    }
+    .panel > *{position:relative;}
+    .block{padding:28px;display:grid;gap:16px;}
+    h1{margin:0;letter-spacing:-1px;font-weight:900;font-size:clamp(26px,6vw,44px);line-height:1.06;}
+    .sub{margin:6px 0 0;color:var(--muted);font-size:15px;line-height:1.75;max-width:70ch;}
+
+    .grid2{display:grid;gap:12px;grid-template-columns:1fr;}
+    @media (min-width: 920px){
+      .grid2{grid-template-columns:1fr 1fr;}
+    }
+
+    .card{
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:rgba(255,255,255,.04);
+      padding:16px;
+      display:grid;
+      gap:10px;
+      position:relative;
+      overflow:hidden;
+    }
+    .card h2{margin:0;font-size:18px;letter-spacing:-.4px;font-weight:900;}
+    .card p{margin:0;color:var(--muted);line-height:1.6;}
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:4px;}
+
+    .input{
+      width:min(420px,100%);
+      padding:12px;border-radius:14px;border:1px solid var(--line);
+      background:rgba(255,255,255,.04);color:var(--text);outline:none;
+    }
+    .btn{
+      padding:12px 14px;border-radius:14px;border:1px solid var(--line);
+      background:rgba(255,255,255,.06);color:var(--text);font-weight:900;cursor:pointer;
+    }
+    .btnPrimary{border:none;background:linear-gradient(135deg, rgba(255,77,90,.92), rgba(78,166,255,.86));}
+
+    .hint{margin:8px 0 0;color:var(--muted);font-size:13px;line-height:1.45;min-height:18px;}
+    .hint.ok{color:rgba(110,231,183,.95);}
+    .hint.bad{color:rgba(248,113,113,.95);}
+
+    .list{display:grid;gap:10px;margin-top:10px;}
+    .familyItem{
+      display:flex;gap:12px;align-items:center;justify-content:space-between;
+      border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.04);
+      padding:12px 12px;
+    }
+    .familyInfo{min-width:0;}
+    .familyTitle{font-weight:900;letter-spacing:-.4px;}
+    .familyMeta{color:var(--muted);font-size:13px;margin-top:4px;line-height:1.4;}
+    .pill{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:7px 10px;border-radius:999px;border:1px solid var(--line);
+      background:rgba(255,255,255,.03);color:var(--muted);font-weight:900;font-size:12px;
+      white-space:nowrap;
+    }
+
+    /* Modal */
+    .overlay{
+      position:fixed; inset:0;
+      background:rgba(0,0,0,.55);
+      display:none; align-items:center; justify-content:center;
+      padding:18px; z-index:120;
+    }
+    .overlay.show{display:flex;}
+    .modal{
+      width:min(640px,100%);
+      border:1px solid var(--line);
+      border-radius: calc(var(--radius) + 10px);
+      background: var(--panel);
+      box-shadow: 0 30px 80px rgba(0,0,0,.55);
+      padding:18px;
+      position:relative;
+    }
+    .close{
+      position:absolute; right:12px; top:12px;
+      width:40px;height:40px;border-radius:14px;border:1px solid var(--line);
+      background:rgba(255,255,255,.06);color:var(--text);cursor:pointer;font-weight:900;
+    }
+    .formGrid{display:grid;gap:10px;margin-top:10px;}
+    .label{font-size:13px;color:var(--muted);font-weight:800;margin-top:4px;}
+    .split{display:grid;gap:10px;grid-template-columns:1fr;}
+    @media (min-width: 720px){
+      .split{grid-template-columns:1fr 1fr;}
+    }
+    .muted{color:var(--muted);}
+
+    @media (max-width: 720px){
+      .brandName{font-size:16px;white-space:normal;overflow:visible;text-overflow:unset;}
+      #themeToggle{display:none;}
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="nav">
+      <div class="brand">
+        <div class="logoBox" aria-hidden="true">
+          <img src="images/LogoBenitopng.png" alt="">
+        </div>
+        <div class="brandName">Tu Benito Bodoque Secreto</div>
+      </div>
+
+      <div class="menu">
+        <button class="themeToggle" id="themeToggle" type="button" aria-label="Cambiar tema">☀️</button>
+
+        <div class="dropdown" id="userDropdown">
+          <div class="chip" id="userChip" aria-haspopup="true" aria-expanded="false">
+            <div class="avatar" id="userAvatar">🙂</div>
+            <div class="chipText">
+              <div class="chipName" id="chipName">—</div>
+              <div class="chipUser" id="chipUser">@—</div>
+            </div>
+          </div>
+
+          <div class="menuBox" id="userMenu" role="menu">
+            <button class="menuItem" id="btnAccount" type="button">
+              Mi cuenta <span>(editar perfil)</span>
+            </button>
+            <button class="menuItem" id="btnLogout" type="button">
+              Cerrar sesión <span>(salir)</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="panel">
+      <div class="block">
+        <div>
+          <h1>Familias</h1>
+          <p class="sub">Crea un intercambio o únete con un link/código. Después, dentro de la familia agregas regalos y el admin configura el sorteo.</p>
+        </div>
+
+        <div class="grid2">
+          <div class="card">
+            <h2>Crear nueva familia</h2>
+            <p>Te genera un link/código para invitar. Tú quedas como admin.</p>
+            <div class="row">
+              <button class="btn btnPrimary" id="openCreate" type="button">Crear familia</button>
+            </div>
+            <p class="hint" id="createHint"></p>
+          </div>
+
+          <div class="card">
+            <h2>Unirme a una familia</h2>
+            <p>Pega el código o entra por link. (Si venías por invitación, aquí se une automático.)</p>
+            <div class="row">
+              <input class="input" id="joinCode" placeholder="Código (ej: ABC123)" />
+              <button class="btn btnPrimary" id="btnJoin" type="button">Unirme</button>
+            </div>
+            <p class="hint" id="joinHint"></p>
+          </div>
+        </div>
+
+        <div class="card" id="myFamiliesCard">
+          <div class="row" style="justify-content:space-between;">
+            <div>
+              <h2 style="margin:0;">Mis familias</h2>
+              <p class="muted" style="margin:6px 0 0; line-height:1.5;">Entra a tu familia para ver miembros, agregar regalos y (si eres admin) configurar el sorteo.</p>
+            </div>
+            <div class="pill" id="familiesCount">0</div>
+          </div>
+          <div class="list" id="familiesList"></div>
+          <p class="hint" id="listHint"></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAL CREAR FAMILIA -->
+  <div class="overlay" id="createOverlay" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="Crear familia">
+      <button class="close" id="closeCreate" type="button" aria-label="Cerrar">✕</button>
+
+      <h2 style="margin:0;letter-spacing:-.4px;">Crear familia</h2>
+      <p class="sub" style="margin:8px 0 0;">Llena estos datos. Luego te damos el link para invitar.</p>
+
+      <form id="createForm" class="formGrid" autocomplete="on">
+        <label class="label">Nombre de la familia</label>
+        <input class="input" id="famName" placeholder="Ej: Familia Morales" required>
+
+        <div class="split">
+          <div>
+            <label class="label">Fecha del intercambio</label>
+            <input class="input" type="date" id="famDate" required>
+          </div>
+          <div>
+            <label class="label">Monto (presupuesto)</label>
+            <input class="input" type="number" id="famBudget" placeholder="Ej: 200" min="0" step="1" required>
+          </div>
+        </div>
+
+        <div class="row">
+          <button class="btn btnPrimary" type="submit">Crear</button>
+          <button class="btn" id="cancelCreate" type="button">Cancelar</button>
+        </div>
+
+        <p class="hint" id="createMsg" aria-live="polite"></p>
+
+        <div class="card" id="createdBox" style="display:none;background:rgba(255,255,255,.02);">
+          <div class="row" style="justify-content:space-between;align-items:flex-start;">
+            <div style="min-width:0;">
+              <div class="muted" style="font-weight:900;">Invitación</div>
+              <div style="margin-top:8px;"><strong>Código:</strong> <span id="createdCode">—</span></div>
+              <div style="margin-top:8px; word-break:break-all;"><strong>Link:</strong> <span id="createdLink">—</span></div>
+            </div>
+            <div class="row">
+              <button class="btn" type="button" id="copyLink">Copiar link</button>
+              <button class="btn btnPrimary" type="button" id="goFamily">Entrar</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // ===== THEME =====
+    const root = document.documentElement;
+    const themeToggle = document.getElementById("themeToggle");
+    function setTheme(theme){
+      root.setAttribute("data-theme", theme);
+      localStorage.setItem("theme", theme);
+      themeToggle.textContent = (theme === "dark") ? "☀️" : "🌙";
+      document.querySelector('meta[name="theme-color"]')?.setAttribute("content", theme === "dark" ? "#0b1020" : "#f6f8ff");
+    }
+    setTheme(localStorage.getItem("theme") || "dark");
+    themeToggle.addEventListener("click", ()=> setTheme((root.getAttribute("data-theme") || "dark") === "dark" ? "light" : "dark"));
+
+    // ===== HELPERS =====
+    function msg(el, text, ok){
+      if(!el) return;
+      el.textContent = text || "";
+      el.classList.remove("ok","bad");
+      if(text) el.classList.add(ok ? "ok" : "bad");
+    }
+    function cleanPhone(raw){ return (raw || "").replace(/\D/g, ""); }
+    function validPhoneMX(p){ return /^\d{10}$/.test(p); }
+
+    function getUsers(){ try{ return JSON.parse(localStorage.getItem("bb_users") || "[]"); }catch{ return []; } }
+    function setUsers(users){ localStorage.setItem("bb_users", JSON.stringify(users)); }
+    function getSession(){ try{ return JSON.parse(localStorage.getItem("bb_session") || "null"); }catch{ return null; } }
+    function setSession(s){ localStorage.setItem("bb_session", JSON.stringify(s)); }
+
+    function getFamilies(){ try{ return JSON.parse(localStorage.getItem("bb_families") || "[]"); }catch{ return []; } }
+    function setFamilies(list){ localStorage.setItem("bb_families", JSON.stringify(list)); }
+
+    function getMemberships(){ try{ return JSON.parse(localStorage.getItem("bb_memberships") || "[]"); }catch{ return []; } }
+    function setMemberships(list){ localStorage.setItem("bb_memberships", JSON.stringify(list)); }
+
+    function genCode(len=6){
+      const chars = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
+      let out = "";
+      for(let i=0;i<len;i++) out += chars[Math.floor(Math.random()*chars.length)];
+      return out;
+    }
+    function uuid(){
+      return (crypto?.randomUUID?.() || ("id_" + Math.random().toString(16).slice(2) + Date.now().toString(16)));
+    }
+
+    // ===== AUTH GUARD =====
+    const session = getSession();
+    if(!session){
+      window.location.href = "auth.html";
+    }
+
+    // ===== USER CHIP + DROPDOWN =====
+    const chipName = document.getElementById("chipName");
+    const chipUser = document.getElementById("chipUser");
+    const userAvatar = document.getElementById("userAvatar");
+    const userChip = document.getElementById("userChip");
+    const userMenu = document.getElementById("userMenu");
+    const btnLogout = document.getElementById("btnLogout");
+    const btnAccount = document.getElementById("btnAccount");
+
+    function findUser(){
+      const users = getUsers();
+      // match by phone first; fallback by username
+      const u = users.find(x => x.phone === session.phone) || users.find(x => (x.username || "").toLowerCase() === (session.username || "").toLowerCase());
+      return u || null;
+    }
+    function renderUser(){
+      const u = findUser();
+      chipName.textContent = (u?.name || "Mi cuenta");
+      chipUser.textContent = "@"+(u?.username || session.username || "—");
+      const photo = u?.photo;
+      if(photo){
+        userAvatar.innerHTML = '<img alt="Foto" src="'+photo+'">';
+      }else{
+        userAvatar.textContent = "🙂";
+      }
+    }
+    renderUser();
+
+    function toggleMenu(force){
+      const show = (typeof force === "boolean") ? force : !userMenu.classList.contains("show");
+      userMenu.classList.toggle("show", show);
+      userChip.setAttribute("aria-expanded", String(show));
+    }
+    userChip.addEventListener("click", ()=> toggleMenu());
+    window.addEventListener("click", (e)=>{
+      if(!document.getElementById("userDropdown").contains(e.target)) toggleMenu(false);
+    });
+
+    btnLogout.addEventListener("click", ()=>{
+      localStorage.removeItem("bb_session");
+      toggleMenu(false);
+      window.location.href = "index.html";
+    });
+    btnAccount.addEventListener("click", ()=>{
+      // La haremos luego, por ahora deja listo el link
+      toggleMenu(false);
+      window.location.href = "account.html";
+    });
+
+    // ===== LISTAR MIS FAMILIAS =====
+    const familiesList = document.getElementById("familiesList");
+    const familiesCount = document.getElementById("familiesCount");
+    const listHint = document.getElementById("listHint");
+
+    function myFamilyIds(){
+      const memberships = getMemberships();
+      return memberships
+        .filter(m => m.userPhone === session.phone)
+        .map(m => m.familyId);
+    }
+
+    function renderFamilies(){
+      familiesList.innerHTML = "";
+      const ids = new Set(myFamilyIds());
+      const families = getFamilies().filter(f => ids.has(f.id));
+
+      familiesCount.textContent = String(families.length);
+      if(families.length === 0){
+        msg(listHint, "Aún no estás en ninguna familia. Crea una o únete con un código.", false);
+        return;
+      }
+      msg(listHint, "", true);
+
+      families.forEach(f=>{
+        const meta = [];
+        if(f.date) meta.push("📅 " + f.date);
+        if(f.budget !== undefined && f.budget !== null) meta.push("💸 $" + f.budget);
+        meta.push("🔗 " + f.code);
+
+        const item = document.createElement("div");
+        item.className = "familyItem";
+        item.innerHTML = `
+          <div class="familyInfo">
+            <div class="familyTitle">${escapeHTML(f.name || "Familia")}</div>
+            <div class="familyMeta">${meta.map(escapeHTML).join(" • ")}</div>
+          </div>
+          <div class="row" style="justify-content:flex-end;">
+            <span class="pill">${f.createdBy === session.phone ? "Admin" : "Miembro"}</span>
+            <a class="btn btnPrimary" href="family.html?id=${encodeURIComponent(f.id)}">Entrar</a>
+          </div>
+        `;
+        familiesList.appendChild(item);
+      });
+    }
+
+    function escapeHTML(str){
+      return String(str).replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]));
+    }
+
+    renderFamilies();
+
+    // ===== JOIN (manual + invite) =====
+    const joinCode = document.getElementById("joinCode");
+    const btnJoin = document.getElementById("btnJoin");
+    const joinHint = document.getElementById("joinHint");
+
+    function joinByCode(code){
+      const c = (code || "").trim().toUpperCase();
+      if(c.length < 4){
+        msg(joinHint, "Código inválido.", false);
+        return;
+      }
+      const families = getFamilies();
+      const fam = families.find(f => (f.code || "").toUpperCase() === c);
+      if(!fam){
+        msg(joinHint, "No encuentro esa familia. Revisa el código.", false);
+        return;
+      }
+
+      const memberships = getMemberships();
+      const already = memberships.some(m => m.familyId === fam.id && m.userPhone === session.phone);
+      if(already){
+        msg(joinHint, "Ya estás dentro de esa familia.", true);
+        renderFamilies();
+        return;
+      }
+
+      memberships.push({ id: uuid(), familyId: fam.id, userPhone: session.phone, role: "member", joinedAt: Date.now() });
+      setMemberships(memberships);
+
+      msg(joinHint, `Listo. Te uniste a "${fam.name}".`, true);
+      renderFamilies();
+
+      // opcional: entra directo
+      setTimeout(()=>{ window.location.href = "family.html?id=" + encodeURIComponent(fam.id); }, 350);
+    }
+
+    btnJoin.addEventListener("click", ()=> joinByCode(joinCode.value));
+    joinCode.addEventListener("keydown", (e)=>{ if(e.key === "Enter"){ e.preventDefault(); joinByCode(joinCode.value); } });
+
+    // Auto-join: desde URL ?grupo= o desde localStorage bb_invite_group
+    (function autoJoin(){
+      const params = new URLSearchParams(location.search);
+      const fromUrl = (params.get("grupo") || "").trim().toUpperCase();
+      const fromLS = (localStorage.getItem("bb_invite_group") || "").trim().toUpperCase();
+      const code = fromUrl || fromLS;
+      if(code){
+        joinCode.value = code;
+        joinByCode(code);
+        localStorage.removeItem("bb_invite_group");
+      }
+    })();
+
+    // ===== CREATE MODAL =====
+    const createOverlay = document.getElementById("createOverlay");
+    const openCreate = document.getElementById("openCreate");
+    const closeCreate = document.getElementById("closeCreate");
+    const cancelCreate = document.getElementById("cancelCreate");
+    const createForm = document.getElementById("createForm");
+    const createMsg = document.getElementById("createMsg");
+    const createdBox = document.getElementById("createdBox");
+    const createdCode = document.getElementById("createdCode");
+    const createdLink = document.getElementById("createdLink");
+    const copyLink = document.getElementById("copyLink");
+    const goFamily = document.getElementById("goFamily");
+
+    let lastCreatedFamilyId = null;
+
+    function openCreateModal(){
+      createOverlay.classList.add("show");
+      createOverlay.setAttribute("aria-hidden","false");
+      createdBox.style.display = "none";
+      msg(createMsg, "", true);
+      document.getElementById("famName").focus();
+    }
+    function closeCreateModal(){
+      createOverlay.classList.remove("show");
+      createOverlay.setAttribute("aria-hidden","true");
+    }
+    openCreate.addEventListener("click", openCreateModal);
+    closeCreate.addEventListener("click", closeCreateModal);
+    cancelCreate.addEventListener("click", closeCreateModal);
+    createOverlay.addEventListener("click", (e)=>{ if(e.target === createOverlay) closeCreateModal(); });
+    window.addEventListener("keydown", (e)=>{ if(e.key === "Escape") closeCreateModal(); });
+
+    createForm.addEventListener("submit", (e)=>{
+      e.preventDefault();
+      const name = (document.getElementById("famName").value || "").trim();
+      const date = document.getElementById("famDate").value;
+      const budget = Number(document.getElementById("famBudget").value);
+
+      if(name.length < 2) return msg(createMsg, "Pon un nombre válido.", false);
+      if(!date) return msg(createMsg, "Elige una fecha.", false);
+      if(!Number.isFinite(budget) || budget < 0) return msg(createMsg, "Monto inválido.", false);
+
+      const families = getFamilies();
+      let code = genCode(6);
+      while(families.some(f => (f.code || "").toUpperCase() === code)) code = genCode(6);
+
+      const id = uuid();
+      const fam = { id, name, date, budget, code, createdBy: session.phone, createdAt: Date.now() };
+      families.push(fam);
+      setFamilies(families);
+
+      const memberships = getMemberships();
+      memberships.push({ id: uuid(), familyId: id, userPhone: session.phone, role: "admin", joinedAt: Date.now() });
+      setMemberships(memberships);
+
+      lastCreatedFamilyId = id;
+
+      const link = `${location.origin}${location.pathname.replace(/\/[^\/]*$/, "/")}auth.html?grupo=${code}`;
+      createdBox.style.display = "block";
+      createdCode.textContent = code;
+      createdLink.textContent = link;
+
+      msg(createMsg, "Familia creada. Comparte el link o el código.", true);
+      renderFamilies();
+    });
+
+    copyLink.addEventListener("click", async ()=>{
+      try{
+        await navigator.clipboard.writeText(createdLink.textContent.trim());
+        msg(createMsg, "Link copiado.", true);
+      }catch{
+        msg(createMsg, "No pude copiar. Cópialo manual.", false);
+      }
+    });
+
+    goFamily.addEventListener("click", ()=>{
+      if(lastCreatedFamilyId){
+        window.location.href = "family.html?id=" + encodeURIComponent(lastCreatedFamilyId);
+      }
+    });
+  </script>
+</body>
+</html>
