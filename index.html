@@ -754,22 +754,6 @@ attachLoadingLink("openSignupTop", "Cargando...");
 attachLoadingLink("openLoginMobile", "Cargando...");
 attachLoadingLink("openSignupMobile", "Cargando...");
 
-
-  // ===== "EMPEZAR" LOADING FAKE =====
-const btnStart = document.getElementById("btnStart");
-
-if (btnStart){
-  btnStart.addEventListener("click", () => {
-    const originalText = btnStart.textContent;
-
-    // estado loading
-    btnStart.classList.add("is-loading");
-    btnStart.textContent = "Cargando...";
-
-    setTimeout(() => {
-      btnStart.classList.remove("is-loading");
-      btnStart.textContent = originalText;
-
       // scroll suave a "Cómo funciona"
       document.getElementById("como")?.scrollIntoView({
         behavior: "smooth"
@@ -805,6 +789,51 @@ const io = new IntersectionObserver((entries) => {
 }, { threshold: 0.15 });
 
 revealEls.forEach(el => io.observe(el));
+// ===== CONEXIÓN A AUTH / DASHBOARD =====
+function hasSession(){
+  try { return !!JSON.parse(localStorage.getItem("bb_session") || "null"); }
+  catch { return false; }
+}
+
+function goAuth(mode){
+  // mode: "login" o "signup" (opcional)
+  const url = mode ? `auth.html?mode=${encodeURIComponent(mode)}` : "auth.html";
+  window.location.href = url;
+}
+
+function goStart(){
+  if (hasSession()) {
+    window.location.href = "dashboard.html";
+  } else {
+    goAuth("signup");
+  }
+}
+
+// Header (desktop)
+document.getElementById("openLoginTop")?.addEventListener("click", (e)=>{
+  e.preventDefault();
+  goAuth("login");
+});
+document.getElementById("openSignupTop")?.addEventListener("click", (e)=>{
+  e.preventDefault();
+  goAuth("signup");
+});
+
+// Menú (móvil)
+document.getElementById("openLoginMobile")?.addEventListener("click", (e)=>{
+  e.preventDefault();
+  goAuth("login");
+});
+document.getElementById("openSignupMobile")?.addEventListener("click", (e)=>{
+  e.preventDefault();
+  goAuth("signup");
+});
+
+// Botón “Empezar”
+document.getElementById("btnStart")?.addEventListener("click", (e)=>{
+  e.preventDefault();
+  goStart();
+});
 
   </script>
 </body>
