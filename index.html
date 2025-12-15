@@ -396,6 +396,43 @@ html[data-theme="dark"] .logoBox{
   border: none;
   box-shadow: none;
 }
+/* ====== NAV RESPONSIVE (MÓVIL) ====== */
+@media (max-width: 720px){
+  .nav{
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .brand{
+    flex: 1 1 100%;
+    justify-content: flex-start;
+  }
+
+  .menu{
+    flex: 1 1 100%;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+
+  /* para que el nombre no choque */
+  .brandName{
+    max-width: 13ch;
+    white-space: normal;
+    line-height: 1.05;
+  }
+
+  /* un poquito más compacto el logo */
+  .logoBox{
+    width: 52px;
+    height: 52px;
+  }
+
+  /* botones más compactos */
+  .menu a,
+  .themeToggle{
+    padding: 9px 10px;
+  }
+}
 
   </style>
 </head>
