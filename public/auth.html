@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Acceso | Intercambio</title>
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/x-icon" href="/images/icons/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icons/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icons/favicon-32x32.png">
+  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png">
+  <link rel="manifest" href="/images/icons/site.webmanifest">
+  <meta name="theme-color" content="#0b1220">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<script>
+/* ===============================
+   INVITACIÓN POR ?grupo=
+   =============================== */
+const params = new URLSearchParams(window.location.search);
+const inviteGroup = params.get("grupo");
+
+if (inviteGroup) {
+  localStorage.setItem("bb_invite_group", inviteGroup);
+}
+</script>
+
+<script>
+/* ===============================
+   LOGIN / SIGNUP – REDIRECCIÓN FINAL
+   =============================== */
+
+function onAuthSuccess(session) {
+  localStorage.setItem("bb_session", JSON.stringify(session));
+
+  const invite = localStorage.getItem("bb_invite_group");
+  if (invite) {
+    window.location.href = `/dashboard.html?grupo=${invite}`;
+  } else {
+    window.location.href = "/dashboard.html";
+  }
+}
+</script>
+
+</body>
+</html>
